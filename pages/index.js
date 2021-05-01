@@ -3,11 +3,16 @@ import Head from "next/head";
 import React, { useEffect } from "react";
 import styles from "../styles/Home.module.css";
 const axios = require("axios");
+const querystring = require("querystring");
 
 const Home = () => {
   const [session, loading] = useSession();
 
   useEffect(() => {
+    if (session?.error === "RefreshAccessTokenError") {
+      console.log("RefreshAccessTokenError");
+      signIn("spotify"); // Force sign in to hopefully resolve error
+    }
     if (session) {
       callApi("GET", "me/player/devices", null, "callback");
     }
@@ -24,32 +29,7 @@ const Home = () => {
       })
       .catch((error) => {
         console.log(error.response);
-        if (error.response.status == 401) {
-          refreshAccessToken();
-        } else {
-          console.log(error.response);
-        }
       });
-  };
-
-  const refreshAccessToken = () => {
-    axios({
-      method: "post",
-      url: "https://accounts.spotify.com/api/token",
-      headers: { 
-        'Content-Type': 'application/x-www-form-urlencoded',
-        Authorization: "Bearer " + session.user.accessToken 
-      },
-      data: {
-        grant_type: "refresh_token",
-        refresh_token: session.user.refreshToken,
-        client_id: "7d5aa24c7fd749a2ac663d404642fdf1"
-      },
-    }).then((response) => {
-      console.log(response);
-    }).catch((error) => {
-      console.log(error.response);
-    });
   };
 
   console.log(session);
@@ -65,7 +45,6 @@ const Home = () => {
         </div>
       ) : (
         <div className={styles.container}>
-          ``
           <button onClick={() => signIn("spotify")}>Login with Spotify</button>
         </div>
       )}
