@@ -39,7 +39,9 @@ const Home = () => {
         <title>Music Social App</title>
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {session ? (
+      {loading ? (
+        <div> Loading...</div>
+      ) : session ? (
         <div>
           <button onClick={() => signOut()}>Sign Out</button>
         </div>
