@@ -1,16 +1,19 @@
-import NextAuth from "next-auth";
+import NextAuth, { Account, User } from "next-auth";
+import { JWT } from "next-auth/jwt";
 import Providers from "next-auth/providers";
 
-async function refreshAccessToken(token) {
-  console.log("refreshing");
+
+async function refreshAccessToken(token: JWT) {
   try {
     const url =
       "https://accounts.spotify.com/api/token?" +
       new URLSearchParams({
         grant_type: "refresh_token",
-        refresh_token: token.refreshToken,
+        refresh_token: (token.refreshToken as string),
       });
-    const encryptedAuth = Buffer.from(process.env.SPOTIFY_CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET);
+    const encryptedAuth = Buffer.from(
+      process.env.SPOTIFY_CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET
+    );
     const response = await fetch(url, {
       headers: {
         "Content-Type": "application/x-www-form-urlencoded",
@@ -41,6 +44,7 @@ async function refreshAccessToken(token) {
   }
 }
 
+
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
@@ -59,16 +63,19 @@ export default NextAuth({
     // async redirect(url, baseUrl) { return baseUrl },
     // async session(session, user) { return session },
     // async jwt(token, user, account, profile, isNewUser) { return token }
-    async jwt(token, user, account) {
+    async jwt(token: JWT, user: User, account: Account ) {
+      console.log(token);
+      console.log(user);
+      console.log(account);
       if (account && user) {
         token.id = account.id;
         token.accessToken = account.accessToken;
         token.refreshToken = account.refreshToken;
-        token.accessTokenExpires = Date.now() + account.expires_in * 1000;
+        token.accessTokenExpires = Date.now() + (account.expires_in as number) * 1000;
         return token;
       }
 
-      if (Date.now() < token.accessTokenExpires) {
+      if (Date.now() < (token.accessTokenExpires as number)) {
         return token;
       }
 

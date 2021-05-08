@@ -1,9 +1,9 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 import Head from "next/head";
 import React, { useEffect } from "react";
+import Loading from "../components/Loading";
 import styles from "../styles/Home.module.css";
 const axios = require("axios");
-const querystring = require("querystring");
 
 const Home = () => {
   const [session, loading] = useSession();
@@ -40,7 +40,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {loading ? (
-        <div> Loading...</div>
+        <Loading />
       ) : session ? (
         <div>
           <button onClick={() => signOut()}>Sign Out</button>
