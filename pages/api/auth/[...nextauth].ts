@@ -1,15 +1,29 @@
+import { PrismaClient } from "@prisma/client";
 import NextAuth, { Account, User } from "next-auth";
+import Adapters from "next-auth/adapters";
 import { JWT } from "next-auth/jwt";
 import Providers from "next-auth/providers";
+// import prisma from "../../../lib/prisma";
 
+interface Token extends JWT {
+  name: string;
+  email: string;
+  sub: string;
+  id: string;
+  accessToken: string;
+  refreshToken: string;
+  accessTokenExpires: number;
+  iat: number;
+  exp: number;
+}
 
-async function refreshAccessToken(token: JWT) {
+async function refreshAccessToken(token: Token) {
   try {
     const url =
       "https://accounts.spotify.com/api/token?" +
       new URLSearchParams({
         grant_type: "refresh_token",
-        refresh_token: (token.refreshToken as string),
+        refresh_token: token.refreshToken,
       });
     const encryptedAuth = Buffer.from(
       process.env.SPOTIFY_CLIENT_ID + ":" + process.env.SPOTIFY_CLIENT_SECRET
@@ -36,7 +50,6 @@ async function refreshAccessToken(token: JWT) {
     };
   } catch (error) {
     console.log(error);
-
     return {
       ...token,
       error: "RefreshAccessTokenError",
@@ -44,7 +57,7 @@ async function refreshAccessToken(token: JWT) {
   }
 }
 
-
+const prisma = new PrismaClient();
 // For more information on each option (and a full list of options) go to
 // https://next-auth.js.org/configuration/options
 export default NextAuth({
@@ -57,25 +70,26 @@ export default NextAuth({
       clientSecret: process.env.SPOTIFY_CLIENT_SECRET,
     }),
   ],
-
+  session: {
+    jwt: true,
+  },
   callbacks: {
     // async signIn(user, account, profile) { return true },
     // async redirect(url, baseUrl) { return baseUrl },
     // async session(session, user) { return session },
     // async jwt(token, user, account, profile, isNewUser) { return token }
-    async jwt(token: JWT, user: User, account: Account ) {
-      console.log(token);
-      console.log(user);
-      console.log(account);
+    async jwt(token: Token, user: User, account: Account) {
       if (account && user) {
         token.id = account.id;
         token.accessToken = account.accessToken;
-        token.refreshToken = account.refreshToken;
+        if (typeof account.refreshToken === "string") {
+          token.refreshToken = account.refreshToken;
+        }
         token.accessTokenExpires = Date.now() + (account.expires_in as number) * 1000;
         return token;
       }
 
-      if (Date.now() < (token.accessTokenExpires as number)) {
+      if (Date.now() < token.accessTokenExpires) {
         return token;
       }
 
@@ -87,7 +101,10 @@ export default NextAuth({
       return session;
     },
   },
-
+  adapter: Adapters.Prisma.Adapter({ prisma }),
+  jwt: {
+    signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
+  },
   // Events are useful for logging
   // https://next-auth.js.org/configuration/events
   // events: {},

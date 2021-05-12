@@ -1,14 +1,16 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 import Head from "next/head";
 import React, { useEffect } from "react";
-import Loading from "../components/Loading";
+import Loading from "../components/Loading.tsx";
 import styles from "../styles/Home.module.css";
 const axios = require("axios");
+
 
 const Home = () => {
   const [session, loading] = useSession();
 
   useEffect(() => {
+    console.log(session);
     if (session?.error === "RefreshAccessTokenError") {
       console.log("RefreshAccessTokenError");
       signIn("spotify"); // Force sign in to hopefully resolve error
@@ -32,7 +34,15 @@ const Home = () => {
       });
   };
 
-  console.log(session);
+  const addCount = async() => {
+    const response = await fetch("/api/users", {
+      method: "POST",
+      body: JSON.stringify(session.user)
+    })
+
+    return await response.json();
+  }
+
   return (
     <div>
       <Head>
@@ -44,6 +54,7 @@ const Home = () => {
       ) : session ? (
         <div>
           <button onClick={() => signOut()}>Sign Out</button>
+          <button onClick={() => addCount()}>Increase Count</button>
         </div>
       ) : (
         <div className={styles.container}>
