@@ -5,7 +5,6 @@ import Loading from "../components/Loading.tsx";
 import styles from "../styles/Home.module.css";
 const axios = require("axios");
 
-
 const Home = () => {
   const [session, loading] = useSession();
   const [ devices, setDevices] = useState([]);
