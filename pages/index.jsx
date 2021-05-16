@@ -1,37 +1,19 @@
 import { signIn, signOut, useSession } from "next-auth/client";
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import Loading from "../components/Loading.tsx";
+import SearchBar from "../components/SearchBar.tsx";
 import styles from "../styles/Home.module.css";
-const axios = require("axios");
 
 const Home = () => {
   const [session, loading] = useSession();
-  const [ devices, setDevices] = useState([]);
 
-  useEffect(() => {
+  useEffect(async () => {
     if (session?.error === "RefreshAccessTokenError") {
       console.log("RefreshAccessTokenError");
       signIn("spotify"); // Force sign in to hopefully resolve error
     }
-    if (session) {
-      callApi("GET", "me/player/devices", null, "callback");
-    }
   }, [session]);
-
-  const callApi = (method, url, body, callback) => {
-    axios
-      .get("https://api.spotify.com/v1/" + url, {
-        headers: { Authorization: "Bearer " + session.user.accessToken },
-      })
-      .then((response) => {
-        // If request is good...
-        setDevices(response.data.devices);
-      })
-      .catch((error) => {
-        console.log(error.response);
-      });
-  };
 
   // const addCount = async() => {
   //   const response = await fetch("/api/users", {
@@ -51,9 +33,7 @@ const Home = () => {
         <Loading />
       ) : session ? (
         <div>
-          {devices.map(device => (
-            <div key={device.id}>{device.name} - {device.type}</div>
-          ))}
+          <SearchBar token={session.user.accessToken} />
           <button onClick={() => signOut()}>Sign Out</button>
         </div>
       ) : (
