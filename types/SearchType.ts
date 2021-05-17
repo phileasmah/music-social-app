@@ -1,4 +1,4 @@
-export interface Search {
+export interface SearchType {
   albums: Albums;
   artists: Artists;
 }

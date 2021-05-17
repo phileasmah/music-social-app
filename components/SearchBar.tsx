@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import useGetApi from "../lib/useGetApi";
-import { AlbumItem, ArtistItem, Search } from "../types/Search";
+import { AlbumItem, ArtistItem, SearchType } from "../types/SearchType";
 
 interface Props {
   token: string;
@@ -32,7 +32,7 @@ const SearchBar: React.FC<Props> = ({ token }) => {
         const res = (await useGetApi(
           token,
           "search?q=" + query + "&type=album,artist&limit=3"
-        )) as Search;
+        )) as SearchType;
         if (res.albums.total == 0 && res.artists.total == 0) {
           setError(true);
         } else {
