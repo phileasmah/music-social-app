@@ -38,6 +38,7 @@ const SearchBar: React.FC<Props> = ({ token }) => {
         } else {
           setArtists(res.artists.items);
           setAlbums(res.albums.items);
+          console.log(res.artists.items);
         }
         setLoading(false);
         console.log(res);
@@ -51,16 +52,16 @@ const SearchBar: React.FC<Props> = ({ token }) => {
   return (
     <div>
       <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Search for an artist or album" className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
-      {loading ? <div> loading.. </div> : <> </>}
+      {loading && <div> loading.. </div>}
       <div>
-        {artists ? <div>Artists:</div> : <> </>}
-        {artists ? artists.map((a) => <div key={a.id}>{a.name}</div>) : <> </>}
+        {artists && <div>Artists:</div>}
+        {artists && artists.map((a) => <div key={a.id}>{a.name}</div>)}
       </div>
       <div>
-        {albums ? <div>Albums:</div> : <> </>}
-        {albums ? albums.map((a) => <div key={a.id}>{a.name}</div>) : <> </>}
+        {albums && <div>Albums:</div>}
+        {albums && albums.map((a) => <div key={a.id}>{a.name}</div>)}
       </div>
-      {error ? <div>No results found</div> : <> </>}
+      {error && <div>No results found</div>}
     </div>
   );
 };

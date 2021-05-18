@@ -31,12 +31,12 @@ export interface Track {
 }
 export interface Album {
   album_type: string;
-  artists?: (Artists)[] | null;
+  artists: (Artists)[];
   available_markets?: (string)[] | null;
   external_urls: ExternalUrls;
   href: string;
   id: string;
-  images?: (ImagesEntity)[] | null;
+  images: (ImagesEntity)[];
   name: string;
   release_date: string;
   release_date_precision: string;
