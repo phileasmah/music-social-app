@@ -56,7 +56,7 @@ const SearchBar: React.FC<Props> = ({ token }) => {
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-sm"
+          className="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-md"
         />
         <label className="absolute left-2 transition-all bg-white px-1">Search for an artist or album</label>
       </div>
