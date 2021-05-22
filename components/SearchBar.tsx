@@ -51,7 +51,16 @@ const SearchBar: React.FC<Props> = ({ token }) => {
 
   return (
     <div>
-      <input type="text" value={input} onChange={(e) => setInput(e.target.value)} placeholder="Search for an artist or album" className="rounded-lg border-transparent flex-1 appearance-none border border-gray-300 w-full py-2 px-4 bg-white text-gray-700 placeholder-gray-400 shadow-sm text-base focus:outline-none focus:ring-2 focus:ring-purple-600 focus:border-transparent"/>
+      <div className="relative h-10 input-component mb-5 empty m-4">
+        <input
+          type="text"
+          value={input}
+          onChange={(e) => setInput(e.target.value)}
+          className="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-sm"
+        />
+        <label className="absolute left-2 transition-all bg-white px-1">Search for an artist or album</label>
+      </div>
+
       {loading && <div> loading.. </div>}
       <div>
         {artists && <div>Artists:</div>}

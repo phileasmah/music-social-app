@@ -22,4 +22,5 @@ input {
 input:focus {
   outline: none;
   border-color: rgba(37, 99, 235, 1);
+  border-width: 2px;
 }
