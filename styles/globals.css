@@ -7,7 +7,7 @@ body {
   color: #BDC1C6;
 }
 
-*,*:focus,*:hover{
+*,*:focus,*:hover, *:active, button:focus{
   outline:none;
 }
 

@@ -51,19 +51,19 @@ const SearchBar: React.FC<Props> = ({ token }) => {
   }, [input]);
 
   return (
-    <div className="absolute z-10 top-4 right-5">
+    <div className="absolute z-10 top-4 right-5 w-11/12 sm:w-1/3">
       <div>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search for artist or album"
-          className="h-full w-full border-gray-300 py-3 px-6 rounded-3xl duration-300 transition-all"
+          className="h-full w-full border-gray-300 py-3 px-6 rounded-3xl duration-200 transition-all"
           onFocus={() => setShow(true)}
           onBlur={() => setShow(false)}
         />
       </div>
-      {show && (artists || albums || error) && (
+      { (artists || albums || error) && (
         <div className="bg-lightgrey -mt-5 z-20 pt-5 pb-2 rounded-b-3xl px-6">
           <hr />
           <div className="my-3">
