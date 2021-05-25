@@ -18,7 +18,7 @@ export interface AlbumItem {
   external_urls: ExternalUrls;
   href: string;
   id: string;
-  images?: (ImagesEntity)[] | null;
+  images: (ImagesEntity)[];
   name: string;
   release_date: string;
   release_date_precision: string;
@@ -57,7 +57,7 @@ export interface ArtistItem {
   genres?: (string | null)[] | null;
   href: string;
   id: string;
-  images?: (ImagesEntity)[] | null;
+  images: (ImagesEntity)[];
   name: string;
   popularity: number;
   type: string;

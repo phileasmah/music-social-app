@@ -2,25 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-label {
-  top: 0%;
-  transform: translateY(-50%);
-  font-size: 11px;
-  color: rgba(37, 99, 235, 1);
+body {
+  background-color: #202124;
+  color: #BDC1C6;
 }
-.empty input:not(:focus) + label {
-  top: 50%;
-  transform: translateY(-50%);
-  font-size: 14px;
+
+*,*:focus,*:hover{
+  outline:none;
 }
-input:not(:focus) + label {
-  color: rgba(70, 70, 70, 1);
+
+b {
+  color: #DDDEE1;
 }
+
 input {
-  border-width: 1px;
+  background-color: #303134;
+  color: #E8EAED;
 }
-input:focus {
-  outline: none;
-  border-color: rgba(37, 99, 235, 1);
-  border-width: 2px;
+
+input:hover:not(:focus) {
+  box-shadow: 0 4px 12px rgb(23 23 23 / 90%)
 }

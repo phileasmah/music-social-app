@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react";
 import useGetApi from "../lib/useGetApi";
 import { AlbumItem, ArtistItem, SearchType } from "../types/SearchType";
+import AlbumSearchItem from "./AlbumSearchItem";
+import ArtistSearchItem from "./ArtistSearchItem";
 
 interface Props {
   token: string;
@@ -11,21 +13,19 @@ const SearchBar: React.FC<Props> = ({ token }) => {
   const [artists, setArtists] = useState<ArtistItem[] | null | undefined>();
   const [albums, setAlbums] = useState<AlbumItem[] | null | undefined>();
   const [timeout, setTimeOut] = useState<NodeJS.Timeout>();
-  const [loading, setLoading] = useState(true);
   const [error, setError] = useState(false);
+  const [show, setShow] = useState(false);
 
   useEffect(() => {
     if (timeout) {
       clearTimeout(timeout);
     }
-    setAlbums(null);
-    setArtists(null);
-    setError(false);
     if (!input) {
-      setLoading(false);
+      setAlbums(null);
+      setArtists(null);
       return;
     }
-    setLoading(true);
+    setError(false);
     const callApi = async () => {
       try {
         const query = encodeURI(input);
@@ -36,12 +36,13 @@ const SearchBar: React.FC<Props> = ({ token }) => {
         if (res.albums.total == 0 && res.artists.total == 0) {
           setError(true);
         } else {
-          setArtists(res.artists.items);
-          setAlbums(res.albums.items);
-          console.log(res.artists.items);
+          if (res.artists.total != 0) {
+            setArtists(res.artists.items);
+          }
+          if (res.albums.total != 0) {
+            setAlbums(res.albums.items);
+          }
         }
-        setLoading(false);
-        console.log(res);
       } catch (e) {
         console.log(e.response);
       }
@@ -50,27 +51,33 @@ const SearchBar: React.FC<Props> = ({ token }) => {
   }, [input]);
 
   return (
-    <div>
-      <div className="relative h-10 input-component mb-5 empty m-4">
+    <div className="absolute z-10 top-4 right-5">
+      <div>
         <input
           type="text"
           value={input}
           onChange={(e) => setInput(e.target.value)}
-          className="h-full w-full border-gray-300 px-2 transition-all border-blue rounded-md"
+          placeholder="Search for artist or album"
+          className="h-full w-full border-gray-300 py-3 px-6 rounded-3xl duration-300 transition-all"
+          onFocus={() => setShow(true)}
+          onBlur={() => setShow(false)}
         />
-        <label className="absolute left-2 transition-all bg-white px-1">Search for an artist or album</label>
       </div>
-
-      {loading && <div> loading.. </div>}
-      <div>
-        {artists && <div>Artists:</div>}
-        {artists && artists.map((a) => <div key={a.id}>{a.name}</div>)}
-      </div>
-      <div>
-        {albums && <div>Albums:</div>}
-        {albums && albums.map((a) => <div key={a.id}>{a.name}</div>)}
-      </div>
-      {error && <div>No results found</div>}
+      {show && (artists || albums || error) && (
+        <div className="bg-lightgrey -mt-5 z-20 pt-5 pb-2 rounded-b-3xl px-6">
+          <hr />
+          <div className="my-3">
+            {error && <div>No results found</div>}
+            {artists && <b>Artists:</b>}
+            {artists && artists.map((artist) => <ArtistSearchItem item={artist} key={artist.id} />)}
+          </div>
+          <hr />
+          <div className="my-3">
+            {albums && <b>Albums:</b>}
+            {albums && albums.map((album) => <AlbumSearchItem item={album} key={album.id} />)}{" "}
+          </div>
+        </div>
+      )}
     </div>
   );
 };

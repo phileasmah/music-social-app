@@ -18,7 +18,6 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
         token,
         "me/player/recently-played?&limit=5"
       )) as RecentlyPlayedType;
-      console.log(res.items);
       setRecents(res.items);
       setLoading(false);
     };
@@ -57,7 +56,7 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
             ) : (
               <div>No picture found</div>
             )}
-            {r.track.name} - {r.track.album.name} by {r.track.artists[0].name}
+            {r.track.name} - <b>{r.track.album.name}</b> by {r.track.artists[0].name}
           </div>
         ))
       ) : (
