@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   
   useEffect(() => {
     const getToken = async () => {
-      const res = (await axios({ url: "api/connect", baseURL: "http://localhost:3000"})) as Res;
+      const res = (await axios({ url: "api/connect", baseURL: "https://music-social-app.vercel.app/"})) as Res;
       setClientToken(res.data);
       setFinish(true);
       setTimeout(getToken, 3500000);
