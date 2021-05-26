@@ -37,10 +37,7 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
                 href={{
                   pathname: "album/[slug]",
                   query: {
-                    slug: r.track.album.name + "-" + r.track.album.artists[0].name,
-                    albumName: r.track.album.name,
-                    artist: r.track.album.artists[0].name,
-                    albumId: r.track.album.id,
+                    slug: r.track.album.id,
                   },
                 }}
               >

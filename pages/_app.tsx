@@ -11,22 +11,23 @@ interface Res extends Response {
 
 function MyApp({ Component, pageProps }: AppProps) {
   const axios = require("axios");
+  
   useEffect(() => {
     const getToken = async () => {
-      const res = (await axios.get("api/connect")) as Res;
-      setAccessToken(res.data);
+      const res = (await axios({ url: "api/connect", baseURL: "http://localhost:3000"})) as Res;
+      setClientToken(res.data);
       setFinish(true);
       setTimeout(getToken, 3500000);
     };
     getToken();
   }, []);
 
-  const [accessToken, setAccessToken] = useState<ClientToken | null>(null);
+  const [clientToken, setClientToken] = useState<ClientToken | null>(null);
   const [finish, setFinish] = useState(false);
 
   const providerToken = useMemo(
-    () => ({ accessToken, setAccessToken, finish }),
-    [accessToken, setAccessToken, finish]
+    () => ({ clientToken, setClientToken, finish }),
+    [clientToken, setClientToken, finish]
   );
 
   return (

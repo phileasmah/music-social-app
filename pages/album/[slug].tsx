@@ -1,24 +1,31 @@
 import { useRouter } from "next/router";
-import { ParsedUrlQuery } from "querystring";
-import { useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
+import { ApiContext } from "../../components/Contexts/ApiContext";
+import useGetApi from "../../lib/useGetApi";
+import { AlbumInfo } from "../../types/AlbumInfo";
+import { ApiContextProvider } from "../../types/ApiContextProvider";
 
-interface RouterQuery extends ParsedUrlQuery {
-  slug: string;
-  albumId: string;
-  albumName: string;
-  artist: string;
-}
 
-const Comment = () => {
+const Album: React.FC = () => {
+  const { clientToken } = useContext(ApiContext) as ApiContextProvider;
   const router = useRouter();
-  const routerQuery = router.query as RouterQuery;
+  const query = router.query;
+  const [data, setData] = useState<AlbumInfo | null>(null);
 
   useEffect(() => {
-    if (!routerQuery || Object.keys(routerQuery).length == 0) return
-    console.log(routerQuery);
-  }, [routerQuery]);
+    if (!clientToken || !query.slug) return;
+    const getData = async () => {
+      const res = await useGetApi(clientToken?.access_token,`albums/${query.slug}`) as AlbumInfo
+      setData(res);
+    };
+    getData();
+  }, [clientToken]);
 
-  return <></>;
+  return (
+    <div>
+      {data && <div>{data.name}</div>}
+    </div>
+  );
 };
 
-export default Comment;
+export default Album;

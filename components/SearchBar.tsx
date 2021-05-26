@@ -1,26 +1,25 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import useGetApi from "../lib/useGetApi";
+import { ApiContextProvider } from "../types/ApiContextProvider";
 import { AlbumItem, ArtistItem, SearchType } from "../types/SearchType";
 import AlbumSearchItem from "./AlbumSearchItem";
 import ArtistSearchItem from "./ArtistSearchItem";
+import { ApiContext } from "./Contexts/ApiContext";
 
-interface Props {
-  token: string;
-}
-
-const SearchBar: React.FC<Props> = ({ token }) => {
+const SearchBar: React.FC = () => {
   const [input, setInput] = useState("");
   const [artists, setArtists] = useState<ArtistItem[] | null | undefined>();
   const [albums, setAlbums] = useState<AlbumItem[] | null | undefined>();
   const [timeout, setTimeOut] = useState<NodeJS.Timeout>();
   const [error, setError] = useState(false);
   const [show, setShow] = useState(false);
+  const { clientToken } = useContext(ApiContext) as ApiContextProvider;
 
   useEffect(() => {
     if (timeout) {
       clearTimeout(timeout);
     }
-    if (!input) {
+    if (!input || !clientToken) {
       setAlbums(null);
       setArtists(null);
       return;
@@ -30,7 +29,7 @@ const SearchBar: React.FC<Props> = ({ token }) => {
       try {
         const query = encodeURI(input);
         const res = (await useGetApi(
-          token,
+          clientToken?.access_token,
           "search?q=" + query + "&type=album,artist&limit=3"
         )) as SearchType;
         if (res.albums.total == 0 && res.artists.total == 0) {
@@ -63,7 +62,7 @@ const SearchBar: React.FC<Props> = ({ token }) => {
           onBlur={() => setShow(false)}
         />
       </div>
-      { (artists || albums || error) && (
+      {show && (artists || albums || error) && (
         <div className="bg-lightgrey -mt-5 z-20 pt-5 pb-2 rounded-b-3xl px-6">
           <hr />
           <div className="my-3">

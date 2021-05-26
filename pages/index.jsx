@@ -8,7 +8,7 @@ import SearchBar from "../components/SearchBar.tsx";
 
 const Home = () => {
   const [session, loading] = useSession();
-  const { accessToken, finish } = useContext(ApiContext);
+  const { clientToken, finish } = useContext(ApiContext);
 
   useEffect(async () => {
     if (session?.error === "RefreshAccessTokenError") {
@@ -35,7 +35,7 @@ const Home = () => {
         <Loading />
       ) : (
         <div>
-          {finish && <SearchBar token={accessToken.access_token} />}
+          {finish && <SearchBar />}
           {session ? (
           <div>
             <RecentlyPlayed token={session.user.accessToken} />
