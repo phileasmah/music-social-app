@@ -26,24 +26,21 @@ const SearchBar: React.FC = () => {
     }
     setError(false);
     const callApi = async () => {
-      try {
-        const query = encodeURI(input);
-        const res = (await useGetApi(
-          clientToken?.access_token,
-          "search?q=" + query + "&type=album,artist&limit=3"
-        )) as SearchType;
-        if (res.albums.total == 0 && res.artists.total == 0) {
-          setError(true);
-        } else {
-          if (res.artists.total != 0) {
-            setArtists(res.artists.items);
-          }
-          if (res.albums.total != 0) {
-            setAlbums(res.albums.items);
-          }
+      const query = encodeURI(input);
+      const response = await useGetApi<SearchType>(
+        clientToken?.access_token,
+        "search?q=" + query + "&type=album,artist&limit=3"
+      );
+      const res = response.data;
+      if (res.albums.total == 0 && res.artists.total == 0) {
+        setError(true);
+      } else {
+        if (res.artists.total != 0) {
+          setArtists(res.artists.items);
         }
-      } catch (e) {
-        console.log(e.response);
+        if (res.albums.total != 0) {
+          setAlbums(res.albums.items);
+        }
       }
     };
     setTimeOut(setTimeout(callApi, 500));

@@ -11,14 +11,38 @@ interface Props {
 const RecentlyPlayed: React.FC<Props> = ({ token }) => {
   const [recents, setRecents] = useState<Tracks[] | null | undefined>();
   const [loading, setLoading] = useState(true);
+  const [privateSession, setPrivateSession] = useState(false);
 
   useEffect(() => {
     const getRecentlyPlayed = async () => {
-      const res = (await useGetApi(
+      const response = await useGetApi<RecentlyPlayedType>(
         token,
-        "me/player/recently-played?&limit=5"
-      )) as RecentlyPlayedType;
-      setRecents(res.items);
+        "me/player/recently-played?&limit=30"
+      );
+      console.log(response);
+      if (response.status === 204) {
+        setPrivateSession(true);
+        setLoading(false);
+        return;
+      }
+      const res = response.data.items;
+      if (!res || res.length === 0) {
+        setLoading(false);
+        return;
+      }
+      const data: Tracks[] = [];
+      const set = new Set();
+      for (let i = 0; i < 30; i++) {
+        if (!set.has(res[i].track.album.id)) {
+          set.add(res[i].track.album.id);
+          data.push(res[i]);
+          if (set.size === 5) {
+            break;
+          }
+        }
+      }
+      setRecents(data);
+      console.log(data, res);
       setLoading(false);
     };
 
@@ -28,10 +52,12 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
   return (
     <div>
       <div>Recently Played:</div>
-      {loading ? <div>Loading...</div> : <> </>}
-      {recents ? (
+      {loading ? (
+        <div>Loading...</div>
+      ) : privateSession ? <div>Turn off private session to see your recently played albums</div> : (
+        recents ?
         recents.map((r) => (
-          <div key={r.track.id}>
+          <div key={r.track.album.id}>
             {r.track.album.images.length ? (
               <Link
                 href={{
@@ -53,11 +79,9 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
             ) : (
               <div>No picture found</div>
             )}
-            {r.track.name} - <b>{r.track.album.name}</b> by {r.track.artists[0].name}
+            <b>{r.track.album.name}</b> by {r.track.artists[0].name}
           </div>
-        ))
-      ) : (
-        <> </>
+        )) : <div>No recently played music on this account</div>
       )}
     </div>
   );

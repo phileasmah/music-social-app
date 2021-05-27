@@ -15,8 +15,9 @@ const Album: React.FC = () => {
   useEffect(() => {
     if (!clientToken || !query.slug) return;
     const getData = async () => {
-      const res = await useGetApi(clientToken?.access_token,`albums/${query.slug}`) as AlbumInfo
-      setData(res);
+      const res = await useGetApi<AlbumInfo>(clientToken?.access_token,`albums/${query.slug}`)
+      const response = res.data;
+      setData(response);
     };
     getData();
   }, [clientToken]);

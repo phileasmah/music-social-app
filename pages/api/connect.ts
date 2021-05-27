@@ -17,5 +17,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     },
   });
   const token = await response.json();
-  res.status(200).json(token);
+  res.status(response.status).json(token);
 };
+
