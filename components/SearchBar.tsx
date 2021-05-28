@@ -1,3 +1,4 @@
+import { XCircleIcon } from "@heroicons/react/solid";
 import { useContext, useEffect, useState } from "react";
 import useGetApi from "../lib/useGetApi";
 import { ApiContextProvider } from "../types/ApiContextProvider";
@@ -13,7 +14,6 @@ const SearchBar: React.FC = () => {
   const [error, setError] = useState(false);
   const [show, setShow] = useState(false);
   const { clientToken } = useContext(ApiContext) as ApiContextProvider;
-
 
   useEffect(() => {
     if (timeout) {
@@ -48,7 +48,15 @@ const SearchBar: React.FC = () => {
 
   return (
     <div className="absolute z-10 top-4 right-5 w-11/12 sm:w-1/3">
-      <div>
+      <div className="relative">
+        {show && (
+          <button
+            onClick={() => setShow(false)}
+            className="absolute h-5 w-5 right-6 top-1/2 -mt-2.5 text-input"
+          >
+            <XCircleIcon />
+          </button>
+        ) }
         <input
           type="text"
           value={input}

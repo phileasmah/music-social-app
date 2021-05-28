@@ -9,6 +9,7 @@
     "postinstall": "prisma generate"
   },
   "dependencies": {
+    "@heroicons/react": "^1.0.1",
     "@prisma/client": "^2.22.1",
     "axios": "^0.21.1",
     "next": "^10.2.0",
