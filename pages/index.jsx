@@ -41,7 +41,7 @@ const Home = () => {
             <RecentlyPlayed token={session.user.accessToken} />
             <button
               onClick={() => signOut()}
-              className="px-4 py-2 text-s font-semibold border-2 rounded text-gray-600 hover:border-lightblue hover:text-lightblue duration-200" 
+              className="px-4 py-2 text-s font-semibold border-2 rounded hover:border-lightblue hover:text-lightblue duration-200" 
             >
               Sign Out
             </button>
@@ -50,7 +50,7 @@ const Home = () => {
           <div>
             <button
               onClick={() => signIn("spotify")}
-              className="px-4 py-2 text-s font-semibold border-2 rounded text-gray-600 hover:border-lightblue hover:text-lightblue duration-200"
+              className="px-4 py-2 text-s font-semibold border-2 rounded hover:border-lightblue hover:text-lightblue duration-200"
             >
               Login with Spotify
             </button>

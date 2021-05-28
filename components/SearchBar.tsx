@@ -2,9 +2,8 @@ import { useContext, useEffect, useState } from "react";
 import useGetApi from "../lib/useGetApi";
 import { ApiContextProvider } from "../types/ApiContextProvider";
 import { AlbumItem, ArtistItem, SearchType } from "../types/SearchType";
-import AlbumSearchItem from "./AlbumSearchItem";
-import ArtistSearchItem from "./ArtistSearchItem";
 import { ApiContext } from "./Contexts/ApiContext";
+import SearchItem from "./SearchItem";
 
 const SearchBar: React.FC = () => {
   const [input, setInput] = useState("");
@@ -14,6 +13,7 @@ const SearchBar: React.FC = () => {
   const [error, setError] = useState(false);
   const [show, setShow] = useState(false);
   const { clientToken } = useContext(ApiContext) as ApiContextProvider;
+
 
   useEffect(() => {
     if (timeout) {
@@ -56,22 +56,37 @@ const SearchBar: React.FC = () => {
           placeholder="Search for artist or album"
           className="h-full w-full border-gray-300 py-3 px-6 rounded-3xl duration-200 transition-all"
           onFocus={() => setShow(true)}
-          onBlur={() => setShow(false)}
         />
       </div>
       {show && (artists || albums || error) && (
         <div className="bg-lightgrey -mt-5 z-20 pt-5 pb-2 rounded-b-3xl px-6">
-          <hr />
-          <div className="my-3">
-            {error && <div>No results found</div>}
-            {artists && <b>Artists:</b>}
-            {artists && artists.map((artist) => <ArtistSearchItem item={artist} key={artist.id} />)}
-          </div>
-          <hr />
-          <div className="my-3">
-            {albums && <b>Albums:</b>}
-            {albums && albums.map((album) => <AlbumSearchItem item={album} key={album.id} />)}{" "}
-          </div>
+          {error && <div className="my-3">No results found</div>}
+          {artists && (
+            <div className="mb-5">
+              <hr className="mb-1" />
+              <b>Artists:</b>
+              <ul>
+                {artists.map((artist) => (
+                  <li>
+                    <SearchItem search={"artist"} item={artist} key={artist.id} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+          {albums && (
+            <div className="mb-3">
+              <hr className="mb-1" />
+              <b> Albums:</b>
+              <ul>
+                {albums.map((album) => (
+                  <li>
+                    <SearchItem search={"album"} item={album} key={album.id} />
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
         </div>
       )}
     </div>
