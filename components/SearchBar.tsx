@@ -49,7 +49,7 @@ const SearchBar: React.FC = () => {
   return (
     <div className="absolute z-10 top-4 right-5 w-11/12 sm:w-1/3">
       <div className="relative">
-        {show && (
+        {show && (artists || albums || error ) && (
           <button
             onClick={() => setShow(false)}
             className="absolute h-5 w-5 right-6 top-1/2 -mt-2.5 text-input"
