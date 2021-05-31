@@ -1,5 +1,6 @@
 import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
+import { Session } from "next-auth";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
@@ -20,6 +21,21 @@ interface Props {
   reviews: AlbumReview | false;
 }
 
+interface CustomSession extends Session {
+  user?: {
+    name: string;
+    email: string;
+    picture?: null;
+    sub: string;
+    id: string;
+    accessToken: string;
+    refreshToken: string;
+    accessTokenExpires: number;
+    iat: number;
+    exp: number;
+  };
+}
+
 export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (context) => {
   const axios = require("axios");
   const res = (await axios({
@@ -32,16 +48,16 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
       props: { reviews },
     };
   } else {
-    const reviews = false 
+    const reviews = false;
     return {
-      props: { reviews }
-    }
-  };
+      props: { reviews },
+    };
+  }
 };
 
 const Album: React.FC<Props> = ({ reviews }) => {
   const { clientToken } = useContext(ApiContext) as ApiContextProvider;
-  const [session, loading] = useSession();
+  const [session, loading]: [CustomSession | null, boolean] = useSession();
   const router = useRouter();
   const query = router.query.album;
   const [data, setData] = useState<AlbumInfo | null>(null);
@@ -64,26 +80,25 @@ const Album: React.FC<Props> = ({ reviews }) => {
 
   useEffect(() => {
     if (loading) return;
-    
+
     const getUserReview = async () => {
       const res = await fetch("/api/user/review", {
         method: "POST",
         body: JSON.stringify({
           albumId: query,
-          authorId: parseInt(session?.user?.sub as string)
-        })
-      })
+          authorId: parseInt(session?.user?.sub as string),
+        }),
+      });
       if (res.status === 200) {
-        const data = await res.json() as UserReview;
+        const data = (await res.json()) as UserReview;
         setUserReview(data);
       }
-    }
-    
+    };
+
     if (session) {
       getUserReview();
     }
-
-  }, [loading])
+  }, [loading]);
 
   return (
     <div>
@@ -92,11 +107,21 @@ const Album: React.FC<Props> = ({ reviews }) => {
         <main>
           <h1>{data.name}</h1>
           {reviews ? (
-            <h2>Average ratings: {reviews[1].avg.rating}, based on {reviews[1].count.rating} users</h2>
+            <h2>
+              Average ratings: {reviews[1].avg.rating}, based on {reviews[1].count.rating} users
+            </h2>
           ) : (
             <h2>No ratings made for this album yet</h2>
           )}
-          {userReview ? <h3>Your review: {userReview.rating}</h3> : <h3>No review made yet</h3>}
+          {session ? (
+            userReview ? (
+              <h3>Your review: {userReview.rating}</h3>
+            ) : (
+              <h3>No review made yet</h3>
+            )
+          ) : (
+            <h3>Log in to review</h3>
+          )}
         </main>
       )}
     </div>
