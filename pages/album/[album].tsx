@@ -1,6 +1,5 @@
 import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
-import { Session } from "next-auth";
 import { useSession } from "next-auth/client";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
@@ -19,21 +18,6 @@ interface URLProps extends ParsedUrlQuery {
 
 interface Props {
   reviews: AlbumReview | false;
-}
-
-interface CustomSession extends Session {
-  user?: {
-    name: string;
-    email: string;
-    picture?: null;
-    sub: string;
-    id: string;
-    accessToken: string;
-    refreshToken: string;
-    accessTokenExpires: number;
-    iat: number;
-    exp: number;
-  };
 }
 
 export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (context) => {
@@ -57,7 +41,7 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
 
 const Album: React.FC<Props> = ({ reviews }) => {
   const { clientToken } = useContext(ApiContext) as ApiContextProvider;
-  const [session, loading]: [CustomSession | null, boolean] = useSession();
+  const [session, loading] = useSession();
   const router = useRouter();
   const query = router.query.album;
   const [data, setData] = useState<AlbumInfo | null>(null);
