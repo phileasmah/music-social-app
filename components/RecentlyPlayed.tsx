@@ -19,7 +19,6 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
         token,
         "me/player/recently-played?&limit=30"
       );
-      console.log(response);
       if (response.status === 204) {
         setPrivateSession(true);
         setLoading(false);
@@ -42,7 +41,6 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
         }
       }
       setRecents(data);
-      console.log(data, res);
       setLoading(false);
     };
 

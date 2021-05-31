@@ -14,7 +14,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   
   useEffect(() => {
     const getToken = async () => {
-      const res = (await axios({ url: "api/connect", baseURL: "http://localhost:3000"})) as Res;
+      const res = (await axios({ url: "api/connect", baseURL: process.env.NEXT_PUBLIC_BASE_URL})) as Res;
       setClientToken(res.data);
       setFinish(true);
       setTimeout(getToken, 3500000);
