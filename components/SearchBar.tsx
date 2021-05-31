@@ -110,11 +110,11 @@ const SearchBar: React.FC = () => {
               <ul>
                 {albums.map((album, idx) => (
                   <li
-                    className={
+                    className={`duration-300 ${
                       cursor === idx
-                        ? "bg-darkgrey p-1 px-2 rounded-lg duration-300"
-                        : "p-0 duration-300"
-                    }
+                        ? "bg-darkgrey p-1 px-2 rounded-lg"
+                        : "p-0"
+                    }`}
                   >
                     <SearchItem search={"album"} item={album} key={"album" + album.id} />
                   </li>
@@ -129,11 +129,11 @@ const SearchBar: React.FC = () => {
               <ul>
                 {artists.map((artist, idx) => (
                   <li
-                    className={
-                      cursor === idx + albumLength
-                        ? "bg-darkgrey p-2 rounded-lg"
-                        : "p-0 duration-300"
-                    }
+                  className={`duration-300 ${
+                    cursor === idx + albumLength
+                      ? "bg-darkgrey p-1 px-2 rounded-lg"
+                      : "p-0"
+                  }`}
                   >
                     <SearchItem search={"artist"} item={artist} key={"artist" + artist.id} />
                   </li>
