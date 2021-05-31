@@ -5,19 +5,7 @@ import { JWT } from "next-auth/jwt";
 import Providers from "next-auth/providers";
 // import prisma from "../../../lib/prisma";
 
-interface Token extends JWT {
-  name: string;
-  email: string;
-  sub: string;
-  id: string;
-  accessToken: string;
-  refreshToken: string;
-  accessTokenExpires: number;
-  iat: number;
-  exp: number;
-}
-
-async function refreshAccessToken(token: Token) {
+async function refreshAccessToken(token: JWT) {
   try {
     const url =
       "https://accounts.spotify.com/api/token?" +
@@ -78,7 +66,7 @@ export default NextAuth({
     // async redirect(url, baseUrl) { return baseUrl },
     // async session(session, user) { return session },
     // async jwt(token, user, account, profile, isNewUser) { return token }
-    async jwt(token: Token, user: User, account: Account) {
+    async jwt(token: JWT, user: User, account: Account) {
       if (account && user) {
         token.id = account.id;
         token.accessToken = account.accessToken;
