@@ -4,7 +4,7 @@ export interface SearchType {
 }
 export interface Albums {
   href: string;
-  items?: (AlbumItem)[] | null;
+  items: (AlbumItem)[];
   limit: number;
   next: string;
   offset: number;
@@ -44,7 +44,7 @@ export interface ImagesEntity {
 }
 export interface Artists {
   href: string;
-  items?: (ArtistItem)[] | null;
+  items: (ArtistItem)[];
   limit: number;
   next: string;
   offset: number;
