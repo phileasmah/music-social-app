@@ -23,3 +23,7 @@ input {
 input:hover:not(:focus) {
   box-shadow: 0 4px 12px rgb(23 23 23 / 90%)
 }
+
+#nprogress .bar {
+  background: #94B6F2;
+}
