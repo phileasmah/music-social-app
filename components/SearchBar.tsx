@@ -1,6 +1,6 @@
 import { XCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
-import { KeyboardEvent, useContext, useEffect, useState } from "react";
+import { KeyboardEvent, useContext, useEffect, useRef, useState } from "react";
 import useGetApi from "../lib/useGetApi";
 import { ApiContextProvider } from "../types/ApiContextProvider";
 import { AlbumItem, ArtistItem, SearchType } from "../types/SearchType";
@@ -19,6 +19,21 @@ const SearchBar: React.FC = () => {
   const [count, setCount] = useState(0);
   const [cursor, setCursor] = useState(-1);
   const [albumLength, setAlbumLength] = useState(0);
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    if (wrapperRef === null) return;
+    const handleClickOutside = (event: MouseEvent) => {
+      if (wrapperRef.current && !wrapperRef.current.contains(event.target as Node)) {
+        setShow(false);
+      }
+    };
+
+    document.addEventListener("mousedown", handleClickOutside);
+    return () => {
+      document.removeEventListener("mousedown", handleClickOutside);
+    };
+  }, [wrapperRef]);
 
   useEffect(() => {
     if (timeout) {
@@ -80,11 +95,14 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="absolute z-10 top-4 right-5 w-11/12 sm:w-1/3">
+    <div className="absolute z-10 top-4 right-5 w-11/12 sm:w-1/3" ref={wrapperRef}>
       <div className="relative">
         {show && (artists || albums || error) && (
           <button
-            onClick={() => setShow(false)}
+            onClick={() => {
+              setShow(false);
+              setInput("");
+            }}
             className="absolute h-5 w-5 right-6 top-1/2 -mt-2.5 text-input"
           >
             <XCircleIcon />
@@ -111,12 +129,11 @@ const SearchBar: React.FC = () => {
                 {albums.map((album, idx) => (
                   <li
                     className={`duration-300 ${
-                      cursor === idx
-                        ? "bg-darkgrey p-1 px-2 rounded-lg"
-                        : "p-0"
+                      cursor === idx ? "bg-darkgrey p-1 px-2 rounded-lg" : "p-0"
                     }`}
+                    key={"album" + album.id}
                   >
-                    <SearchItem search={"album"} item={album} key={"album" + album.id} />
+                    <SearchItem search={"album"} item={album} />
                   </li>
                 ))}
               </ul>
@@ -129,11 +146,10 @@ const SearchBar: React.FC = () => {
               <ul>
                 {artists.map((artist, idx) => (
                   <li
-                  className={`duration-300 ${
-                    cursor === idx + albumLength
-                      ? "bg-darkgrey p-1 px-2 rounded-lg"
-                      : "p-0"
-                  }`}
+                    className={`duration-300 ${
+                      cursor === idx + albumLength ? "bg-darkgrey p-1 px-2 rounded-lg" : "p-0"
+                    }`}
+                    key={"artist" + artist.id}
                   >
                     <SearchItem search={"artist"} item={artist} key={"artist" + artist.id} />
                   </li>
