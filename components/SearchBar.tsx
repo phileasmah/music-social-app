@@ -1,4 +1,4 @@
-import { XCircleIcon } from "@heroicons/react/solid";
+import { SearchIcon, XCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { KeyboardEvent, useContext, useEffect, useRef, useState } from "react";
 import useGetApi from "../lib/useGetApi";
@@ -58,9 +58,13 @@ const SearchBar: React.FC = () => {
       } else {
         if (res.artists.total != 0) {
           setArtists(res.artists.items);
+        } else {
+          setArtists(null);
         }
         if (res.albums.total != 0) {
           setAlbums(res.albums.items);
+        } else {
+          setAlbums(null);
         }
       }
       setCount(res.albums.items.length + res.artists.items.length);
@@ -95,8 +99,9 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="absolute z-10 top-4 right-5 w-11/12 sm:w-1/3" ref={wrapperRef}>
+    <div className="absolute z-10 top-1.5 left-64 w-11/12 sm:w-1/3" ref={wrapperRef}>
       <div className="relative">
+        <SearchIcon className="absolute h-5 w-5 top-1/2 -mt-2.5 left-5 text-input" />
         {show && (artists || albums || error) && (
           <button
             onClick={() => {
@@ -113,49 +118,54 @@ const SearchBar: React.FC = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search for artist or album"
-          className="h-full w-full border-gray-300 py-3 px-6 rounded-3xl duration-200 transition-all"
+          className="h-full w-full border-gray-300 py-3.5 pl-12 pr-6 rounded-xl duration-200 transition-all align-middle"
           onFocus={() => setShow(true)}
           onKeyDown={handleKeyDown}
         />
       </div>
       {show && (count !== 0 || error) && (
-        <div className="bg-lightgrey -mt-5 z-20 pt-5 pb-2 rounded-b-3xl px-6">
-          {error && <div className="my-3">No results found</div>}
-          {albums && (
-            <div className="mb-3">
-              <hr className="mb-1" />
-              <b> Albums:</b>
-              <ul>
-                {albums.map((album, idx) => (
-                  <li
-                    className={`duration-300 ${
-                      cursor === idx ? "bg-darkgrey p-1 px-2 rounded-lg" : "p-0"
-                    }`}
-                    key={"album" + album.id}
-                  >
-                    <SearchItem search={"album"} item={album} />
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-          {artists && (
-            <div className="mb-5">
-              <hr className="mb-1" />
-              <b>Artists:</b>
-              <ul>
-                {artists.map((artist, idx) => (
-                  <li
-                    className={`duration-300 ${
-                      cursor === idx + albumLength ? "bg-darkgrey p-1 px-2 rounded-lg" : "p-0"
-                    }`}
-                    key={"artist" + artist.id}
-                  >
-                    <SearchItem search={"artist"} item={artist} key={"artist" + artist.id} />
-                  </li>
-                ))}
-              </ul>
-            </div>
+        <div className="bg-lightgrey -mt-5 pt-5 pb-2 rounded-b-xl">
+          <hr className="mb-1 border-lightgrey2 border-t-2" />
+          {error ? (
+            <div className="px-6 my-3">No results found</div>
+          ) : (
+            <>
+              {albums && (
+                <div className="mb-3">
+                  <b className="px-6"> Albums:</b>
+                  <ul className="px-6">
+                    {albums.map((album, idx) => (
+                      <li
+                        className={`duration-300 my-2 text-option hover:bg-darkgrey hover:p-3 hover:rounded-lg  ${
+                          cursor === idx ? "bg-darkgrey p-3 rounded-lg" : "p-0"
+                        }`}
+                        key={"album" + album.id}
+                      >
+                        <SearchItem search={"album"} item={album} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+              {albums && artists && <hr className="mb-1  border-lightgrey2 border-t-2" />}
+              {artists && (
+                <div className="mb-5">
+                  <b className="px-6">Artists:</b>
+                  <ul className="px-6">
+                    {artists.map((artist, idx) => (
+                      <li
+                      className={`duration-300 my-2 text-option hover:bg-darkgrey hover:p-3 hover:rounded-lg  ${
+                        cursor === idx + albumLength ? "bg-darkgrey p-3 rounded-lg" : "p-0"
+                      }`}
+                        key={"artist" + artist.id}
+                      >
+                        <SearchItem search={"artist"} item={artist} key={"artist" + artist.id} />
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              )}
+            </>
           )}
         </div>
       )}

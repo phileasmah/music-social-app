@@ -1,10 +1,12 @@
 import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/client";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { useContext, useEffect, useState } from "react";
 import { ApiContext } from "../../components/Contexts/ApiContext";
+import DefaultImage from "../../components/DefaultImage";
 import Error from "../../components/Error";
 import useGetApi from "../../lib/useGetApi";
 import { AlbumInfo } from "../../types/AlbumInfo";
@@ -88,8 +90,23 @@ const Album: React.FC<Props> = ({ reviews }) => {
     <div>
       {error && <Error />}
       {data && (
-        <main>
-          <h1>{data.name}</h1>
+        <main className="w-1/2 m-auto">
+          <div className="flex">
+            {data.images.length != 0 ? (
+              <Image
+                src={data.images[1].url}
+                alt={"Picture of " + data.name}
+                width={280}
+                height={280}
+                className="rounded-lg"
+              />
+            ) : (
+              <DefaultImage />
+            )}
+            <h1 className="text-2xl">
+              <b>{data.name}</b>
+            </h1>
+          </div>
           {reviews ? (
             <h2>
               Average ratings: {reviews[1].avg.rating}, based on {reviews[1].count.rating} users

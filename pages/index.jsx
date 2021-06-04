@@ -1,14 +1,11 @@
-import { signIn, signOut, useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import Head from "next/head";
-import React, { useContext, useEffect } from "react";
-import { ApiContext } from "../components/Contexts/ApiContext";
+import React, { useEffect } from "react";
 import Loading from "../components/Loading.tsx";
 import RecentlyPlayed from "../components/RecentlyPlayed.tsx";
-import SearchBar from "../components/SearchBar.tsx";
 
 const Home = () => {
   const [session, loading] = useSession();
-  const { clientToken, finish } = useContext(ApiContext);
 
   useEffect(async () => {
     if (session?.error === "RefreshAccessTokenError") {
@@ -35,25 +32,12 @@ const Home = () => {
         <Loading />
       ) : (
         <div>
-          {finish && <SearchBar />}
           {session ? (
           <div>
             <RecentlyPlayed token={session.user.accessToken} />
-            <button
-              onClick={() => signOut()}
-              className="px-4 py-2 text-s font-semibold border-2 rounded hover:border-lightblue hover:text-lightblue duration-200" 
-            >
-              Sign Out
-            </button>
           </div>
           ) : (
           <div>
-            <button
-              onClick={() => signIn("spotify")}
-              className="px-4 py-2 text-s font-semibold border-2 rounded hover:border-lightblue hover:text-lightblue duration-200"
-            >
-              Login with Spotify
-            </button>
           </div>
           )}
         </div>

@@ -1,10 +1,11 @@
 import { Provider } from "next-auth/client";
 import { AppProps } from "next/dist/next-server/lib/router/router";
-import Router from 'next/router';
-import NProgress from 'nprogress';
+import Router from "next/router";
+import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useEffect, useMemo, useState } from "react";
 import { ApiContext } from "../components/Contexts/ApiContext";
+import NavBar from "../components/NavBar";
 import "../styles/globals.css";
 import { ClientToken } from "../types/ClientToken";
 
@@ -14,15 +15,14 @@ interface Res extends Response {
 
 NProgress.configure({
   minimum: 0.2,
-  easing: 'ease',
+  easing: "ease",
   speed: 400,
   showSpinner: false,
 });
 
-Router.events.on('routeChangeStart', () => NProgress.start());
-Router.events.on('routeChangeComplete', () => NProgress.done());
-Router.events.on('routeChangeError', () => NProgress.done());
-
+Router.events.on("routeChangeStart", () => NProgress.start());
+Router.events.on("routeChangeComplete", () => NProgress.done());
+Router.events.on("routeChangeError", () => NProgress.done());
 
 function MyApp({ Component, pageProps }: AppProps) {
   const axios = require("axios");
@@ -51,6 +51,7 @@ function MyApp({ Component, pageProps }: AppProps) {
   return (
     <ApiContext.Provider value={providerToken}>
       <Provider session={pageProps.session}>
+        <NavBar />
         <Component {...pageProps} />
       </Provider>
     </ApiContext.Provider>

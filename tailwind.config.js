@@ -3,24 +3,34 @@ module.exports = {
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
+    boxShadow: {
+      sm: '0 1px 2px 0 rgba(0, 0, 0, 0.05)',
+      DEFAULT: '0 1px 3px 0 rgba(0, 0, 0, 0.1), 0 1px 2px 0 rgba(0, 0, 0, 0.06)',
+      md: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
+      lg: '0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05)',
+      xl: '0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04)',
+      '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
+      inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
+    },
     extend: {
       colors: {
-        text: "#BDC1C6",
+        text: "#E2E2E3",
         input: "#9CA3AF",
         option: "#E8EAED",
         lightblue: "#94B6F2",
+        lightgrey2: "#5F6368",
         lightgrey: "#303134",
-        darkgrey: "#202124"
+        darkgrey: "#202124",
       },
-      backgroundColor: {
-        lightgrey: "#303134",
-        darkgrey: "#202124"
+      boxShadow: {
+        custom: "0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%)"
       }
     }
   },
   variants: {
     extend: {
-      padding: ['hover', 'focus']
+      padding: ['hover', 'focus'],
+      borderRadius: ['hover', 'focus'],
     },
   },
   plugins: [],

@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { AlbumItem, ArtistItem } from "../types/SearchType";
+import DefaultImage from "./DefaultImage";
 
 interface Props<T extends "album" | "artist"> {
   search: T,
@@ -10,7 +11,7 @@ interface Props<T extends "album" | "artist"> {
 const SearchItem = <T extends "album" | "artist">({ search, item }: Props<T>) => {
   return (
     <Link href={{ pathname: `${search}/[slug]`, query: { slug: item.id } }}>
-      <a className="focus:bg-darkgrey focus:p-3 hover:bg-darkgrey hover:p-3 block text-option my-2 duration-200 rounded-lg">
+      <a className="block">
         {item.images.length != 0 ? (
           <Image
             src={item.images[0].url}
@@ -20,7 +21,7 @@ const SearchItem = <T extends "album" | "artist">({ search, item }: Props<T>) =>
             className="rounded-full"
           />
         ) : (
-          <div>No image</div>
+          <DefaultImage />
         )}
         {item.name}
       </a>

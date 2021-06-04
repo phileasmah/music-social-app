@@ -8,7 +8,7 @@ export interface AlbumInfo {
   genres?: (null)[] | null;
   href: string;
   id: string;
-  images?: (ImagesEntity)[] | null;
+  images: (ImagesEntity)[];
   label: string;
   name: string;
   popularity: number;
