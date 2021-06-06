@@ -10,7 +10,7 @@ interface Props<T extends "album" | "artist"> {
 
 const SearchItem = <T extends "album" | "artist">({ search, item }: Props<T>) => {
   return (
-    <Link href={{ pathname: `${search}/[slug]`, query: { slug: item.id } }}>
+    <Link href={`/${search}/${item.id}`} prefetch={false}>
       <a className="block">
         {item.images.length != 0 ? (
           <Image

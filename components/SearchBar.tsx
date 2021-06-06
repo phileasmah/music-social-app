@@ -74,27 +74,46 @@ const SearchBar: React.FC = () => {
     setTimeOut(setTimeout(callApi, 500));
   }, [input]);
 
+  useEffect(() => {
+
+    const handleRouteChange = () => {
+      setShow(false);
+    }
+
+    router.events.on("routeChangeStart", handleRouteChange)
+    
+    return () => {
+      router.events.off('routeChangeStart', handleRouteChange)
+    }
+  }, [])
+
   const handleKeyDown = (e: KeyboardEvent) => {
     if (count === 0) return;
-    if (e.code === "ArrowDown") {
-      if (cursor === count - 1) {
-        setCursor(0);
-      } else {
-        setCursor(cursor + 1);
-      }
-    } else if (e.code === "ArrowUp") {
-      if (cursor === 0 || cursor === -1) {
-        setCursor(count - 1);
-      } else {
-        setCursor(cursor - 1);
-      }
-    } else if (e.code === "Enter") {
-      if (cursor === -1) return;
-      if (cursor < albumLength && albums) {
-        router.push("album/" + albums[cursor].id);
-      } else if (artists) {
-        router.push("artist/" + artists[cursor - albumLength].id);
-      }
+    switch (e.code) {
+      case "ArrowDown":
+        if (cursor === count - 1) {
+          setCursor(0);
+        } else {
+          setCursor(cursor + 1);
+        }
+        break;
+      case "ArrowUp":
+        if (cursor === 0 || cursor === -1) {
+          setCursor(count - 1);
+        } else {
+          setCursor(cursor - 1);
+        }
+        break;
+      case "Enter":
+        if (cursor === -1) return;
+        if (cursor < albumLength && albums) {
+          router.push("/album/" + albums[cursor].id);
+        } else if (artists) {
+          router.push("/artist/" + artists[cursor - albumLength].id);
+        }
+        break;
+      case "Escape":
+        setShow(false);
     }
   };
 
@@ -119,7 +138,7 @@ const SearchBar: React.FC = () => {
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search for artist or album"
           className="h-full w-full border-gray-300 py-3.5 pl-12 pr-6 rounded-xl duration-200 transition-all align-middle"
-          onFocus={() => setShow(true)}
+          onClick={() => setShow(true)}
           onKeyDown={handleKeyDown}
         />
       </div>
@@ -154,9 +173,9 @@ const SearchBar: React.FC = () => {
                   <ul className="px-6">
                     {artists.map((artist, idx) => (
                       <li
-                      className={`duration-300 my-2 text-option hover:bg-darkgrey hover:p-3 hover:rounded-lg  ${
-                        cursor === idx + albumLength ? "bg-darkgrey p-3 rounded-lg" : "p-0"
-                      }`}
+                        className={`duration-300 my-2 text-option hover:bg-darkgrey hover:p-3 hover:rounded-lg  ${
+                          cursor === idx + albumLength ? "bg-darkgrey p-3 rounded-lg" : "p-0"
+                        }`}
                         key={"artist" + artist.id}
                       >
                         <SearchItem search={"artist"} item={artist} key={"artist" + artist.id} />

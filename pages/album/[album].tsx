@@ -62,7 +62,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
       }
     };
     getData();
-  }, [clientToken]);
+  }, [clientToken, query]);
 
   useEffect(() => {
     if (loading) return;
@@ -78,13 +78,15 @@ const Album: React.FC<Props> = ({ reviews }) => {
       if (res.status === 200) {
         const data = (await res.json()) as UserReview;
         setUserReview(data);
+      } else {
+        setUserReview(null);
       }
     };
 
     if (session) {
       getUserReview();
     }
-  }, [loading]);
+  }, [loading, query]);
 
   return (
     <div>
