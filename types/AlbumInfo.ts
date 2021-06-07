@@ -1,6 +1,6 @@
 export interface AlbumInfo {
   album_type: string;
-  artists?: (ArtistsEntity)[] | null;
+  artists: (ArtistsEntity)[];
   available_markets?: (string)[] | null;
   copyrights?: (CopyrightsEntity)[] | null;
   external_ids: ExternalIds;
