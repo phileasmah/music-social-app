@@ -56,6 +56,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
       const res = await useGetApi<AlbumInfo>(clientToken?.access_token, `albums/${query}`);
       if (res.status == 200) {
         const response = res.data;
+        console.log(response);
         setData(response);
       } else {
         setError(true);
@@ -92,8 +93,8 @@ const Album: React.FC<Props> = ({ reviews }) => {
     <div>
       {error && <Error />}
       {data && (
-        <main className="w-1/2 m-auto">
-          <div className="flex">
+        <main className="w-11/12 lg:w-2/3 min-w-20 m-auto flex flex-col sm:flex-row justify-around max-w-4xl mt-9">
+          <div className="sticky top-24">
             {data.images.length != 0 ? (
               <Image
                 src={data.images[1].url}
@@ -109,22 +110,40 @@ const Album: React.FC<Props> = ({ reviews }) => {
               <b>{data.name}</b>
             </h1>
           </div>
-          {reviews ? (
-            <h2>
-              Average ratings: {reviews[1].avg.rating}, based on {reviews[1].count.rating} users
-            </h2>
-          ) : (
-            <h2>No ratings made for this album yet</h2>
-          )}
-          {session ? (
-            userReview ? (
-              <h3>Your review: {userReview.rating}</h3>
+          <div className="flex-grow max-w-xl">
+            <ul className="h-1/2 overflow-auto">
+              {data.tracks.items.map((item, idx) => (
+                <li className="grid grid-cols-10 gap-1">
+                  <span className=" m-4">{idx + 1}</span>
+                  <div className="col-span-9">
+                    <span className="text-text">{item.name}</span>
+                    <div>
+                      {item.artists[0].name}
+                      {item.artists.length > 1 && item.artists.slice(1).map((artist) => (
+                        <span>, {artist.name}</span>
+                      ))}
+                    </div>
+                  </div>
+                </li>
+              ))}
+            </ul>
+            {reviews ? (
+              <h2>
+                Average ratings: {reviews[1].avg.rating}, based on {reviews[1].count.rating} users
+              </h2>
             ) : (
-              <h3>No review made yet</h3>
-            )
-          ) : (
-            <h3>Log in to review</h3>
-          )}
+              <h2>No ratings made for this album yet</h2>
+            )}
+            {session ? (
+              userReview ? (
+                <h3>Your review: {userReview.rating}</h3>
+              ) : (
+                <h3>No review made yet</h3>
+              )
+            ) : (
+              <h3>Log in to review</h3>
+            )}
+          </div>
         </main>
       )}
     </div>

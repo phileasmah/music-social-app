@@ -12,6 +12,15 @@ module.exports = {
       '2xl': '0 25px 50px -12px rgba(0, 0, 0, 0.25)',
       inner: 'inset 0 2px 4px 0 rgba(0, 0, 0, 0.06)',
     },
+    minWidth: {
+      '0': '0',
+      "20": "20rem",
+      "30":"30rem",
+      '1/4': '25%',
+      '1/2': '50%',
+      '3/4': '75%',
+      'full': '100%',
+    },
     extend: {
       colors: {
         text: "#E2E2E3",

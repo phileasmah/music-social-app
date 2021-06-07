@@ -44,7 +44,7 @@ export interface ImagesEntity {
 }
 export interface Tracks {
   href: string;
-  items?: (ItemsEntity)[] | null;
+  items: (ItemsEntity)[];
   limit: number;
   next?: null;
   offset: number;
@@ -52,7 +52,7 @@ export interface Tracks {
   total: number;
 }
 export interface ItemsEntity {
-  artists?: (ArtistsEntity)[] | null;
+  artists: (ArtistsEntity)[];
   available_markets?: (string)[] | null;
   disc_number: number;
   duration_ms: number;
