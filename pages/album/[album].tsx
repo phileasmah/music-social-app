@@ -93,8 +93,8 @@ const Album: React.FC<Props> = ({ reviews }) => {
     <div>
       {error && <Error />}
       {data && (
-        <main className="w-11/12 lg:w-2/3 min-w-20 m-auto flex flex-col sm:flex-row justify-around max-w-4xl mt-9">
-          <div className="sticky top-24">
+        <main className="w-11/12 lg:w-2/3 min-w-20 m-auto flex flex-col sm:flex-row max-w-6xl mt-9 items-start">
+          <div className="sm:sticky sm:top-24">
             {data.images.length != 0 ? (
               <Image
                 src={data.images[1].url}
@@ -106,22 +106,27 @@ const Album: React.FC<Props> = ({ reviews }) => {
             ) : (
               <DefaultImage />
             )}
-            <h1 className="text-2xl">
-              <b>{data.name}</b>
+            <h1>
+              <b className="text-2xl">{data.name}</b>
+              <div className="text-lg">
+                {data.artists[0].name}
+                {data.artists.length > 1 &&
+                  data.artists.slice(1).map((artist) => <span>, {artist.name}</span>)}
+              </div>
             </h1>
           </div>
-          <div className="flex-grow max-w-xl">
-            <ul className="h-1/2 overflow-auto">
+          <div className="flex-grow max-w-xl lg:ml-5">
+            <span className="text-xl font-medium">Tracklist: </span>
+            <ul className="max-h-96 overflow-auto mt-1">
               {data.tracks.items.map((item, idx) => (
-                <li className="grid grid-cols-10 gap-1">
-                  <span className=" m-4">{idx + 1}</span>
+                <li className="grid grid-cols-10 gap-1 mt-1">
+                  <span className="m-4 ml-0 sm:ml-4">{idx + 1}</span>
                   <div className="col-span-9">
-                    <span className="text-text">{item.name}</span>
+                    <span className="text-text font-medium">{item.name}</span>
                     <div>
                       {item.artists[0].name}
-                      {item.artists.length > 1 && item.artists.slice(1).map((artist) => (
-                        <span>, {artist.name}</span>
-                      ))}
+                      {item.artists.length > 1 &&
+                        item.artists.slice(1).map((artist) => <span>, {artist.name}</span>)}
                     </div>
                   </div>
                 </li>
