@@ -77,7 +77,13 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
             ) : (
               <div>No picture found</div>
             )}
-            <b>{r.track.album.name}</b> by {r.track.artists[0].name}
+            <b>{r.track.album.name}</b>
+            <div>
+            by {r.track.artists[0].name}
+            {console.log(r.track.artists)}
+            {r.track.artists.length > 1 &&
+                  r.track.artists.slice(1).map((artist) => <span>, {artist.name}</span>)}
+            </div> 
           </div>
         )) : <div>No recently played music on this account</div>
       )}
