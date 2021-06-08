@@ -8,6 +8,7 @@ import { useContext, useEffect, useState } from "react";
 import { ApiContext } from "../../components/Contexts/ApiContext";
 import DefaultImage from "../../components/DefaultImage";
 import Error from "../../components/Error";
+import Rating from "../../components/Rating";
 import useGetApi from "../../lib/useGetApi";
 import { AlbumInfo } from "../../types/AlbumInfo";
 import { AlbumReview } from "../../types/AlbumReview";
@@ -49,6 +50,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
   const [data, setData] = useState<AlbumInfo | null>(null);
   const [error, setError] = useState(false);
   const [userReview, setUserReview] = useState<UserReview | null>(null);
+  const [userDataLoading, setUserDataLoading] = useState(true);
 
   useEffect(() => {
     if (!clientToken || !query) return;
@@ -69,6 +71,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
     if (loading) return;
 
     const getUserReview = async () => {
+      setUserDataLoading(true);
       const res = await fetch("/api/user/review", {
         method: "POST",
         body: JSON.stringify({
@@ -79,8 +82,10 @@ const Album: React.FC<Props> = ({ reviews }) => {
       if (res.status === 200) {
         const data = (await res.json()) as UserReview;
         setUserReview(data);
+        setUserDataLoading(false);
       } else {
         setUserReview(null);
+        setUserDataLoading(false);
       }
     };
 
@@ -111,9 +116,19 @@ const Album: React.FC<Props> = ({ reviews }) => {
               <div className="text-lg">
                 {data.artists[0].name}
                 {data.artists.length > 1 &&
-                  data.artists.slice(1).map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+                  data.artists
+                    .slice(1)
+                    .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
               </div>
             </h1>
+            {session ? (
+              !userDataLoading && 
+              <div className="-mt-2">
+                <Rating userRating={userReview ? userReview.rating : 0} albumId={data.id} userId={parseInt(session.user.sub)}/>
+              </div>
+            ) : (
+              <div>Log in to review</div>
+            )}
           </div>
           <div className="flex-grow max-w-xl lg:ml-5">
             <span className="text-xl font-medium">Tracklist: </span>
@@ -126,7 +141,9 @@ const Album: React.FC<Props> = ({ reviews }) => {
                     <div>
                       {item.artists[0].name}
                       {item.artists.length > 1 &&
-                        item.artists.slice(1).map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+                        item.artists
+                          .slice(1)
+                          .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
                     </div>
                   </div>
                 </li>
@@ -138,15 +155,6 @@ const Album: React.FC<Props> = ({ reviews }) => {
               </h2>
             ) : (
               <h2>No ratings made for this album yet</h2>
-            )}
-            {session ? (
-              userReview ? (
-                <h3>Your review: {userReview.rating}</h3>
-              ) : (
-                <h3>No review made yet</h3>
-              )
-            ) : (
-              <h3>Log in to review</h3>
             )}
           </div>
         </main>

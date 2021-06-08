@@ -164,22 +164,22 @@
   resolved "https://registry.yarnpkg.com/@panva/asn1.js/-/asn1.js-1.0.0.tgz#dd55ae7b8129e02049f009408b97c61ccf9032f6"
   integrity sha512-UdkG3mLEqXgnlKsWanWcgb6dOjUzJ+XC5f+aWw30qrtjxeNUSfKX1cd5FBzOaXQumoe9nIqeZUvrRJS03HCCtw==
 
-"@prisma/client@^2.22.1":
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.22.1.tgz#10fdcd1532a6baf46dd1c464cad9a54af0532bc8"
-  integrity sha512-JQjbsY6QSfFiovXHEp5WeJHa5p2CuR1ZFPAeYXmUsOAQOaMCrhgQmKAL6w2Q3SRA7ALqPjrKywN9/QfBc4Kp1A==
+"@prisma/client@^2.24.1":
+  version "2.24.1"
+  resolved "https://registry.yarnpkg.com/@prisma/client/-/client-2.24.1.tgz#c4f26fb4d768dd52dd20a17e626f10e69cc0b85c"
+  integrity sha512-vllhf36g3oI98GF1Q5IPmnR5MYzBPeCcl/Xiz6EAi4DMOxE069o9ka5BAqYbUG2USx8JuKw09QdMnDrp3Kyn8g==
   dependencies:
-    "@prisma/engines-version" "2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c"
+    "@prisma/engines-version" "2.24.1-2.18095475d5ee64536e2f93995e48ad800737a9e4"
 
-"@prisma/engines-version@2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c":
-  version "2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c"
-  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c.tgz#e98ee17217a0ebb54f2f9314fbbfd610b05e6e31"
-  integrity sha512-OkkVwk6iTzTbwwl8JIKAENyxmh4TFORal55QMKQzrHEY8UzbD0M90mQnmziz3PAopQUZgTFFMlaPAq1WNrLMtA==
+"@prisma/engines-version@2.24.1-2.18095475d5ee64536e2f93995e48ad800737a9e4":
+  version "2.24.1-2.18095475d5ee64536e2f93995e48ad800737a9e4"
+  resolved "https://registry.yarnpkg.com/@prisma/engines-version/-/engines-version-2.24.1-2.18095475d5ee64536e2f93995e48ad800737a9e4.tgz#2c5813ef98bcbe659b18b521f002f5c8aabbaae2"
+  integrity sha512-60Do+ByVfHnhJ2id5h/lXOZnDQNIf5pz3enkKWOmyr744Z2IxkBu65jRckFfMN5cPtmXDre/Ay/GKm0aoeLwrw==
 
-"@prisma/engines@2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c":
-  version "2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c"
-  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c.tgz#4ccd255e0823605db3d8387a5195b6fdabe3b0c0"
-  integrity sha512-KmWdogrsfsSLYvfqY3cS3QcDGzaEFklE+T6dNJf+k/KPQum4A29IwDalafMwh5cMN8ivZobUbowNSwWJrMT08Q==
+"@prisma/engines@2.24.1-2.18095475d5ee64536e2f93995e48ad800737a9e4":
+  version "2.24.1-2.18095475d5ee64536e2f93995e48ad800737a9e4"
+  resolved "https://registry.yarnpkg.com/@prisma/engines/-/engines-2.24.1-2.18095475d5ee64536e2f93995e48ad800737a9e4.tgz#7e542d510f0c03f41b73edbb17254f5a0b272a4d"
+  integrity sha512-29/xO9kqeQka+wN5Ev10l5L4XQXNVXdPToJs1M29VZ2imQsNsL4rtz26m3qGM54IoGWwwfTVdvuVRxKnDl2rig==
 
 "@sqltools/formatter@^1.2.2":
   version "1.2.3"
@@ -2168,12 +2168,12 @@ pretty-hrtime@^1.0.3:
   resolved "https://registry.yarnpkg.com/pretty-hrtime/-/pretty-hrtime-1.0.3.tgz#b7e3ea42435a4c9b2759d99e0f201eb195802ee1"
   integrity sha1-t+PqQkNaTJsnWdmeDyAesZWALuE=
 
-prisma@^2.22.1:
-  version "2.22.1"
-  resolved "https://registry.yarnpkg.com/prisma/-/prisma-2.22.1.tgz#884687a90c7b797b34c6110ea413049078c8da6e"
-  integrity sha512-hwvCM3zyxgSda/+/p+GW7nz93jRebtMU01wAG7YVVnl0OKU+dpw1wPvPFmQRldkZHk8fTCleYmjc24WaSdVPZQ==
+prisma@^2.24.1:
+  version "2.24.1"
+  resolved "https://registry.yarnpkg.com/prisma/-/prisma-2.24.1.tgz#f8f4cb8baf407a71800256160277f69603bd43a3"
+  integrity sha512-L+ykMpttbWzpTNsy+PPynnEX/mS1s5zs49euXBrMjxXh1M6/f9MYlTNAj+iP90O9ZSaURSpNa+1jzatPghqUcQ==
   dependencies:
-    "@prisma/engines" "2.22.0-21.60cc71d884972ab4e897f0277c4b84383dddaf6c"
+    "@prisma/engines" "2.24.1-2.18095475d5ee64536e2f93995e48ad800737a9e4"
 
 process-nextick-args@~2.0.0:
   version "2.0.1"
@@ -2299,6 +2299,11 @@ react-is@16.13.1, react-is@^16.8.1:
   version "16.13.1"
   resolved "https://registry.yarnpkg.com/react-is/-/react-is-16.13.1.tgz#789729a4dc36de2999dc156dd6c1d9c18cea56a4"
   integrity sha512-24e6ynE2H+OKt4kqsOvNd8kBpV65zoxbA4BVsEOB3ARVWQki/DHzaUoC5KuON/BiccDaCCTZBuOcfZs70kR8bQ==
+
+react-rating-stars-component@^2.2.0:
+  version "2.2.0"
+  resolved "https://registry.yarnpkg.com/react-rating-stars-component/-/react-rating-stars-component-2.2.0.tgz#e947c6a1f59278e6fea1098453f43cb15d077c14"
+  integrity sha512-A3lgLxumfFQQicKQmxacZ91fq/zRaVWlCPnVodJmJV6obvod4/yCotetN9WuyBiUfnKsEFDBo/8B85ocwmL7ng==
 
 react-refresh@0.8.3:
   version "0.8.3"
