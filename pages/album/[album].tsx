@@ -151,7 +151,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
             </ul>
             {reviews ? (
               <h2>
-                Average ratings: {reviews[1].avg.rating}, based on {reviews[1].count.rating} users
+                Average ratings: {reviews[1].avg.rating?.toFixed(1)}, based on {reviews[1].count.rating} users
               </h2>
             ) : (
               <h2>No ratings made for this album yet</h2>
