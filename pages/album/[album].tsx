@@ -111,7 +111,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
               <div className="text-lg">
                 {data.artists[0].name}
                 {data.artists.length > 1 &&
-                  data.artists.slice(1).map((artist) => <span>, {artist.name}</span>)}
+                  data.artists.slice(1).map((artist) => <span key={artist.id}>, {artist.name}</span>)}
               </div>
             </h1>
           </div>
@@ -119,14 +119,14 @@ const Album: React.FC<Props> = ({ reviews }) => {
             <span className="text-xl font-medium">Tracklist: </span>
             <ul className="max-h-96 overflow-auto mt-1">
               {data.tracks.items.map((item, idx) => (
-                <li className="grid grid-cols-10 gap-1 mt-1">
+                <li key={item.id} className="grid grid-cols-10 gap-1 mt-1">
                   <span className="m-4 ml-0 sm:ml-4">{idx + 1}</span>
                   <div className="col-span-9">
                     <span className="text-text font-medium">{item.name}</span>
                     <div>
                       {item.artists[0].name}
                       {item.artists.length > 1 &&
-                        item.artists.slice(1).map((artist) => <span>, {artist.name}</span>)}
+                        item.artists.slice(1).map((artist) => <span key={artist.id}>, {artist.name}</span>)}
                     </div>
                   </div>
                 </li>

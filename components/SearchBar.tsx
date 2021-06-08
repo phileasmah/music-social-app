@@ -118,7 +118,7 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div className="absolute z-10 top-1.5 left-64 w-11/12 sm:w-1/3" ref={wrapperRef}>
+    <div className="absolute z-10 top-1.5 left-3 md:left-40 lg:left-60 w-11/12 lg:w-2/5 sm:w-1/2" ref={wrapperRef}>
       <div className="relative">
         <SearchIcon className="absolute h-5 w-5 top-1/2 -mt-2.5 left-5 text-input"/>
         {show && (artists || albums || error) && (

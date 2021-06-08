@@ -6,7 +6,7 @@ import SearchBar from "./SearchBar";
 
 const NavBar = () => {
   const [scroll, setScroll] = useState(false);
-  const [session] = useSession();
+  const [session, loading] = useSession();
 
   useEffect(() => {
     const handleScroll = () => {
@@ -28,7 +28,7 @@ const NavBar = () => {
           <a className="p-2 duration-200 text-text font-medium text-xl">Home</a>
         </Link>
         <div className="flex ml-auto">
-          {session ? (
+          {session && (
             <>
               <Link href={{ pathname: "/" }}>
                 <a className="flex items-center mx-6 duration-200 text-text">
@@ -51,13 +51,15 @@ const NavBar = () => {
                   )}
                 </a>
               </Link>
-              <button
-                onClick={() => signOut()}
-                className="hover:bg-lightgrey px-4 py-2 text-text font-semibold border border-lightgrey2 rounded duration-200"
-              >
-                Sign Out
-              </button>
             </>
+          )}
+          {session || loading ? (
+            <button
+              onClick={() => signOut()}
+              className="hover:bg-lightgrey px-4 py-2 text-text font-semibold border border-lightgrey2 rounded duration-200"
+            >
+              Sign Out
+            </button>
           ) : (
             <button
               onClick={() => signIn("spotify")}
