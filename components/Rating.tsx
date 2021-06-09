@@ -5,7 +5,7 @@ import ReactStars from "react-rating-stars-component";
 interface Props {
   userRating: number;
   albumId: string;
-  userId: string;
+  userId: number;
 }
 
 const Rating: React.FC<Props> = ({ userRating, albumId, userId }) => {

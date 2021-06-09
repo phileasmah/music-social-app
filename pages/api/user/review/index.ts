@@ -1,14 +1,13 @@
 import { NextApiRequest, NextApiResponse } from "next";
-import prisma from "../../../lib/prisma";
+import prisma from "../../../../lib/prisma";
 
 interface Request {
   albumId: string,
-  authorId: number
+  authorId: string
 }
 
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
-
+  
   const userData = JSON.parse(req.body) as Request;
 
   const userReview = await prisma.review.findUnique({

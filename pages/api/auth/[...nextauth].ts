@@ -1,6 +1,6 @@
+import { PrismaAdapter } from "@next-auth/prisma-adapter";
 import { PrismaClient } from "@prisma/client";
 import NextAuth, { Account, User } from "next-auth";
-import Adapters from "next-auth/adapters";
 import { JWT } from "next-auth/jwt";
 import Providers from "next-auth/providers";
 // import prisma from "../../../lib/prisma";
@@ -89,7 +89,7 @@ export default NextAuth({
       return session;
     },
   },
-  adapter: Adapters.Prisma.Adapter({ prisma }),
+  adapter: PrismaAdapter(prisma),
   jwt: {
     signingKey: process.env.JWT_SIGNING_PRIVATE_KEY,
   },

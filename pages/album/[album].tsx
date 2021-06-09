@@ -9,6 +9,7 @@ import { ApiContext } from "../../components/Contexts/ApiContext";
 import DefaultImage from "../../components/DefaultImage";
 import Error from "../../components/Error";
 import Rating from "../../components/Rating";
+import Reviews from "../../components/Reviews";
 import useGetApi from "../../lib/useGetApi";
 import { AlbumInfo } from "../../types/AlbumInfo";
 import { AlbumReview } from "../../types/AlbumReview";
@@ -20,7 +21,7 @@ interface URLProps extends ParsedUrlQuery {
 }
 
 interface Props {
-  reviews: AlbumReview | false;
+  reviews: AlbumReview | null;
 }
 
 export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (context) => {
@@ -35,7 +36,7 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
       props: { reviews },
     };
   } else {
-    const reviews = false;
+    const reviews = null;
     return {
       props: { reviews },
     };
@@ -51,14 +52,12 @@ const Album: React.FC<Props> = ({ reviews }) => {
   const [error, setError] = useState(false);
   const [userReview, setUserReview] = useState<UserReview | null>(null);
   const [userDataLoading, setUserDataLoading] = useState(true);
-
   useEffect(() => {
     if (!clientToken || !query) return;
     const getData = async () => {
       const res = await useGetApi<AlbumInfo>(clientToken?.access_token, `albums/${query}`);
       if (res.status == 200) {
         const response = res.data;
-        console.log(response);
         setData(response);
       } else {
         setError(true);
@@ -72,11 +71,12 @@ const Album: React.FC<Props> = ({ reviews }) => {
 
     const getUserReview = async () => {
       setUserDataLoading(true);
+      console.log(session);
       const res = await fetch("/api/user/review", {
         method: "POST",
         body: JSON.stringify({
           albumId: query,
-          authorId: parseInt(session?.user?.sub as string),
+          authorId: session?.user?.sub,
         }),
       });
       if (res.status === 200) {
@@ -98,7 +98,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
     <div>
       {error && <Error />}
       {data && (
-        <main className="w-11/12 lg:w-2/3 min-w-20 m-auto flex flex-col sm:flex-row max-w-6xl mt-9 items-start">
+        <main className="w-11/12 lg:w-2/3 min-w-20 m-auto flex flex-col sm:flex-row max-w-6xl mt-9 items-start justify-center">
           <div className="sm:sticky sm:top-24">
             {data.images.length != 0 ? (
               <Image
@@ -119,19 +119,36 @@ const Album: React.FC<Props> = ({ reviews }) => {
                   data.artists
                     .slice(1)
                     .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+                &nbsp; <span className="">·</span> &nbsp;{data.release_date.slice(0, 4)}
               </div>
             </h1>
             {session ? (
-              !userDataLoading && 
-              <div className="-mt-2">
-                <Rating userRating={userReview ? userReview.rating : 0} albumId={data.id} userId={parseInt(session.user.sub)}/>
-              </div>
+              !userDataLoading && (
+                <div className="-mt-2">
+                  <Rating
+                    userRating={userReview ? userReview.rating : 0}
+                    albumId={data.id}
+                    userId={session.user.sub}
+                  />
+                </div>
+              )
             ) : (
               <div>Log in to review</div>
             )}
+            <div>
+              {reviews ? (
+                <>
+                  {" "}
+                  Average ratings: {reviews[1].avg.rating?.toFixed(1)}, based on{" "}
+                  {reviews[1].count.rating} users{" "}
+                </>
+              ) : (
+                <>No ratings made for this album yet</>
+              )}
+            </div>
           </div>
           <div className="flex-grow max-w-xl lg:ml-5">
-            <span className="text-xl font-medium">Tracklist: </span>
+            <h2 className="text-xl font-medium">Tracklist: </h2>
             <ul className="max-h-96 overflow-auto mt-1">
               {data.tracks.items.map((item, idx) => (
                 <li key={item.id} className="grid grid-cols-10 gap-1 mt-1">
@@ -149,13 +166,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
                 </li>
               ))}
             </ul>
-            {reviews ? (
-              <h2>
-                Average ratings: {reviews[1].avg.rating?.toFixed(1)}, based on {reviews[1].count.rating} users
-              </h2>
-            ) : (
-              <h2>No ratings made for this album yet</h2>
-            )}
+            {reviews ? <Reviews reviews={reviews}/> : <div>No reviews made yet</div>} 
           </div>
         </main>
       )}

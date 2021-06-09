@@ -7,12 +7,15 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   }
   const { id } = req.query;
   const reviews = await prisma.review.findMany({
+    take: 3,
     where: {
       albumId: id as string,
+      review: {
+        not: null
+      }
     },
   });
   const average = await prisma.review.aggregate({
-    take: 3,
     avg: {
       rating: true,
     },
