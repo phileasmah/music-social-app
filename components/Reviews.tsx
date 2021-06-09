@@ -28,7 +28,7 @@ const Reviews: React.FC<Props> = ({ reviews }) => {
       const res = await fetch("/api/users", {
         method: "POST",
         body: JSON.stringify({
-          authordId: tmp
+          authordId: userIds
         })
       })
       if (res.status === 200) {
