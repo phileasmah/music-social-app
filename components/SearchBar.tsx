@@ -92,8 +92,10 @@ const SearchBar: React.FC = () => {
         }
         break;
       case "Enter":
+        console.log(cursor);
+        console.log(albums);
         if (cursor === -1) return;
-        if (cursor && albums) {
+        if (albums) {
           router.push("/album/" + albums[cursor].id);
         }
         break;
