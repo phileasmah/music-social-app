@@ -13,7 +13,7 @@ export interface Albums {
 }
 export interface AlbumItem {
   album_type: string;
-  artists?: (ArtistsEntity)[] | null;
+  artists: (ArtistsEntity)[];
   available_markets?: (string)[] | null;
   external_urls: ExternalUrls;
   href: string;

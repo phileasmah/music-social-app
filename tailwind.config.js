@@ -22,6 +22,7 @@ module.exports = {
     },
     extend: {
       colors: {
+        default: "#BDC1C6",
         text: "#E2E2E3",
         input: "#9CA3AF",
         option: "#E8EAED",
