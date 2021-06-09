@@ -4,7 +4,7 @@ import prisma from "../../../../lib/prisma";
 interface Request {
   rating: number,
   albumId: string,
-  authorId: number
+  authorId: string
 }
 
 

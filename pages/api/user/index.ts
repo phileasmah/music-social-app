@@ -2,7 +2,7 @@ import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../lib/prisma";
 
 interface Request {
-  authorId: number
+  authorId: string
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
