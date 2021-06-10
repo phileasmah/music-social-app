@@ -71,7 +71,6 @@ const Album: React.FC<Props> = ({ reviews }) => {
 
     const getUserReview = async () => {
       setUserDataLoading(true);
-      console.log(session);
       const res = await fetch("/api/user/review", {
         method: "POST",
         body: JSON.stringify({
@@ -166,7 +165,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
                 </li>
               ))}
             </ul>
-            {reviews ? <Reviews reviews={reviews}/> : <div>No reviews made yet</div>} 
+            {reviews ? <Reviews reviews={reviews} query={query}/> : <div>No reviews made yet</div>} 
           </div>
         </main>
       )}
