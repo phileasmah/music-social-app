@@ -30,9 +30,13 @@ module.exports = {
         lightgrey2: "#5F6368",
         lightgrey: "#303134",
         darkgrey: "#202124",
+        darkgrey2: "#232323"
       },
       boxShadow: {
         custom: "0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%)"
+      },
+      spacing: {
+        "70": "17.5rem"
       }
     }
   },
@@ -40,6 +44,8 @@ module.exports = {
     extend: {
       padding: ['hover', 'focus'],
       borderRadius: ['hover', 'focus'],
+      width: ["focus"],
+      height: ["focus"],
     },
   },
   plugins: [],

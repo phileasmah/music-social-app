@@ -97,8 +97,8 @@ const Album: React.FC<Props> = ({ reviews }) => {
     <div>
       {error && <Error />}
       {data && (
-        <main className="w-11/12 lg:w-2/3 min-w-20 m-auto flex flex-col sm:flex-row max-w-6xl mt-9 items-start justify-center">
-          <div className="sm:sticky sm:top-24">
+        <main className="w-11/12 lg:w-2/3 min-w-30 m-auto flex flex-col md:flex-row max-w-6xl mt-9 items-start justify-center">
+          <div className="m-auto md:m-0 md:sticky md:top-24 flex-none">
             {data.images.length != 0 ? (
               <Image
                 src={data.images[1].url}
@@ -122,22 +122,27 @@ const Album: React.FC<Props> = ({ reviews }) => {
               </div>
             </h1>
             {session ? (
-              !userDataLoading && (
+              !userDataLoading ? (
                 <div className="-mt-2">
                   <Rating
                     userRating={userReview ? userReview.rating : 0}
+                    userReview={userReview?.review ? userReview.review : ""}
                     albumId={data.id}
                     userId={session.user.sub}
                   />
                 </div>
+              ) : (
+                <div className="my-2 animate-pulse">
+                  <div className="h-9 mb-4 bg-lightgrey2 rounded"></div>
+                  <div className="h-40 bg-lightgrey2 rounded"></div>
+                </div>
               )
             ) : (
-              <div>Log in to review</div>
+              <div className="my-1 font-medium text-text">Log in to review</div>
             )}
             <div>
               {reviews ? (
                 <>
-                  {" "}
                   Average ratings: {reviews[1].avg.rating?.toFixed(1)}, based on{" "}
                   {reviews[1].count.rating} users{" "}
                 </>
@@ -146,13 +151,18 @@ const Album: React.FC<Props> = ({ reviews }) => {
               )}
             </div>
           </div>
-          <div className="flex-grow max-w-xl lg:ml-5">
+          <div className="flex-grow mx-5 mt-3 md:mt-0 md:max-w-xl sm:ml-3 lg:ml-5">
             <h2 className="text-xl font-medium">Tracklist: </h2>
             <ul className="max-h-96 overflow-auto mt-1">
               {data.tracks.items.map((item, idx) => (
-                <li key={item.id} className="grid grid-cols-10 gap-1 mt-1">
-                  <span className="m-4 ml-0 sm:ml-4">{idx + 1}</span>
-                  <div className="col-span-9">
+                <li
+                  key={item.id}
+                  className={`grid grid-cols-10 rounded-lg py-2 mr-2 ${
+                    idx % 2 == 0 && "border-2 border-lightgrey"
+                  }`}
+                >
+                  <span className="m-4">{idx + 1}</span>
+                  <div className="col-span-9 my-auto">
                     <span className="text-text font-medium">{item.name}</span>
                     <div>
                       {item.artists[0].name}
@@ -165,7 +175,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
                 </li>
               ))}
             </ul>
-            {reviews ? <Reviews reviews={reviews} query={query}/> : <div>No reviews made yet</div>} 
+            {reviews ? <Reviews reviews={reviews} query={query} /> : <div>No reviews made yet</div>}
           </div>
         </main>
       )}

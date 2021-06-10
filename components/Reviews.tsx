@@ -1,11 +1,12 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
+import ReactStars from "react-rating-stars-component";
 import { AlbumReview } from "../types/AlbumReview";
 import ReviewsLoading from "./ReviewsLoading";
 
 interface Props {
   reviews: AlbumReview;
-  query: string | string[] | undefined
+  query: string | string[] | undefined;
 }
 
 interface ReviewUserInfo {
@@ -20,15 +21,15 @@ interface ReviewUser {
 
 type ReviewUserResponse = ReviewUser[];
 
-const Reviews: React.FC<Props> = ({ reviews,query }) => {
-  
+const Reviews: React.FC<Props> = ({ reviews, query }) => {
   const [reviewUserInfo, setReviewUserInfo] = useState<ReviewUserInfo | null>(null);
 
   useEffect(() => {
+    setReviewUserInfo(null);
     if (reviews[0].length === 0) {
       setReviewUserInfo({});
       return;
-    };
+    }
     const getRecentUsers = async () => {
       const userIds = [];
       for (let i = 0; i < reviews[0].length; i++) {
@@ -40,7 +41,6 @@ const Reviews: React.FC<Props> = ({ reviews,query }) => {
           authordId: userIds,
         }),
       });
-      console.log(res);
       if (res.status === 200) {
         const tmpObj: ReviewUserInfo = {};
         const data = (await res.json()) as ReviewUserResponse;
@@ -84,11 +84,16 @@ const Reviews: React.FC<Props> = ({ reviews,query }) => {
                     )}
                   </div>
                   <div className="inline-block">
-                    <span className="text-sm font-normal">Review by </span>
-                    <span className="text-sm font-medium text-text">
-                      {reviewUserInfo[review.authorId].name}
-                    </span>
-                    <div className="mt-2">{review.review}</div>
+                    <div className="flex">
+                      <span className="text-sm font-normal mr-2">
+                        Review by{" "}
+                        <span className="text-sm font-medium text-text">
+                          {reviewUserInfo[review.authorId].name}{" "}
+                        </span>
+                      </span>
+                      <span className="-mt-1"><ReactStars value={review.rating} edit={false} isHalf={true} size={17}/></span>
+                    </div>
+                    <div className="mt-3">{review.review}</div>
                   </div>
                 </div>
               </li>

@@ -58,11 +58,10 @@ model VerificationRequest {
   @@unique([identifier, token])
 }
 
-
 model Review {
-  rating    Float   @db.Real
-  review    String? 
-  albumId   String      
+  rating    Float    @db.Real
+  review    String?  @db.Text
+  albumId   String
   likes     Int      @default(0)
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String   @map("author_id")
