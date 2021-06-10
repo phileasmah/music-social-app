@@ -1,7 +1,6 @@
 export type AlbumReview = [Review[], Avg]
 
 export interface Review {
-  id: number,
   rating: number, 
   review?: string,
   albumId: string,
