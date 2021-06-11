@@ -105,7 +105,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
     <div>
       {error && <Error />}
       {data && (
-        <main className="w-11/12 lg:w-4/5 xl:w-2/3 min-w-30 m-auto flex flex-col md:flex-row max-w-6xl mt-9 md:items-start justify-center">
+        <main className="w-11/12 lg:w-4/5 xl:w-2/3 min-w-20 m-auto flex flex-col md:flex-row max-w-6xl mt-9 md:items-start justify-center">
           <div className="mx-auto w-11/12 md:w-auto md:m-0 md:sticky md:top-24 md:flex-none">
             <div className="w-max mx-auto">
               <div className="w-max mx-auto">
@@ -121,11 +121,11 @@ const Album: React.FC<Props> = ({ reviews }) => {
                   <DefaultImage />
                 )}
               </div>
-              <h1 className="max-w-1/2 md:max-w-2xs text-center md:text-left">
-                <div className="max-w-xs w-max mx-auto md:w-auto md:mx-0">
+              <h1 className="max-w-3/4 md:max-w-2xs text-center md:text-left">
+                <div className="max-w-3/4  w-max mx-auto md:w-auto md:mx-0">
                   <b className="text-2xl">{data.name}</b>
                 </div>
-                <div className="text-lg max-w-1/2 w-max mx-auto md:w-auto">
+                <div className="text-lg max-w-3/4 w-max mx-auto md:w-auto">
                   {data.artists[0].name}
                   {data.artists.length > 1 &&
                     data.artists
@@ -139,7 +139,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
             <div className="w-max mx-auto">
               {session ? (
                 !userDataLoading ? (
-                  <div className="-mt-3">
+                  <div className="-mt-3 w-max mx-auto">
                     <Rating
                       userRating={userReview ? userReview.rating : 0}
                       userReview={userReview?.review ? userReview.review : ""}

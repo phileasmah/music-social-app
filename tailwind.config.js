@@ -41,6 +41,7 @@ module.exports = {
       maxWidth: {
         "1/2": "50vw",
         "3/4": "75vw",
+        "9/10": "90vw",
         "2xs": "17.5rem"
       }
     }
