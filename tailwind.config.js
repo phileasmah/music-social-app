@@ -37,6 +37,11 @@ module.exports = {
       },
       spacing: {
         "70": "17.5rem"
+      },
+      maxWidth: {
+        "1/2": "50vw",
+        "3/4": "75vw",
+        "2xs": "17.5rem"
       }
     }
   },
@@ -44,8 +49,10 @@ module.exports = {
     extend: {
       padding: ['hover', 'focus'],
       borderRadius: ['hover', 'focus'],
+      margin: ["focus"],
       width: ["focus"],
       height: ["focus"],
+      overflow: ['hover']
     },
   },
   plugins: [],

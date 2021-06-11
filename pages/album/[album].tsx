@@ -93,54 +93,72 @@ const Album: React.FC<Props> = ({ reviews }) => {
     }
   }, [loading, query]);
 
+  const millisToMinutesAndSeconds = (milli: number) => {
+    const minutes = Math.floor(milli / 60000);
+    const seconds = Math.floor((milli % 60000) / 1000);
+    return seconds == 60
+      ? minutes + 1 + ":00"
+      : minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
+  };
+
   return (
     <div>
       {error && <Error />}
       {data && (
-        <main className="w-11/12 lg:w-2/3 min-w-30 m-auto flex flex-col md:flex-row max-w-6xl mt-9 items-start justify-center">
-          <div className="m-auto md:m-0 md:sticky md:top-24 flex-none">
-            {data.images.length != 0 ? (
-              <Image
-                src={data.images[1].url}
-                alt={"Picture of " + data.name}
-                width={280}
-                height={280}
-                className="rounded-lg"
-              />
-            ) : (
-              <DefaultImage />
-            )}
-            <h1>
-              <b className="text-2xl">{data.name}</b>
-              <div className="text-lg">
-                {data.artists[0].name}
-                {data.artists.length > 1 &&
-                  data.artists
-                    .slice(1)
-                    .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
-                &nbsp; <span className="">·</span> &nbsp;{data.release_date.slice(0, 4)}
-              </div>
-            </h1>
-            {session ? (
-              !userDataLoading ? (
-                <div className="-mt-2">
-                  <Rating
-                    userRating={userReview ? userReview.rating : 0}
-                    userReview={userReview?.review ? userReview.review : ""}
-                    albumId={data.id}
-                    userId={session.user.sub}
+        <main className="w-11/12 lg:w-4/5 xl:w-2/3 min-w-30 m-auto flex flex-col md:flex-row max-w-6xl mt-9 md:items-start justify-center">
+          <div className="mx-auto w-11/12 md:w-auto md:m-0 md:sticky md:top-24 md:flex-none">
+            <div className="w-max mx-auto">
+              <div className="w-max mx-auto">
+                {data.images.length != 0 ? (
+                  <Image
+                    src={data.images[1].url}
+                    alt={"Picture of " + data.name}
+                    width={280}
+                    height={280}
+                    className="rounded-lg"
                   />
+                ) : (
+                  <DefaultImage />
+                )}
+              </div>
+              <h1 className="max-w-1/2 md:max-w-2xs text-center md:text-left">
+                <div className="max-w-xs w-max mx-auto md:w-auto md:mx-0">
+                  <b className="text-2xl">{data.name}</b>
                 </div>
+                <div className="text-lg max-w-1/2 w-max mx-auto md:w-auto">
+                  {data.artists[0].name}
+                  {data.artists.length > 1 &&
+                    data.artists
+                      .slice(1)
+                      .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+                  &nbsp; <span className="">·</span> &nbsp;{data.release_date.slice(0, 4)}
+                </div>
+              </h1>
+            </div>
+
+            <div className="w-max mx-auto">
+              {session ? (
+                !userDataLoading ? (
+                  <div className="-mt-3">
+                    <Rating
+                      userRating={userReview ? userReview.rating : 0}
+                      userReview={userReview?.review ? userReview.review : ""}
+                      albumId={data.id}
+                      userId={session.user.sub}
+                    />
+                  </div>
+                ) : (
+                  <div className="w-70 my-2 animate-pulse">
+                    <div className="h-9 mb-4 bg-lightgrey2 rounded"></div>
+                    <div className="h-40 bg-lightgrey2 rounded"></div>
+                  </div>
+                )
               ) : (
-                <div className="my-2 animate-pulse">
-                  <div className="h-9 mb-4 bg-lightgrey2 rounded"></div>
-                  <div className="h-40 bg-lightgrey2 rounded"></div>
-                </div>
-              )
-            ) : (
-              <div className="my-1 font-medium text-text">Log in to review</div>
-            )}
-            <div>
+                <div className="my-1 font-medium text-text  ">Log in to review</div>
+              )}
+            </div>
+
+            <div className="mx-auto w-max">
               {reviews ? (
                 <>
                   Average ratings: {reviews[1].avg.rating?.toFixed(1)}, based on{" "}
@@ -151,19 +169,19 @@ const Album: React.FC<Props> = ({ reviews }) => {
               )}
             </div>
           </div>
-          <div className="flex-grow mx-5 mt-3 md:mt-0 md:max-w-xl sm:ml-3 lg:ml-5">
+          <div className="flex-grow ml-5 mt-3 md:mt-0 md:max-w-2xl sm:ml-3 lg:ml-5">
             <h2 className="text-xl font-medium">Tracklist: </h2>
-            <ul className="max-h-96 overflow-auto mt-1">
+            <ul className="max-h-96 overflow-auto mt-1 duration-200">
               {data.tracks.items.map((item, idx) => (
                 <li
                   key={item.id}
-                  className={`grid grid-cols-10 rounded-lg py-2 mr-2 ${
+                  className={`grid grid-cols-10 rounded-lg py-2 ${
                     idx % 2 == 0 && "border-2 border-lightgrey"
                   }`}
                 >
-                  <span className="m-4">{idx + 1}</span>
-                  <div className="col-span-9 my-auto">
-                    <span className="text-text font-medium">{item.name}</span>
+                  <span className="col-span-1 my-auto ml-3">{idx + 1}</span>
+                  <div className="col-span-8 my-auto ml-2">
+                    <span className="text-text font-semibold">{item.name}</span>
                     <div>
                       {item.artists[0].name}
                       {item.artists.length > 1 &&
@@ -171,6 +189,9 @@ const Album: React.FC<Props> = ({ reviews }) => {
                           .slice(1)
                           .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
                     </div>
+                  </div>
+                  <div className="col-span-1 my-auto font-medium -ml-3">
+                    {millisToMinutesAndSeconds(item.duration_ms)}
                   </div>
                 </li>
               ))}

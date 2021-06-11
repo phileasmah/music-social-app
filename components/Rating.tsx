@@ -39,7 +39,7 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
 
   return (
     <div>
-      <div className="flex">
+      <div className="flex w-max mx-auto">
         <ReactStars value={userRating} size={40} isHalf={true} onChange={handleChange} />
         {loading && (
           <svg
@@ -58,7 +58,7 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
       <textarea
         name=""
         id=""
-        className="resize-none bg-lightgrey rounded-lg p-3 w-70 duration-200 transform focus:h-70"
+        className="resize-none bg-lightgrey rounded-lg p-3 w-70 h-40 duration-200 transform focus:h-60 focus:w-96 md:focus:h-60 md:focus:w-80 lg:focus:h-60 lg:focus:w-96"
         defaultValue={userReview}
       >
       </textarea>

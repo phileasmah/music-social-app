@@ -23,3 +23,15 @@ input {
 #nprogress .bar {
   background: #94B6F2;
 }
+
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #636466;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #a6a8ac;
+}
