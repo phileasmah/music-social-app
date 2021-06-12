@@ -169,7 +169,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
               )}
             </div>
           </div>
-          <div className="flex-grow mx-auto md:ml-5 mt-3 md:mt-0 md:max-w-2xl sm:ml-3 lg:ml-5">
+          <div className="flex-grow w-11/12 md:w-auto mx-auto md:ml-5 mt-3 md:mt-0 md:max-w-2xl sm:ml-3 lg:ml-5">
             <h2 className="text-xl font-medium">Tracklist: </h2>
             <ul className="max-h-96 overflow-auto mt-1 duration-200">
               {data.tracks.items.map((item, idx) => (
