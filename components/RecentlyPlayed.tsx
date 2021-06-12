@@ -3,6 +3,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import useGetApi from "../lib/useGetApi";
 import { RecentlyPlayedType, Tracks } from "../types/RecentlyPlayedType";
+import RecentlyPlayedLoading from "./RecentlyPlayedLoading";
 
 interface Props {
   token: string;
@@ -48,43 +49,51 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
   }, []);
 
   return (
-    <div>
-      <div>Recently Played:</div>
+    <div className="w-max max-w-9/10 mx-auto mt-3">
+      <h1 className="text-text font-medium text-xl mb-2">Recently Played:</h1>
       {loading ? (
-        <div>Loading...</div>
-      ) : privateSession ? <div>Turn off private session to see your recently played albums</div> : (
-        recents ?
-        recents.map((r) => (
-          <div key={r.track.album.id}>
-            {r.track.album.images.length ? (
-              <Link
-                href={{
-                  pathname: "album/[slug]",
-                  query: {
-                    slug: r.track.album.id,
-                  },
-                }}
-              >
-                <div className="w-1/6">
-                  <Image
-                    src={r.track.album.images[1].url}
-                    alt={r.track.album.name + " album art"}
-                    width={200}
-                    height={200}
-                  />
-                </div>
-              </Link>
-            ) : (
-              <div>No picture found</div>
-            )}
-            <b>{r.track.album.name}</b>
-            <div>
-            by {r.track.artists[0].name}
-            {r.track.artists.length > 1 &&
-                  r.track.artists.slice(1).map((artist) => <span key={artist.id}>, {artist.name}</span>)}
-            </div> 
-          </div>
-        )) : <div>No recently played music on this account</div>
+        <RecentlyPlayedLoading />
+      ) : privateSession ? (
+        <div>Turn off private session to see your recently played albums</div>
+      ) : recents ? (
+        <div className="flex flex-row flex-nowrap overflow-auto"> 
+          {recents.map((r) => (
+            <div key={r.track.album.id} className="w-80 flex-shrink-0">
+              {r.track.album.images.length ? (
+                <Link
+                  href={{
+                    pathname: "album/[slug]",
+                    query: {
+                      slug: r.track.album.id,
+                    },
+                  }}
+                >
+                  <div className="">
+                    <Image
+                      src={r.track.album.images[1].url}
+                      alt={r.track.album.name + " album art"}
+                      width={270}
+                      height={270}
+                      className="rounded-md"
+                    />
+                  </div>
+                </Link>
+              ) : (
+                <div>No picture found</div>
+              )}
+              <b>{r.track.album.name}</b>
+              <div>
+                by {r.track.artists[0].name}
+                {r.track.artists.length > 1 &&
+                  r.track.artists
+                    .slice(1)
+                    .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+              </div>
+            </div>
+          ))}{" "}
+        </div>
+      ) : (
+        <div>No recently played music on this account</div>
       )}
     </div>
   );
