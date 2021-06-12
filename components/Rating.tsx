@@ -58,7 +58,7 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
       <textarea
         name=""
         id=""
-        className="resize-none bg-lightgrey rounded-lg p-3 w-70 h-40 duration-200 transform max-w-3/4 focus:h-60 focus:w-96 md:focus:w-80 lg:focus:w-96"
+        className="resize-none bg-lightgrey rounded-lg p-3 w-70 h-40 duration-200 transform max-w-9/10 focus:h-60 focus:w-96 md:focus:w-80 lg:focus:w-96"
         defaultValue={userReview}
       >
       </textarea>
