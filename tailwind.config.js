@@ -53,7 +53,8 @@ module.exports = {
       margin: ["focus"],
       width: ["focus"],
       height: ["focus"],
-      overflow: ['hover']
+      overflow: ['hover'],
+      scale: ["group-focus"]
     },
   },
   plugins: [],
