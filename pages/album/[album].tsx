@@ -105,7 +105,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
     <div>
       {error && <Error />}
       {data && (
-        <main className="w-11/12 lg:w-4/5 xl:w-2/3 min-w-20 m-auto flex flex-col md:flex-row max-w-6xl mt-9 md:items-start justify-center">
+        <main className="w-full lg:w-4/5 xl:w-2/3 min-w-20 m-auto flex flex-col md:flex-row max-w-6xl mt-9 md:items-start md:justify-center md:gap-x-5">
           <div className="mx-auto w-full md:w-auto md:m-0 md:sticky md:top-24 md:flex-none">
             <div className="w-max mx-auto">
               <div className="w-max mx-auto">
@@ -169,7 +169,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
               )}
             </div>
           </div>
-          <div className="flex-grow w-11/12 md:w-auto mx-auto md:ml-5 mt-3 md:mt-0 md:max-w-2xl sm:ml-3 lg:ml-5">
+          <div className="flex-grow w-11/12 md:w-auto mx-auto md:mx-0 mt-3 md:mt-0 md:max-w-2xl">
             <h2 className="text-xl font-medium">Tracklist: </h2>
             <ul className="max-h-96 overflow-auto mt-1 duration-200">
               {data.tracks.items.map((item, idx) => (
