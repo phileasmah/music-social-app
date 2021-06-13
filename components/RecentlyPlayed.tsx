@@ -49,14 +49,14 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
   }, []);
 
   return (
-    <div className="max-w-9/10 md:max-w-3/4 mx-auto mt-3">
+    <div className="max-w-9/10 2xl:max-w-max mx-auto mt-3">
       <h1 className="text-text font-medium text-xl mb-2">Recently Played:</h1>
       {loading ? (
         <RecentlyPlayedLoading />
       ) : privateSession ? (
         <div>Turn off private session to see your recently played albums</div>
       ) : recents ? (
-        <div className="flex gap-x-10 flex-row flex-nowrap overflow-auto justify-between ">
+        <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between ">
           {recents.map((r) => (
             <Link
               href={{
@@ -72,25 +72,25 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
               >
                 <div className="transform duration-200 hover:scale-90 group-focus:scale-90">
                   {r.track.album.images.length ? (
-                    <div className="">
-                      <Image
-                        src={r.track.album.images[1].url}
-                        alt={r.track.album.name + " album art"}
-                        width={270}
-                        height={270}
-                        className="rounded-md"
-                      />
-                    </div>
+                    <Image
+                      src={r.track.album.images[1].url}
+                      alt={r.track.album.name + " album art"}
+                      width={260}
+                      height={260}
+                      className="rounded-md"
+                    />
                   ) : (
                     <div>No picture found</div>
                   )}
-                  <b>{r.track.album.name}</b>
-                  <div>
-                    by {r.track.artists[0].name}
-                    {r.track.artists.length > 1 &&
-                      r.track.artists
-                        .slice(1)
-                        .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+                  <div className="w-64">
+                    <b>{r.track.album.name}</b>
+                    <div>
+                      by {r.track.artists[0].name}
+                      {r.track.artists.length > 1 &&
+                        r.track.artists
+                          .slice(1)
+                          .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+                    </div>
                   </div>
                 </div>
               </a>

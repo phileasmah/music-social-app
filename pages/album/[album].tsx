@@ -105,7 +105,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
     <div>
       {error && <Error />}
       {data && (
-        <main className="w-full lg:w-4/5 xl:w-2/3 min-w-20 m-auto flex flex-col md:flex-row max-w-6xl mt-9 md:items-start md:justify-center md:gap-x-5">
+        <main className="w-full md:w-11/12 lg:w-4/5 xl:w-2/3 min-w-20 m-auto flex flex-col md:flex-row max-w-6xl mt-9 md:items-start md:justify-center md:gap-x-5">
           <div className="mx-auto w-full md:w-auto md:m-0 md:sticky md:top-24 md:flex-none">
             <div className="w-max mx-auto">
               <div className="w-max mx-auto">
@@ -141,7 +141,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
                 !userDataLoading ? (
                   <div className="-mt-3 w-max mx-auto">
                     <Rating
-                      userRating={userReview ? userReview.rating : 0}
+                      userRating={userReview ? userReview.rating : null}
                       userReview={userReview?.review ? userReview.review : ""}
                       albumId={data.id}
                       userId={session.user.sub}
@@ -179,8 +179,8 @@ const Album: React.FC<Props> = ({ reviews }) => {
                     idx % 2 == 0 && "border-2 border-lightgrey"
                   }`}
                 >
-                  <span className="col-span-1 my-auto ml-3">{idx + 1}</span>
-                  <div className="col-span-8 my-auto ml-2">
+                  <span className="col-span-1 my-auto ml-3 lg:ml-5">{idx + 1}</span>
+                  <div className="col-span-8 my-auto mr-3 md:mr-2 ml-2">
                     <span className="text-text font-semibold">{item.name}</span>
                     <div>
                       {item.artists[0].name}
@@ -190,7 +190,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
                           .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
                     </div>
                   </div>
-                  <div className="col-span-1 my-auto font-medium -ml-3">
+                  <div className="col-span-1 my-auto font-medium -ml-2 md:ml-0">
                     {millisToMinutesAndSeconds(item.duration_ms)}
                   </div>
                 </li>

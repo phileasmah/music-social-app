@@ -1,9 +1,10 @@
 import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/outline";
+import { XIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
 
 interface Props {
-  userRating: number;
+  userRating: number | null;
   userReview: string;
   albumId: string;
   userId: number;
@@ -12,11 +13,12 @@ interface Props {
 const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) => {
   const [resSuccess, setResSuccess] = useState<null | boolean>(null);
   const [loading, setLoading] = useState(false);
+  const [clearButton, setClearButton] = useState(false);
 
   const handleChange = async (newRating: number) => {
     let method;
     setLoading(true);
-    if (userRating === 0) {
+    if (userRating === null) {
       method = "create";
     } else {
       method = "update";
@@ -39,20 +41,29 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
 
   return (
     <div>
-      <div className="flex w-max mx-auto">
-        <ReactStars value={userRating} size={40} isHalf={true} onChange={handleChange} />
+      <div
+        className="flex w-max mx-auto"
+        onMouseEnter={() => setClearButton(true)}
+        onMouseLeave={() => setClearButton(false)}
+      >
+        {clearButton && (
+          <button onClick={() => {handleChange(0)}}>
+            <XIcon className="mt-2 w-5 h-5 mr-1.5 text-red-500" />
+          </button>
+        )}
+        <ReactStars value={userRating === null ? 0 : userRating} size={40} isHalf={true} onChange={handleChange} />
         {loading && (
           <svg
-            className="animate-spin w-4 h-4 ml-2 mt-6 rounded-full bg-transparent border-2 border-transparent border-opacity-50"
+            className="animate-spin w-4 h-4 ml-1.5 mt-6 rounded-full bg-transparent border-2 border-transparent border-opacity-50"
             style={{ borderRightColor: "#9CA3AF", borderTopColor: "#9CA3AF" }}
             viewBox="0 0 20 20"
           ></svg>
         )}
         {resSuccess === true && !loading && (
-          <CheckCircleIcon className="w-5 h-5 ml-2 mt-6 text-green-500" />
+          <CheckCircleIcon className="w-5 h-5 ml-1.5 mt-6 text-green-500" />
         )}
         {resSuccess === false && !loading && (
-          <ExclamationCircleIcon className="w-5 h-5 ml-2 mt-6 text-red-500" />
+          <ExclamationCircleIcon className="w-5 h-5 ml-1.5 mt-6 text-red-500" />
         )}
       </div>
       <textarea
@@ -60,8 +71,7 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
         id=""
         className="resize-none bg-lightgrey rounded-lg p-3 w-70 h-40 duration-200 transform max-w-9/10 focus:h-60 focus:w-96 md:focus:w-80 lg:focus:w-96"
         defaultValue={userReview}
-      >
-      </textarea>
+      ></textarea>
     </div>
   );
 };
