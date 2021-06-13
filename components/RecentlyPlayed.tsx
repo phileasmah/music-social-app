@@ -65,11 +65,9 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
                   slug: r.track.album.id,
                 },
               }}
+              key={r.track.album.id}
             >
-              <a
-                key={r.track.album.id}
-                className="group flex flex-col flex-shrink-0 rounded-lg focus:bg-lightgrey hover:bg-lightgrey duration-300 border-2 border-darkgrey hover:border-lightgrey2 focus:border-lightgrey2"
-              >
+              <a className="group flex flex-col flex-shrink-0 rounded-lg focus:bg-lightgrey hover:bg-lightgrey duration-300 border-2 border-darkgrey hover:border-lightgrey2 focus:border-lightgrey2">
                 <div className="transform duration-200 hover:scale-90 group-focus:scale-90">
                   {r.track.album.images.length ? (
                     <Image

@@ -30,7 +30,8 @@ const NavBar = () => {
         <div className="flex ml-auto">
           {session && (
             <>
-              <Link href={{ pathname: "/" }}>
+              {console.log(session)}
+              <Link href={{ pathname: `/` }}>
                 <a className="flex items-center mx-6 duration-200 text-text">
                   {session.user.image ? (
                     <Image
