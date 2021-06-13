@@ -104,7 +104,7 @@ const SearchBar: React.FC = () => {
 
   return (
     <div
-      className="absolute z-10 top-1.5 left-3 md:left-40 lg:left-60 w-11/12 lg:w-2/5 sm:w-1/2"
+      className="absolute z-10 top-2 left-3 md:left-40 lg:left-60 w-11/12 lg:w-2/5 sm:w-1/2"
       ref={wrapperRef}
     >
       <div className="relative">
@@ -125,7 +125,7 @@ const SearchBar: React.FC = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search for artist or album"
-          className="h-full w-full border-gray-300 py-3.5 pl-12 pr-6 rounded-xl duration-200 transition-all align-middle"
+          className="h-full w-full text-option bg-lightgrey focus:bg-lightgrey py-3.5 pl-12 pr-6 rounded-md focus:rounded-xl duration-100 transition-all align-middle"
           onClick={() => setShow(true)}
           onKeyDown={handleKeyDown}
         />

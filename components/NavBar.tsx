@@ -22,7 +22,7 @@ const NavBar = () => {
   }, []);
 
   return (
-    <nav className="sticky top-0 bg-darkgrey z-10">
+    <nav className={`sticky top-0 bg-darkgrey z-10 ${!scroll && "border-lightgrey2 border-b-2"}`}>
       <div className={`flex h-16 items-center ${scroll && "shadow-custom"} px-10`}>
         <Link href={{ pathname: "/" }}>
           <a className="p-2 duration-200 text-text font-medium text-xl">Home</a>
@@ -72,7 +72,6 @@ const NavBar = () => {
         </div>
         <SearchBar />
       </div>
-      {!scroll && <hr className="border-lightgrey2 border-t-2" />}
     </nav>
   );
 };
