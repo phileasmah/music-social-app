@@ -116,7 +116,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
                     className="rounded-lg"
                   />
                 ) : (
-                  <DefaultImage />
+                  <DefaultImage width={280} height={280} className="rounded-lg" />
                 )}
               </div>
               <h1 className="max-w-3/4 md:max-w-2xs text-center md:text-left">
