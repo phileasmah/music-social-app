@@ -1,7 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
-import { AlbumItem, ArtistItem } from "../types/SearchType";
-import DefaultImage from "./DefaultImage";
+import { AlbumItem, ArtistItem } from "../../../types/SearchType";
+import DefaultImage from "../../DefaultImage";
 
 interface Props<T extends "album" | "artist"> {
   search: T;

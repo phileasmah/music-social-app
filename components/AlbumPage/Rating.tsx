@@ -31,12 +31,12 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
         authorId: userId,
       }),
     });
-    setLoading(false);
     if (res.ok) {
       setResSuccess(true);
     } else {
       setResSuccess(false);
     }
+    setLoading(false);
   };
 
   return (

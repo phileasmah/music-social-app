@@ -27,10 +27,12 @@ module.exports = {
         input: "#9CA3AF",
         option: "#E8EAED",
         lightblue: "#94B6F2",
-        lightgrey2: "#5F6368",
         lightgrey: "#303134",
+        lightgrey2: "#5F6368",
+        lightgrey3: "#39373A",
         darkgrey: "#202124",
-        darkgrey2: "#232323"
+        darkgrey2: "#232323",
+        darkgrey3: "#2E2B2E"
       },
       boxShadow: {
         custom: "0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%)"

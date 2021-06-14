@@ -5,11 +5,11 @@ import Image from "next/image";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
 import { useContext, useEffect, useState } from "react";
+import Rating from "../../components/AlbumPage/Rating";
+import Reviews from "../../components/AlbumPage/Reviews";
 import { ApiContext } from "../../components/Contexts/ApiContext";
 import DefaultImage from "../../components/DefaultImage";
 import Error from "../../components/Error";
-import Rating from "../../components/Rating";
-import Reviews from "../../components/Reviews";
 import useGetApi from "../../lib/useGetApi";
 import { AlbumInfo } from "../../types/AlbumInfo";
 import { AlbumReview } from "../../types/AlbumReview";
@@ -30,17 +30,15 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
     url: `api/review/${context.params?.album}`,
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   })) as AxiosResponse;
+  let reviews;
   if (res.status == 200) {
-    const reviews = res.data;
-    return {
-      props: { reviews },
-    };
+    reviews = res.data;
   } else {
-    const reviews = null;
-    return {
-      props: { reviews },
-    };
+    reviews = null;
   }
+  return {
+    props: { reviews },
+  };
 };
 
 const Album: React.FC<Props> = ({ reviews }) => {

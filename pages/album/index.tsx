@@ -1,14 +1,14 @@
 import { useSession } from "next-auth/client";
 
-const Profile = () => {
+const Album = () => {
   const [session, loading] = useSession();
 
   return (
     <div>
       {console.log(session)}
-      <div>Loading...</div>
+      <div>album</div>
     </div>
   );
 };
 
-export default Profile;
+export default Album;

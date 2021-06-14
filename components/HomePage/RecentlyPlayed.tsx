@@ -1,8 +1,8 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import useGetApi from "../lib/useGetApi";
-import { RecentlyPlayedType, Tracks } from "../types/RecentlyPlayedType";
+import useGetApi from "../../lib/useGetApi";
+import { RecentlyPlayedType, Tracks } from "../../types/RecentlyPlayedType";
 import RecentlyPlayedLoading from "./RecentlyPlayedLoading";
 
 interface Props {

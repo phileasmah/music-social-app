@@ -5,7 +5,7 @@ import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useEffect, useMemo, useState } from "react";
 import { ApiContext } from "../components/Contexts/ApiContext";
-import NavBar from "../components/NavBar";
+import NavBar from "../components/NavBar/NavBar";
 import "../styles/globals.css";
 import { ClientToken } from "../types/ClientToken";
 

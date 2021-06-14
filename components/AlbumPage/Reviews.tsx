@@ -1,7 +1,8 @@
 import Image from "next/image";
 import { useEffect, useState } from "react";
 import ReactStars from "react-rating-stars-component";
-import { AlbumReview } from "../types/AlbumReview";
+import { AlbumReview } from "../../types/AlbumReview";
+import DefaultImage from "../DefaultImage";
 import ReviewsLoading from "./ReviewsLoading";
 
 interface Props {
@@ -75,12 +76,7 @@ const Reviews: React.FC<Props> = ({ reviews, query }) => {
                         className="rounded-full"
                       />
                     ) : (
-                      <Image
-                        src={"/default_profile_pic.png"}
-                        width={39}
-                        height={39}
-                        className="rounded-full"
-                      />
+                      <DefaultImage height={39} width={39} className={"rounded-full"}/>
                     )}
                   </div>
                   <div className="inline-block">

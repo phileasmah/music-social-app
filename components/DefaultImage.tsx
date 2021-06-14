@@ -1,7 +1,15 @@
+import Image from "next/image";
 
-const DefaultImage = () => {
+interface Props{
+  width: number,
+  height: number,
+  className?: string 
+}
+
+
+const DefaultImage:React.FC<Props> = ({height, width, className = ""}) => {
   return (
-    <div>No image</div>
+    <Image src={"/default_profile_pic.png"} width={width} height={height} className={className} />
   ) 
 }
 

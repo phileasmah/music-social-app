@@ -1,8 +1,8 @@
 import { signIn, useSession } from "next-auth/client";
 import Head from "next/head";
 import React, { useEffect } from "react";
+import RecentlyPlayed from "../components/HomePage/RecentlyPlayed";
 import Loading from "../components/Loading.tsx";
-import RecentlyPlayed from "../components/RecentlyPlayed.tsx";
 
 const Home = () => {
   const [session, loading] = useSession();

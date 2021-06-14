@@ -2,7 +2,7 @@ import { signIn, signOut, useSession } from "next-auth/client";
 import Image from "next/image";
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import SearchBar from "./SearchBar";
+import SearchBar from "./Searchbar/SearchBar";
 
 const NavBar = () => {
   const [scroll, setScroll] = useState(false);
@@ -30,8 +30,7 @@ const NavBar = () => {
         <div className="flex ml-auto">
           {session && (
             <>
-              {console.log(session)}
-              <Link href={{ pathname: `/` }}>
+              <Link href={{ pathname: `/${session.user.id}` }}>
                 <a className="flex items-center mx-6 duration-200 text-text">
                   {session.user.image ? (
                     <Image
