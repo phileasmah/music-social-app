@@ -22,7 +22,7 @@ const SearchItem = <T extends "album" | "artist">({ search, item }: Props<T>) =>
               className="rounded-full"
             />
           ) : (
-            <DefaultImage />
+            <DefaultImage height={77} width={77} className="rounded-full" />
           )}
         </div>
         <div className="ml-4 my-auto">
