@@ -60,7 +60,7 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
               <ExclamationCircleIcon className="lute top-2 -left-9 w-6 h-6 text-red-500" />
             )}
             <input
-              value={newUsernameInput}
+              defaultValue={newUsernameInput}
               readOnly={loading}
               placeholder={userProfileInfo[0].name}
               className="bg-lightgrey text-text p-2 rounded-lg"

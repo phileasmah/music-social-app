@@ -59,7 +59,7 @@ model VerificationRequest {
 }
 
 model Review {
-  rating    Float    @db.Real
+  rating    Float?    @db.Real
   review    String?  @db.Text
   albumId   String
   likes     Int      @default(0)

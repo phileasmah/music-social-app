@@ -2,6 +2,7 @@ import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/outline
 import { XIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
+import RatingReview from "./RatingReview";
 
 interface Props {
   userRating: number | null;
@@ -15,7 +16,7 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
   const [loading, setLoading] = useState(false);
   const [clearButton, setClearButton] = useState(false);
 
-  const handleChange = async (newRating: number) => {
+  const handleChange = async (newRating: number | null, newReview: string | null) => {
     let method;
     setLoading(true);
     if (userRating === null) {
@@ -26,9 +27,10 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
     const res = await fetch(`/api/user/review/${method}`, {
       method: "POST",
       body: JSON.stringify({
-        rating: newRating,
         albumId: albumId,
         authorId: userId,
+        rating: newRating,
+        review: newReview
       }),
     });
     if (res.ok) {
@@ -42,13 +44,13 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
   return (
     <div>
       <div
-        className="flex w-max mx-auto"
+        className="flex justify-center w-3/4 mx-auto"
         onMouseEnter={() => setClearButton(true)}
         onMouseLeave={() => setClearButton(false)}
       >
         {clearButton && (
-          <button onClick={() => {handleChange(0)}}>
-            <XIcon className="mt-2 w-5 h-5 mr-1.5 text-red-500" />
+          <button onClick={() => handleChange(0, null)} className="relative">
+            <XIcon className="absolute -left-6 bottom-4 w-5 h-5 text-red-500" />
           </button>
         )}
         <ReactStars value={userRating === null ? 0 : userRating} size={40} isHalf={true} onChange={handleChange} />
@@ -66,12 +68,7 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
           <ExclamationCircleIcon className="w-5 h-5 ml-1.5 mt-6 text-red-500" />
         )}
       </div>
-      <textarea
-        name=""
-        id=""
-        className="resize-none bg-lightgrey rounded-lg p-3 w-70 h-40 duration-200 transform max-w-9/10 focus:h-60 focus:w-96 md:focus:w-80 lg:focus:w-96"
-        defaultValue={userReview}
-      ></textarea>
+      <RatingReview userReview={userReview} handler={handleChange} loading={loading} resSuccess={resSuccess} />
     </div>
   );
 };
