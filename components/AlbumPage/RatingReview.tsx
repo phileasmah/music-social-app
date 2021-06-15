@@ -4,10 +4,9 @@ interface Props {
   userReview: string;
   handler: (newRating: number | null, newReview: string | null) => Promise<void>;
   loading: boolean;
-  resSuccess: null | boolean;
 }
 
-const RatingReview: React.FC<Props> = ({ userReview, handler, loading, resSuccess }) => {
+const RatingReview: React.FC<Props> = ({ userReview, handler, loading }) => {
   const [textAreaInput, setTextAreaInput] = useState("");
 
   const handleSubmit = () => {
@@ -18,7 +17,7 @@ const RatingReview: React.FC<Props> = ({ userReview, handler, loading, resSucces
 
   const handleDelete = () => {
     handler(null, "");
-  }
+  };
 
   return (
     <div className="flex flex-col">
@@ -31,21 +30,21 @@ const RatingReview: React.FC<Props> = ({ userReview, handler, loading, resSucces
         }}
         placeholder="Write your review..."
       ></textarea>
-      <div className="flex">
+      <div className="flex justify-center gap-x-3">
+        {userReview && !loading && (
+          <button
+            onClick={handleDelete}
+            className="text-red-500 border-red-500 mt-3 mb-2 py-1 px-2 max-w-max border-2 rounded-md hover:bg-lightgrey focus:bg-lightgrey"
+          >
+            Delete
+          </button>
+        )}
         {textAreaInput && textAreaInput !== userReview && !loading && (
           <button
             onClick={handleSubmit}
-            className="mt-3 mb-2 mx-auto py-1 px-2 max-w-max border-2 rounded-md hover:bg-lightgrey focus:bg-lightgrey"
+            className="mt-3 mb-2 py-1 px-2 max-w-max border-2 rounded-md hover:bg-lightgrey focus:bg-lightgrey"
           >
             Submit
-          </button>
-        )}
-        {userReview && (
-          <button
-            onClick={handleDelete}
-            className="text-red-500 border-red-500 mt-3 mb-2 mx-auto py-1 px-2 max-w-max border-2 rounded-md hover:bg-lightgrey focus:bg-lightgrey"
-          >
-            Delete
           </button>
         )}
       </div>

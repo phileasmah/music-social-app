@@ -2,25 +2,31 @@ import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/outline
 import { XIcon } from "@heroicons/react/solid";
 import { useState } from "react";
 import ReactStars from "react-rating-stars-component";
+import { UserReview } from "../../types/UserReview";
 import RatingReview from "./RatingReview";
 
 interface Props {
-  userRating: number | null;
-  userReview: string;
+  rating: number | null;
+  review: string;
   albumId: string;
   userId: number;
 }
 
-const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) => {
+const Rating: React.FC<Props> = ({ rating, review, albumId, userId }) => {
   const [resSuccess, setResSuccess] = useState<null | boolean>(null);
   const [loading, setLoading] = useState(false);
   const [clearButton, setClearButton] = useState(false);
+  const [userReview, setUserReview] = useState(review);
+  const [userRating, setUserRating] = useState(rating);
 
   const handleChange = async (newRating: number | null, newReview: string | null) => {
     let method;
     setLoading(true);
     if (userRating === null) {
       method = "create";
+      if (newReview !== null) {
+        newRating = 0;
+      }
     } else {
       method = "update";
     }
@@ -33,8 +39,14 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
         review: newReview
       }),
     });
+    const newUserReview = await res.json() as UserReview;
     if (res.ok) {
       setResSuccess(true);
+      if (newRating === null) {
+        setUserReview(newUserReview.review);
+      } else {
+        setUserRating(newUserReview.rating);
+      }
     } else {
       setResSuccess(false);
     }
@@ -68,7 +80,7 @@ const Rating: React.FC<Props> = ({ userRating, userReview, albumId, userId }) =>
           <ExclamationCircleIcon className="w-5 h-5 ml-1.5 mt-6 text-red-500" />
         )}
       </div>
-      <RatingReview userReview={userReview} handler={handleChange} loading={loading} resSuccess={resSuccess} />
+      <RatingReview userReview={userReview} handler={handleChange} loading={loading} />
     </div>
   );
 };

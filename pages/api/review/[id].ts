@@ -29,7 +29,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   Promise.all([reviews, average]).then(
     (results) => {
-      if (results[1].count.rating !== 0) {
+      if (results[1].count.rating !== 0 || results[0].length !== 0) {
         res.status(200).json(results);
       } else {
         res.status(204).end();

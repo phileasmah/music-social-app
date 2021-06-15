@@ -9,6 +9,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
   
   const userData = JSON.parse(req.body) as Request;
 
+
   const userInfo = await prisma.user.findMany({
     where: {
       id: { in: userData.authorId}
@@ -19,7 +20,6 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: true
     }
   });
-
   if (userInfo) {
     res.status(200).json(userInfo);
   } else {

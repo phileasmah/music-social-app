@@ -39,7 +39,7 @@ const Reviews: React.FC<Props> = ({ reviews, query }) => {
       const res = await fetch("/api/users", {
         method: "POST",
         body: JSON.stringify({
-          authordId: userIds,
+          authorId: userIds,
         }),
       });
       if (res.status === 200) {
@@ -76,7 +76,7 @@ const Reviews: React.FC<Props> = ({ reviews, query }) => {
                         className="rounded-full"
                       />
                     ) : (
-                      <DefaultImage height={39} width={39} className={"rounded-full"}/>
+                      <DefaultImage height={39} width={39} className={"rounded-full"} />
                     )}
                   </div>
                   <div className="inline-block">
@@ -87,9 +87,13 @@ const Reviews: React.FC<Props> = ({ reviews, query }) => {
                           {reviewUserInfo[review.authorId].name}{" "}
                         </span>
                       </span>
-                      <span className="-mt-1"><ReactStars value={review.rating} edit={false} isHalf={true} size={17}/></span>
+                      {review.rating && (
+                        <span className="-mt-1">
+                          <ReactStars value={review.rating} edit={false} isHalf={true} size={17} />
+                        </span>
+                      )}
                     </div>
-                    <div className="mt-3">{review.review}</div>
+                    <div className="mt-3 whitespace-pre-line">{review.review}</div>
                   </div>
                 </div>
               </li>

@@ -83,9 +83,9 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
                   <div className="w-64">
                     <b>{r.track.album.name}</b>
                     <div>
-                      by {r.track.artists[0].name}
-                      {r.track.artists.length > 1 &&
-                        r.track.artists
+                      by {r.track.album.artists[0].name}
+                      {r.track.album.artists.length > 1 &&
+                        r.track.album.artists
                           .slice(1)
                           .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
                     </div>

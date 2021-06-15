@@ -24,11 +24,18 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       authorId: userData.authorId,
       review: userData.review
     }
-  } else {
+  } else if (userData.review === null) {
     payload = {
       albumId: userData.albumId,
       authorId: userData.authorId,
       rating: userData.rating 
+    }
+  } else {
+    payload = {
+      albumId: userData.albumId,
+      authorId: userData.authorId,
+      rating: userData.rating,
+      review: userData.review
     }
   }
 

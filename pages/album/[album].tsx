@@ -30,12 +30,14 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
     url: `api/review/${context.params?.album}`,
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   })) as AxiosResponse;
+
   let reviews;
   if (res.status == 200) {
     reviews = res.data;
   } else {
     reviews = null;
   }
+  console.log(reviews);
   return {
     props: { reviews },
   };
@@ -139,8 +141,8 @@ const Album: React.FC<Props> = ({ reviews }) => {
                 !userDataLoading ? (
                   <div className="-mt-3 w-max mx-auto">
                     <Rating
-                      userRating={userReview ? userReview.rating : null}
-                      userReview={userReview?.review ? userReview.review : ""}
+                      rating={userReview ? userReview.rating : null}
+                      review={userReview?.review ? userReview.review : ""}
                       albumId={data.id}
                       userId={session.user.sub}
                     />
