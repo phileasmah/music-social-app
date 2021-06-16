@@ -24,6 +24,11 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
 
   const handleNewUsername = async () => {
     setLoading(true);
+    const cleanUsernameInput = newUsernameInput.trim();
+    if (cleanUsernameInput === userProfileInfo[0].name) {
+      setResSuccess(true);
+      setLoading(false);
+    };
     const res = await fetch("/api/user/update-username", {
       method: "POST",
       body: JSON.stringify({
@@ -60,13 +65,13 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
               <ExclamationCircleIcon className="lute top-2 -left-9 w-6 h-6 text-red-500" />
             )}
             <input
-              defaultValue={newUsernameInput}
+              defaultValue={userProfileInfo[0].name}
               readOnly={loading}
               placeholder={userProfileInfo[0].name}
               className="bg-lightgrey text-text p-2 rounded-lg"
               onChange={(e) => setNewUserInput(e.target.value)}
             ></input>
-            {newUsernameInput && !loading && (
+            {newUsernameInput && newUsernameInput !== userProfileInfo[0].name && !loading && (
               <button
                 onClick={handleNewUsername}
                 className="top-1 absolute ml-2 py-1 px-2 border-2 rounded-full hover:bg-lightgrey focus:bg-lightgrey"

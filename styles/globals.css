@@ -21,12 +21,14 @@ b {
 
 ::-webkit-scrollbar {
   width: 8px;
+  height: 8px
 }
 
 ::-webkit-scrollbar-thumb {
-  background: #636466;
+  background:#909090;
+  border-radius: 1rem;
 }
 
 ::-webkit-scrollbar-thumb:hover {
-  background: #a6a8ac;
+  background:#606060;
 }
