@@ -37,7 +37,6 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
   } else {
     reviews = null;
   }
-  console.log(reviews);
   return {
     props: { reviews },
   };

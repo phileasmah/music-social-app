@@ -87,7 +87,7 @@ const Reviews: React.FC<Props> = ({ reviews, query }) => {
                           {reviewUserInfo[review.authorId].name}{" "}
                         </span>
                       </span>
-                      {review.rating && (
+                      {review.rating !== 0 && (
                         <span className="-mt-1">
                           <ReactStars value={review.rating} edit={false} isHalf={true} size={17} />
                         </span>
