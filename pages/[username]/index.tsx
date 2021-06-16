@@ -32,7 +32,6 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
 
 const Profile: React.FC<Props> = ({ userProfileInfo }) => {
   const [session, loading] = useSession();
-  
   return (
     <>
       {loading ? (

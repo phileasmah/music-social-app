@@ -30,7 +30,7 @@ module.exports = {
         lightblue: "#94B6F2",
         lightgrey: "#303134",
         lightgrey2: "#5F6368",
-        lightgrey3: "#39373A",
+        lightgrey3: "#373737",
         darkgrey: "#202124",
         darkgrey2: "#232323",
         darkgrey3: "#2E2B2E"

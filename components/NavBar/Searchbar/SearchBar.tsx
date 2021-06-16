@@ -125,7 +125,7 @@ const SearchBar: React.FC = () => {
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder="Search for artist or album"
-          className="h-full w-full text-option bg-lightgrey focus:bg-lightgrey py-3.5 pl-12 pr-6 rounded-md focus:rounded-xl duration-100 transition-all align-middle"
+          className={`h-full w-full text-option bg-lightgrey focus:bg-lightgrey py-3 pl-12 pr-6 border ${show ? "border-lightgrey" : "border-darkgrey"} rounded-md focus:rounded-full focus:"border-white" align-middle`}
           onClick={() => setShow(true)}
           onKeyDown={handleKeyDown}
         />

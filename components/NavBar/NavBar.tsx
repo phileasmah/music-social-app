@@ -25,13 +25,13 @@ const NavBar = () => {
     <nav className={`sticky top-0 bg-darkgrey z-10 ${!scroll && "border-lightgrey2 border-b-2"}`}>
       <div className={`flex h-16 items-center ${scroll && "shadow-custom"} px-10`}>
         <Link href={{ pathname: "/" }}>
-          <a className="p-2 duration-200 text-text font-medium text-xl">Home</a>
+          <a className="px-2 pt-1.5 pb-2 duration-200 text-text font-medium text-xl focus:bg-lightgrey3 rounded-xl">Home</a>
         </Link>
         <div className="flex ml-auto">
           {session && (
             <>
               <Link href={{ pathname: `/${session.user.id}` }}>
-                <a className="flex items-center mx-6 duration-200 text-text">
+                <a className="flex items-center mx-6 duration-200 rounded-full p-1 focus:bg-lightgrey3 text-text">
                   {session.user.image ? (
                     <Image
                       src={session.user.image}
@@ -56,7 +56,7 @@ const NavBar = () => {
           {session || loading ? (
             <button
               onClick={() => signOut()}
-              className="hover:bg-lightgrey px-4 py-2 text-text font-semibold border border-lightgrey2 rounded duration-200"
+              className="hover:bg-lightgrey px-4 py-2 text-text font-semibold border border-lightgrey2 rounded duration-200 focus:bg-lightgrey3"
             >
               Sign Out
             </button>

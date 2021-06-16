@@ -19,7 +19,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     select: {
       name: true,
       image: true,
-      id: true
+      id: true,
+      reviews: true
     },
   });
 
