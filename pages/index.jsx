@@ -1,8 +1,10 @@
 import { signIn, useSession } from "next-auth/client";
 import Head from "next/head";
 import React, { useEffect } from "react";
+import NewReleases from "../components/HomePage/NewReleases";
 import RecentlyPlayed from "../components/HomePage/RecentlyPlayed";
 import Loading from "../components/Loading.tsx";
+
 
 const Home = () => {
   const [session, loading] = useSession();
@@ -33,6 +35,7 @@ const Home = () => {
       ) : (
         <div>{session ? <RecentlyPlayed token={session.user.accessToken} /> : <div></div>}</div>
       )}
+      <NewReleases />
     </div>
   );
 };

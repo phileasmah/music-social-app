@@ -128,6 +128,7 @@ const SearchBar: React.FC = () => {
           className={`h-full w-full text-option bg-lightgrey focus:bg-lightgrey py-3 pl-12 pr-6 border ${show ? "border-lightgrey" : "border-darkgrey"} rounded-md focus:rounded-full focus:"border-white" align-middle`}
           onClick={() => setShow(true)}
           onKeyDown={handleKeyDown}
+          tabIndex= {2}
         />
       </div>
       {show && (count !== 0 || error) && (
