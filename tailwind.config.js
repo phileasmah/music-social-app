@@ -39,6 +39,7 @@ module.exports = {
         custom: "0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%)"
       },
       spacing: {
+        "66": "16.5rem",
         "70": "17.5rem"
       },
       maxWidth: {
@@ -46,6 +47,9 @@ module.exports = {
         "3/4": "75vw",
         "9/10": "90vw",
         "2xs": "17.5rem"
+      },
+      screens: {
+        "3xl": "1600px"
       }
     }
   },
