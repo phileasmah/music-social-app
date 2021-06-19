@@ -65,7 +65,7 @@ const NewReleases: React.FC<Props> = () => {
                   )}
                   <div className="w-64 md:w-52 2xl:w-56 3xl:w-64">
                     <b>{r.name}</b>
-                    <div>
+                    <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
                       by {r.artists[0].name}
                       {r.artists.length > 1 &&
                         r.artists

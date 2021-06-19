@@ -81,8 +81,10 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
                     <div>No picture found</div>
                   )}
                   <div className="w-64 md:w-52 2xl:w-56 3xl:w-64">
-                    <b>{r.track.album.name}</b>
-                    <div>
+                    <div className="h-12">
+                      <b>{r.track.album.name}</b>
+                    </div>
+                    <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
                       by {r.track.album.artists[0].name}
                       {r.track.album.artists.length > 1 &&
                         r.track.album.artists
