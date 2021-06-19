@@ -33,7 +33,7 @@ const NewReleases: React.FC<Props> = () => {
   }, [clientToken]);
 
   return (
-    <div className="max-w-9/10 2xl:max-w-max mx-auto mt-3">
+    <div className="max-w-9/10 md:max-w-6/7 2xl:max-w-max mx-auto mt-3">
       <h1 className="text-text font-medium text-xl mb-2">New releases:</h1>
       {loading ? (
         <RecentlyPlayedLoading />
@@ -49,7 +49,7 @@ const NewReleases: React.FC<Props> = () => {
               }}
               key={r.id}
             >
-              <a className="w-max md:w-52 2xl:w-60 3xl:w-66 group flex flex-col flex-shrink-0 rounded-lg focus:bg-lightgrey hover:bg-lightgrey duration-300 border-2 border-darkgrey hover:border-lightgrey2 focus:border-lightgrey2">
+              <a className="w-max md:w-56 2xl:w-60 3xl:w-66 group flex flex-col flex-shrink-0 rounded-lg focus:bg-lightgrey hover:bg-lightgrey duration-300 border-2 border-darkgrey hover:border-lightgrey2 focus:border-lightgrey2">
                 <div className="transform duration-200 hover:scale-90 group-focus:scale-90">
                   {r.images.length ? (
                     
@@ -63,7 +63,7 @@ const NewReleases: React.FC<Props> = () => {
                   ) : (
                     <div>No picture found</div>
                   )}
-                  <div className="w-64 md:w-48 2xl:w-56 3xl:w-64">
+                  <div className="w-64 md:w-52 2xl:w-56 3xl:w-64">
                     <b>{r.name}</b>
                     <div>
                       by {r.artists[0].name}
