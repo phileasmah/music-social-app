@@ -11,8 +11,8 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
     where: {
       albumId: id as string,
       review: {
-        not: null
-      }
+        not: null,
+      },
     },
   });
   const average = await prisma.review.aggregate({
@@ -23,7 +23,14 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       rating: true,
     },
     where: {
-      albumId: id as string,
+      AND: [
+        { albumId: id as string },
+        {
+          rating: {
+            not: 0,
+          },
+        },
+      ],
     },
   });
 

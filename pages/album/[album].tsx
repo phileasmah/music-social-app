@@ -99,7 +99,6 @@ const Album: React.FC<Props> = ({ reviews }) => {
       ? minutes + 1 + ":00"
       : minutes + ":" + (seconds < 10 ? "0" : "") + seconds;
   };
-
   return (
     <div>
       {error && <Error />}
@@ -158,7 +157,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
             </div>
 
             <div className="mx-auto w-max">
-              {reviews ? (
+              {reviews && reviews[1].count.rating !== 0 ? (
                 <>
                   Average ratings: {reviews[1].avg.rating?.toFixed(1)}, based on{" "}
                   {reviews[1].count.rating} users{" "}
