@@ -19,12 +19,12 @@ const Rating: React.FC<Props> = ({ rating, review, albumId, userId }) => {
   const [userReview, setUserReview] = useState(review);
   const [userRating, setUserRating] = useState(rating);
 
-  const handleChange = async (newRating: number | null, newReview: string | null) => {
+  const handleChange = async (newRating: number | null, newReview: string | null | undefined) => {
     let method;
     setLoading(true);
     if (userRating === null) {
       method = "create";
-      if (newReview !== null) {
+      if (newReview !== null && newReview !== undefined) {
         newRating = 0;
       }
     } else {

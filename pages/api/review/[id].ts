@@ -14,6 +14,19 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
         not: null,
       },
     },
+    include: {
+      author: {
+        select: {
+          accounts: {
+            select: {
+              providerAccountId: true,
+            }
+          },
+          image: true,
+          name: true
+        }
+      }
+    }
   });
   const average = await prisma.review.aggregate({
     avg: {

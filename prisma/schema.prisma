@@ -66,6 +66,7 @@ model Review {
   author    User     @relation(fields: [authorId], references: [id])
   authorId  String   @map("author_id")
   createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt
 
   @@id([albumId, authorId])
 }

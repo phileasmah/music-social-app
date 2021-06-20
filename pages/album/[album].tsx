@@ -194,7 +194,7 @@ const Album: React.FC<Props> = ({ reviews }) => {
                 </li>
               ))}
             </ul>
-            {reviews ? <Reviews reviews={reviews} query={query} /> : <div>No reviews made yet</div>}
+            {reviews ? <Reviews reviews={reviews} /> : <div>No reviews made yet</div>}
           </div>
         </main>
       )}
