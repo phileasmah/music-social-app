@@ -25,7 +25,7 @@ const NavBar = () => {
     <nav className={`sticky top-0 bg-darkgrey z-10 ${!scroll && "border-lightgrey2 border-b-2"}`}>
       <div className={`flex h-16 items-center ${scroll && "shadow-custom"} px-10`}>
         <Link href={{ pathname: "/" }}>
-          <a className="px-2 pt-1.5 pb-2 duration-200 text-text font-medium text-xl focus:bg-lightgrey3 rounded-xl" tabIndex={1}>Home</a>
+          <a className="px-2 pt-1.5 pb-2 duration-200 text-text font-medium text-xl focus:underline rounded-xl" tabIndex={1}>Home</a>
         </Link>
         <div className="flex ml-auto">
           {session && (
@@ -64,7 +64,7 @@ const NavBar = () => {
           ) : (
             <button
               onClick={() => signIn("spotify")}
-              className="px-4 py-2 font-semibold border rounded hover:border-lightblue hover:text-lightblue duration-200 focus:bg-lightgrey3"
+              className="px-4 py-2 font-semibold bg-blue-600 rounded text-white duration-200 hover:bg-blue-500 focus:bg-blue-500 hover:rounded-2xl focus:rounded-2xl"
             >
               Login with Spotify
             </button>
