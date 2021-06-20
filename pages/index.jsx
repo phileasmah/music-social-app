@@ -3,7 +3,7 @@ import Head from "next/head";
 import React, { useEffect } from "react";
 import NewReleases from "../components/HomePage/NewReleases";
 import RecentlyPlayed from "../components/HomePage/RecentlyPlayed";
-import Loading from "../components/Loading.tsx";
+import RecentlyPlayedLoading from "../components/HomePage/RecentlyPlayedLoading";
 
 
 const Home = () => {
@@ -16,14 +16,6 @@ const Home = () => {
     }
   }, [session]);
 
-  // const addCount = async() => {
-  //   const response = await fetch("/api/users", {
-  //     method: "POST",
-  //     body: JSON.stringify(session.user)
-  //   })
-
-  //   return await response.json();
-  // }
   return (
     <div>
       <Head>
@@ -31,7 +23,7 @@ const Home = () => {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       {loading ? (
-        <Loading />
+        <RecentlyPlayedLoading />
       ) : (
         <div>{session ? <RecentlyPlayed token={session.user.accessToken} /> : <div></div>}</div>
       )}

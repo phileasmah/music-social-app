@@ -38,7 +38,7 @@ const NewReleases: React.FC<Props> = () => {
       {loading ? (
         <RecentlyPlayedLoading />
       ) : newReleases ? (
-        <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between ">
+        <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between">
           {newReleases.albums.items.map((r) => (
             <Link
               href={{
