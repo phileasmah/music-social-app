@@ -38,6 +38,8 @@ module.exports = {
         custom: "0 4px 5px 0 rgb(0 0 0 / 14%), 0 1px 10px 0 rgb(0 0 0 / 12%), 0 2px 4px -1px rgb(0 0 0 / 20%)"
       },
       spacing: {
+        "2.25": "0.562rem",
+        "13": "3.25rem",
         "66": "16.5rem",
         "70": "17.5rem"
       },

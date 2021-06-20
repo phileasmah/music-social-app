@@ -1,4 +1,4 @@
-import { SearchIcon, XCircleIcon } from "@heroicons/react/solid";
+import { ArrowLeftIcon, SearchIcon, XCircleIcon } from "@heroicons/react/solid";
 import { useRouter } from "next/router";
 import { KeyboardEvent, useContext, useEffect, useRef, useState } from "react";
 import useGetApi from "../../../lib/useGetApi";
@@ -18,6 +18,7 @@ const SearchBar: React.FC = () => {
   const [count, setCount] = useState(0);
   const [cursor, setCursor] = useState(-1);
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const [showOnMobile, setShowOnMobile] = useState(false);
 
   useEffect(() => {
     if (wrapperRef === null) return;
@@ -103,62 +104,78 @@ const SearchBar: React.FC = () => {
   };
 
   return (
-    <div
-      className="absolute z-10 top-2 left-3 md:left-40 lg:left-60 w-11/12 lg:w-2/5 sm:w-1/2"
-      ref={wrapperRef}
-    >
-      <div className="relative">
-        <SearchIcon className="absolute h-5 w-5 top-1/2 -mt-2.5 left-5 text-input" />
-        {show && (albums || error) && (
-          <button
-            onClick={() => {
-              setShow(false);
-              setInput("");
-            }}
-            className="absolute h-5 w-5 right-6 top-1/2 -mt-2.5 text-input"
-          >
-            <XCircleIcon />
-          </button>
-        )}
-        <input
-          type="text"
-          value={input}
-          onChange={(e) => setInput(e.target.value)}
-          placeholder="Search for artist or album"
-          className={`h-full w-full text-option bg-lightgrey focus:bg-lightgrey py-3 pl-12 pr-6 border ${show ? "border-lightgrey" : "border-darkgrey"} rounded-md focus:rounded-full focus:"border-white" align-middle`}
-          onClick={() => setShow(true)}
-          onKeyDown={handleKeyDown}
-          tabIndex= {2}
-        />
-      </div>
-      {show && (count !== 0 || error) && (
-        <div className="bg-lightgrey -mt-5 pt-5 pb-2 rounded-b-xl">
-          <hr className="mb-1 border-lightgrey2 border-t-2" />
-          {error ? (
-            <div className="px-6 my-3">No results found</div>
+    <div>
+      <div className={`left-0 top-0 absolute h-16 ${showOnMobile && "w-screen bg-darkgrey"}`}></div>
+      <button className="block md:hidden" onClick={() => setShowOnMobile(!showOnMobile)}>
+        {!showOnMobile && <SearchIcon className="absolute top-1/2 right-48 -mt-2.5 h-5 w-5" />}
+      </button>
+      <div
+        className={`absolute z-10 top-2.25 mx-auto left-0 right-0 ${
+          showOnMobile ? "block" : "hidden"
+        } md:block md:mx-0 md:left-28 lg:left-44 xl:left-60 w-11/12 md:w-7/12 lg:w-1/2 xl:w-2/5`}
+        ref={wrapperRef}
+      >
+        <div className="relative">
+          {showOnMobile ? (
+            <button onClick={() => setShowOnMobile(!showOnMobile)}>
+              <ArrowLeftIcon className="absolute h-5 w-5 z-20 top-1/2 -mt-2.5 left-5" />
+            </button>
           ) : (
-            <>
-              {albums && (
-                <div className="mb-3">
-                  <b className="px-6"> Albums:</b>
-                  <ul className="px-6">
-                    {albums.map((album, idx) => (
-                      <li
-                        className={`duration-300 my-2 text-option hover:bg-darkgrey hover:p-3 hover:rounded-lg  ${
-                          cursor === idx ? "bg-darkgrey p-3 rounded-lg" : "p-0"
-                        }`}
-                        key={"album" + album.id}
-                      >
-                        <SearchItem search={"album"} item={album} />
-                      </li>
-                    ))}
-                  </ul>
-                </div>
-              )}{" "}
-            </>
+            <SearchIcon className="absolute h-5 w-5 top-1/2 -mt-2.5 left-5 text-input" />
           )}
+          {show && (albums || error) && (
+            <button
+              onClick={() => {
+                setShow(false);
+                setInput("");
+              }}
+              className="absolute h-5 w-5 right-6 top-1/2 -mt-2.5 text-input"
+            >
+              <XCircleIcon />
+            </button>
+          )}
+          <input
+            type="text"
+            value={input}
+            onChange={(e) => setInput(e.target.value)}
+            placeholder="Search for artist or album"
+            className={`h-full w-full text-option bg-lightgrey focus:bg-lightgrey py-3 pl-13 pr-6 border ${
+              show ? "border-lightgrey" : "border-darkgrey"
+            } rounded-md focus:rounded-full focus:"border-white" align-middle`}
+            onClick={() => setShow(true)}
+            onKeyDown={handleKeyDown}
+            tabIndex={2}
+          />
         </div>
-      )}
+        {show && (count !== 0 || error) && (
+          <div className="bg-lightgrey -mt-5 pt-5 pb-2 rounded-b-xl">
+            <hr className="mb-1 border-lightgrey2 border-t-2" />
+            {error ? (
+              <div className="px-6 my-3">No results found</div>
+            ) : (
+              <>
+                {albums && (
+                  <div className="mb-3">
+                    <b className="px-6"> Albums:</b>
+                    <ul className="px-6">
+                      {albums.map((album, idx) => (
+                        <li
+                          className={`duration-300 my-2 text-option hover:bg-darkgrey hover:p-3 hover:rounded-lg  ${
+                            cursor === idx ? "bg-darkgrey p-3 rounded-lg" : "p-0"
+                          }`}
+                          key={"album" + album.id}
+                        >
+                          <SearchItem search={"album"} item={album} />
+                        </li>
+                      ))}
+                    </ul>
+                  </div>
+                )}{" "}
+              </>
+            )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };
