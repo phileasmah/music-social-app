@@ -1,6 +1,7 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
+import ReactStars from "react-rating-stars-component";
 import useGetApi from "../../lib/useGetApi";
 import { AlbumInfo } from "../../types/AlbumInfo";
 import { ApiContextProvider } from "../../types/ApiContextProvider";
@@ -12,7 +13,7 @@ interface Props {
 }
 
 interface AxiosResponse {
-  albums: AlbumInfo[]
+  albums: AlbumInfo[];
 }
 
 const ReviewedAlbums: React.FC<Props> = ({ reviews }) => {
@@ -41,7 +42,8 @@ const ReviewedAlbums: React.FC<Props> = ({ reviews }) => {
 
     getRecentReviewedAlbumInfo(albumIdsUrl);
   }, [clientToken]);
-  console.log(albumInfo)
+  console.log(albumInfo);
+  console.log(reviews);
   return (
     <div>
       Recently Reviewed:
@@ -51,44 +53,54 @@ const ReviewedAlbums: React.FC<Props> = ({ reviews }) => {
         <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between">
           {albumInfo ? (
             <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between ">
-            {albumInfo.map((r) => (
-              <Link
-                href={{
-                  pathname: "album/[slug]",
-                  query: {
-                    slug: r.id,
-                  },
-                }}
-                key={r.id}
-              >
-                <a className="w-max md:w-56 2xl:w-60 3xl:w-66 group flex flex-col flex-shrink-0 rounded-lg focus:bg-lightgrey hover:bg-lightgrey duration-300 border-2 border-darkgrey hover:border-lightgrey2 focus:border-lightgrey2">
-                  <div className="transform duration-200 hover:scale-90 group-focus:scale-90">
-                    {r.images.length ? (
-                      <Image
-                        src={r.images[1].url}
-                        alt={r.name + " album art"}
-                        width={260}
-                        height={260}
-                        className="rounded-md"
-                      />
-                    ) : (
-                      <div>No picture found</div>
-                    )}
-                    <div className="w-64 md:w-52 2xl:w-56 3xl:w-64">
-                      <b>{r.name}</b>
-                      <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
-                        by {r.artists[0].name}
-                        {r.artists.length > 1 &&
-                          r.artists
-                            .slice(1)
-                            .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+              {albumInfo.map((r, idx) => (
+                <Link
+                  href={{
+                    pathname: "album/[slug]",
+                    query: {
+                      slug: r.id,
+                    },
+                  }}
+                  key={r.id}
+                >
+                  <a className="w-max md:w-56 2xl:w-60 3xl:w-66 group flex flex-col flex-shrink-0 rounded-lg focus:bg-lightgrey hover:bg-lightgrey duration-300 border-2 border-darkgrey hover:border-lightgrey2 focus:border-lightgrey2">
+                    <div className="transform duration-200 hover:scale-90 group-focus:scale-90">
+                      {r.images.length ? (
+                        <Image
+                          src={r.images[1].url}
+                          alt={r.name + " album art"}
+                          width={260}
+                          height={260}
+                          className="rounded-md"
+                        />
+                      ) : (
+                        <div>No picture found</div>
+                      )}
+                      <div className="w-64 md:w-52 2xl:w-56 3xl:w-64">
+                        <b>{r.name}</b>
+                        <div className="whitespace-nowrap overflow-hidden overflow-ellipsis">
+                          by {r.artists[0].name}
+                          {r.artists.length > 1 &&
+                            r.artists
+                              .slice(1)
+                              .map((artist) => <span key={artist.id}>, {artist.name}</span>)}
+                        </div>
+                        {reviews[idx].rating != 0 ? (
+                          <ReactStars
+                            value={reviews[idx].rating}
+                            edit={false}
+                            isHalf={true}
+                            size={18}
+                          />
+                        ) : (
+                          <span className="text-sm italic">Only written review</span>
+                        )}
                       </div>
                     </div>
-                  </div>
-                </a>
-              </Link>
-            ))}
-          </div>
+                  </a>
+                </Link>
+              ))}
+            </div>
           ) : (
             <div>User hasn't reviewed an album yet</div>
           )}
