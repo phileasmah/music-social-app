@@ -1,10 +1,6 @@
 import { NextApiRequest, NextApiResponse } from "next";
 import prisma from "../../../../lib/prisma";
 
-interface Request {
-  authorId: string;
-}
-
 export default async (req: NextApiRequest, res: NextApiResponse) => {
   const username = req.query.username as string;
 

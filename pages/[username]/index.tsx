@@ -2,7 +2,7 @@ import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/client";
 import { ParsedUrlQuery } from "querystring";
-import UserProfile from "../../components/UserProfile";
+import UserProfile from "../../components/ProfilePage/UserProfile";
 import { UserProfileArr } from "../../types/UserProfileInfo";
 
 interface URLProps extends ParsedUrlQuery {

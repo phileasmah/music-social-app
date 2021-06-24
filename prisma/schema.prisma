@@ -45,6 +45,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   reviews       Review[]
+  followedBy    User[]    @relation("UserFollows", references: [id])
+  following     User[]    @relation("UserFollows", references: [id])
 }
 
 model VerificationRequest {
@@ -59,7 +61,7 @@ model VerificationRequest {
 }
 
 model Review {
-  rating    Float?    @db.Real
+  rating    Float?   @db.Real
   review    String?  @db.Text
   albumId   String
   likes     Int      @default(0)

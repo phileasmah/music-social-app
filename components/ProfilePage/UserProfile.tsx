@@ -2,7 +2,8 @@ import { CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/outline
 import { ArrowRightIcon } from "@heroicons/react/solid";
 import { Session } from "next-auth";
 import { useEffect, useState } from "react";
-import { UserProfileArr } from "../types/UserProfileInfo";
+import { UserProfileArr } from "../../types/UserProfileInfo";
+import ReviewedAlbums from "./ReviewedAlbums";
 
 interface Props {
   session: Session | null | undefined;
@@ -15,7 +16,7 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
   const [newUsernameInput, setNewUserInput] = useState("");
   const [loading, setLoading] = useState(false);
   const [resSuccess, setResSuccess] = useState<null | boolean>(null);
-
+  
   useEffect(() => {
     if (session?.user.sub === userProfileInfo[0].id) {
       setIsOwner(true);
@@ -47,7 +48,6 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
 
   return (
     <div className="flex gap-y-3 flex-col place-items-center mt-10">
-      Your display name:
       <div className="relative">
         {edit ? (
           <>
@@ -89,6 +89,7 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
           Edit
         </button>
       )}
+      <ReviewedAlbums reviews={userProfileInfo[0].reviews} />
     </div>
   );
 };
