@@ -1,6 +1,6 @@
 import { Provider } from "next-auth/client";
 import { AppProps } from "next/dist/next-server/lib/router/router";
-import Router from "next/router";
+import Router, { useRouter } from "next/router";
 import NProgress from "nprogress";
 import "nprogress/nprogress.css";
 import { useEffect, useMemo, useState } from "react";
@@ -42,6 +42,7 @@ function MyApp({ Component, pageProps }: AppProps) {
 
   const [clientToken, setClientToken] = useState<ClientToken | null>(null);
   const [finish, setFinish] = useState(false);
+  const router = useRouter();
 
   const providerToken = useMemo(
     () => ({ clientToken, setClientToken, finish }),
@@ -52,7 +53,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ApiContext.Provider value={providerToken}>
       <Provider session={pageProps.session}>
         <NavBar />
-        <Component {...pageProps} />
+        <Component {...pageProps} key={router.asPath}/>
       </Provider>
     </ApiContext.Provider>
   );

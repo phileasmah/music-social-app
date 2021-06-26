@@ -2,6 +2,7 @@ import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/client";
 import { ParsedUrlQuery } from "querystring";
+import { useEffect } from "react";
 import UserProfile from "../../components/ProfilePage/UserProfile";
 import { UserProfileArr } from "../../types/UserProfileInfo";
 
@@ -32,6 +33,9 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
 
 const Profile: React.FC<Props> = ({ userProfileInfo }) => {
   const [session, loading] = useSession();
+  useEffect(() => {
+    console.log(userProfileInfo)
+  }, [userProfileInfo])
   return (
     <>
       {loading ? (
