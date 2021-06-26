@@ -1,6 +1,7 @@
 import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
 import { useSession } from "next-auth/client";
+import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
 import { ParsedUrlQuery } from "querystring";
@@ -101,6 +102,14 @@ const Album: React.FC<Props> = ({ reviews }) => {
   };
   return (
     <div>
+      <Head>
+        <title>{data?.name} Review</title>
+        <meta property="og:url" content={process.env.NEXT_PUBLIC_BASE_URL} />
+        <meta property="og:type" content="website" />
+        <meta property="og:title" content={`${data?.name} Review`} />
+        <meta property="og:image" content={data?.images[2].url} />
+        <meta name="twitter:card" content="summary" />
+      </Head>
       {error && <Error />}
       {data && (
         <main className="w-full md:w-11/12 lg:w-4/5 xl:w-2/3 min-w-20 m-auto flex flex-col md:flex-row max-w-6xl mt-9 md:items-start md:justify-center md:gap-x-5">
