@@ -42,15 +42,14 @@ const ReviewedAlbums: React.FC<Props> = ({ reviews }) => {
 
     getRecentReviewedAlbumInfo(albumIdsUrl);
   }, [clientToken]);
-  console.log(albumInfo);
-  console.log(reviews);
+
   return (
     <div className="max-w-9/10 md:max-w-6/7 2xl:max-w-max mx-auto mt-3">
-      Recently Reviewed:
+      <span className="text-text font-medium text-xl">Recently Reviewed:</span>
       {loading ? (
         <div>Loading</div>
       ) : (
-        <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between">
+        <div className="mt-1 flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between">
           {albumInfo ? (
             <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between ">
               {albumInfo.map((r, idx) => (
