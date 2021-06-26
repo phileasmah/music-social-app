@@ -29,7 +29,7 @@ const Reviews: React.FC<Props> = ({ reviews }) => {
                       className="rounded-full"
                     />
                   ) : (
-                    <DefaultImage height={39} width={39} className={"rounded-full"} />
+                    <DefaultImage height={39} width={39} className="rounded-full"/>
                   )}
                 </div>
                 <div className="inline-block">

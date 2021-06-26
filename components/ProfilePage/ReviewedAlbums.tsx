@@ -45,7 +45,7 @@ const ReviewedAlbums: React.FC<Props> = ({ reviews }) => {
   console.log(albumInfo);
   console.log(reviews);
   return (
-    <div>
+    <div className="max-w-9/10 md:max-w-6/7 2xl:max-w-max mx-auto mt-3">
       Recently Reviewed:
       {loading ? (
         <div>Loading</div>
