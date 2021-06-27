@@ -68,19 +68,26 @@ const ChangeDisplayNameInput: React.FC<Props> = ({ session }) => {
         )}
         {!loading && edit && (
           <>
-            {displayName !== currDisplayName && (
-              <button
-                onClick={handleClick}
-                className="absolute ml-6 -mt-0.5 p-1 rounded-full duration-200 focus:bg-lightgrey hover:bg-lightgrey"
-              >
-                <ArrowSmRightIcon className="w-6 h-6" />
-              </button>
-            )}
-            {resSuccess === true && displayName === currDisplayName && (
-              <CheckCircleIcon className="absolute top-1 left-57.5 -ml-0.5 w-5 h-5 text-green-500" />
-            )}
-            {resSuccess === false && displayName === currDisplayName && (
-              <ExclamationCircleIcon className="absolute top-1 left-57.5 -ml-0.5  w-5 h-5 text-red-500" />
+            {displayName === currDisplayName ? (
+              <>
+                {resSuccess === true && displayName === currDisplayName && (
+                  <CheckCircleIcon className="absolute top-1 left-57.5 -ml-0.5 w-5 h-5 text-green-500" />
+                )}
+                {resSuccess === false && displayName === currDisplayName && (
+                  <ExclamationCircleIcon className="absolute top-1 left-57.5 -ml-0.5  w-5 h-5 text-red-500" />
+                )}
+              </>
+            ) : (
+              <>
+                (
+                <button
+                  onClick={handleClick}
+                  className="absolute ml-6 -mt-0.5 p-1 rounded-full duration-200 focus:bg-lightgrey hover:bg-lightgrey"
+                >
+                  <ArrowSmRightIcon className="w-6 h-6" />
+                </button>
+                )
+              </>
             )}
           </>
         )}
