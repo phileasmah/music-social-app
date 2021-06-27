@@ -3,7 +3,7 @@ import prisma from "../../../lib/prisma";
 
 interface Request {
   id: string;
-  newUsername: string;
+  newName: string;
 }
 
 export default async (req: NextApiRequest, res: NextApiResponse) => {
@@ -15,7 +15,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: userData.id
     },
     data: {
-      name: userData.newUsername
+      name: userData.newName
     }
   });
 

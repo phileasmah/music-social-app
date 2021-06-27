@@ -24,7 +24,6 @@ const NewReleases: React.FC<Props> = () => {
         clientToken?.access_token,
         "browse/new-releases?limit=5"
       );
-      console.log(response)
       setNewReleases(response.data);
       setLoading(false)
     };

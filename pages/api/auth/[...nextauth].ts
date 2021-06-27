@@ -85,7 +85,7 @@ export default NextAuth({
       return refreshAccessToken(token);
     },
     async session(session, user) {
-      session.user = user;
+      session.user = user as JWT;
       return session;
     },
   },

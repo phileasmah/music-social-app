@@ -20,7 +20,6 @@ const NavBar = () => {
 
     document.addEventListener("scroll", handleScroll);
   }, []);
-
   return (
     <nav className={`sticky top-0 bg-darkgrey z-10 ${!scroll && "border-lightgrey2 border-b-2"}`}>
       <div className={`flex h-16 items-center ${scroll && "shadow-custom"} px-6 lg:px-10`}>
@@ -32,9 +31,9 @@ const NavBar = () => {
             <>
               <Link href={{ pathname: `/${session.user.id}` }}>
                 <a className="flex items-center mx-3 md:mx-6 duration-200 rounded-full p-1 focus:bg-lightgrey3 text-text" tabIndex={3}>
-                  {session.user.image ? (
+                  {session.user.picture ? (
                     <Image
-                      src={session.user.image}
+                      src={session.user.picture}
                       alt="User's Profile Pic"
                       width={37}
                       height={37}

@@ -1,5 +1,4 @@
 module.exports = {
-  mode: "jit",
   purge: ['./pages/**/*.{js,ts,jsx,tsx}', './components/**/*.{js,ts,jsx,tsx}'],
   darkMode: false, // or 'media' or 'class'
   theme: {
@@ -41,6 +40,7 @@ module.exports = {
       spacing: {
         "2.25": "0.562rem",
         "13": "3.25rem",
+        "57.5": "14.4rem",
         "66": "16.5rem",
         "70": "17.5rem"
       },
@@ -64,7 +64,7 @@ module.exports = {
       width: ["focus"],
       height: ["focus"],
       overflow: ['hover'],
-      scale: ["group-focus"]
+      scale: ["group-focus"],
     },
   },
   plugins: [],
