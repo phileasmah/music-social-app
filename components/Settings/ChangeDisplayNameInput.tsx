@@ -1,15 +1,13 @@
 import { ArrowSmRightIcon, CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/solid";
 import { Session } from "next-auth";
-import { getSession } from "next-auth/client";
 import { ChangeEvent, useState } from "react";
-
 
 interface Props {
   session: Session;
 }
 
 const ChangeDisplayNameInput: React.FC<Props> = ({ session }) => {
-  const [currDisplayName, setCurrDisplayName] = useState(session.user.name)
+  const [currDisplayName, setCurrDisplayName] = useState(session.user.name);
   const [displayName, setDisplayName] = useState(session.user.name);
   const [edit, setEdit] = useState(false);
   const [loading, setLoading] = useState(false);
@@ -36,7 +34,6 @@ const ChangeDisplayNameInput: React.FC<Props> = ({ session }) => {
       }),
     });
     if (res.status == 200) {
-      console.log(await getSession());
       setCurrDisplayName(newName);
       setResSuccess(true);
     } else {
@@ -60,15 +57,7 @@ const ChangeDisplayNameInput: React.FC<Props> = ({ session }) => {
             onChange={handleChange}
           />
         ) : (
-          <span>{session.user.name}</span>
-        )}
-        {edit && displayName !== currDisplayName && !loading && (
-          <button
-            onClick={handleClick}
-            className="absolute ml-6 -mt-0.5 p-1 rounded-full duration-200 focus:bg-lightgrey hover:bg-lightgrey"
-          >
-            <ArrowSmRightIcon className="w-6 h-6" />
-          </button>
+          <span>{currDisplayName}</span>
         )}
         {loading && (
           <svg
@@ -77,11 +66,23 @@ const ChangeDisplayNameInput: React.FC<Props> = ({ session }) => {
             viewBox="0 0 20 20"
           ></svg>
         )}
-        {resSuccess === true && !loading && displayName === currDisplayName && (
-          <CheckCircleIcon className="absolute top-1 left-57.5 -ml-0.5 w-5 h-5 text-green-500" />
-        )}
-        {resSuccess === false && !loading && displayName === currDisplayName && (
-          <ExclamationCircleIcon className="absolute top-1 left-57.5 -ml-0.5  w-5 h-5 text-red-500" />
+        {!loading && edit && (
+          <>
+            {displayName !== currDisplayName && (
+              <button
+                onClick={handleClick}
+                className="absolute ml-6 -mt-0.5 p-1 rounded-full duration-200 focus:bg-lightgrey hover:bg-lightgrey"
+              >
+                <ArrowSmRightIcon className="w-6 h-6" />
+              </button>
+            )}
+            {resSuccess === true && displayName === currDisplayName && (
+              <CheckCircleIcon className="absolute top-1 left-57.5 -ml-0.5 w-5 h-5 text-green-500" />
+            )}
+            {resSuccess === false && displayName === currDisplayName && (
+              <ExclamationCircleIcon className="absolute top-1 left-57.5 -ml-0.5  w-5 h-5 text-red-500" />
+            )}
+          </>
         )}
       </div>
       <div className="col-span-1 row-span-2 my-auto justify-self-end">
