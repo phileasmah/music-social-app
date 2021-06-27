@@ -9,7 +9,7 @@ interface Props {
   rating: number | null;
   review: string;
   albumId: string;
-  userId: number;
+  userId: string;
 }
 
 const Rating: React.FC<Props> = ({ rating, review, albumId, userId }) => {
