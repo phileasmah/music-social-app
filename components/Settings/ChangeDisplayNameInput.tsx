@@ -1,5 +1,6 @@
 import { ArrowSmRightIcon, CheckCircleIcon, ExclamationCircleIcon } from "@heroicons/react/solid";
 import { Session } from "next-auth";
+import { useSession } from "next-auth/client";
 import { ChangeEvent, useState } from "react";
 
 interface Props {
@@ -7,6 +8,7 @@ interface Props {
 }
 
 const ChangeDisplayNameInput: React.FC<Props> = ({ session }) => {
+  const [session_data, session_loading] = useSession();
   const [currDisplayName, setCurrDisplayName] = useState(session.user.name);
   const [displayName, setDisplayName] = useState(session.user.name);
   const [edit, setEdit] = useState(false);
@@ -41,7 +43,6 @@ const ChangeDisplayNameInput: React.FC<Props> = ({ session }) => {
     }
     setLoading(false);
   };
-  console.log(session);
   return (
     <div className="grid grid-cols-9 grid-rows-2 py-4">
       <div className="col-span-2 row-span-2 text-xs font-medium tracking-wider my-auto">
@@ -79,14 +80,12 @@ const ChangeDisplayNameInput: React.FC<Props> = ({ session }) => {
               </>
             ) : (
               <>
-                (
                 <button
                   onClick={handleClick}
                   className="absolute ml-6 -mt-0.5 p-1 rounded-full duration-200 focus:bg-lightgrey hover:bg-lightgrey"
                 >
                   <ArrowSmRightIcon className="w-6 h-6" />
                 </button>
-                )
               </>
             )}
           </>
