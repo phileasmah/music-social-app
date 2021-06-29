@@ -8,7 +8,6 @@ const SignIn = () => {
 
   useEffect(() => {
     if (!loading && session) {
-      console.log("yes");
       router.push("/");
     }
   }, [session, loading]);
