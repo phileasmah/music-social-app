@@ -5,6 +5,7 @@ import { useEffect, useState } from "react";
 import { UserProfileArr } from "../../types/UserProfileInfo";
 import DefaultImage from "../DefaultImage";
 import ReviewedAlbums from "./ReviewedAlbums";
+import UserStatistics from "./UserStatistics";
 
 interface Props {
   session: Session | null | undefined;
@@ -19,7 +20,6 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
       setIsOwner(true);
     }
   }, [session]);
-
   return (
     <div className="flex gap-y-3 flex-col place-items-center mt-10">
       <div className="flex w-11/12 sm:w-8/12 md:w-7/12 2xl:w-6/12 justify-between">
@@ -43,13 +43,20 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
                 </span>
               </div>
             </div>
-            {isOwner && (
-              <Link href="/settings">
-                <a className="px-3 pb-1 border-2 rounded-lg">Edit</a>
-              </Link>
+            {session && (
+              <>
+                {isOwner ? (
+                  <Link href="/settings">
+                    <a className="px-3 pb-1 border-2 rounded-lg">Edit</a>
+                  </Link>
+                ) : (
+                  <button className="px-3 pb-1 border-2 rounded-lg">Follow</button>
+                )}
+              </>
             )}
           </div>
         </div>
+        <UserStatistics />
       </div>
       <ReviewedAlbums reviews={userProfileInfo[0].reviews} />
     </div>

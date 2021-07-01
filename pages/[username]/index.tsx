@@ -18,7 +18,7 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
   const res = (await axios({
     url: `api/user/${context.params?.username}`,
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  })) as AxiosResponse;
+  })) as AxiosResponse<UserProfileArr>;
   let userProfileInfo;
   if (res.status == 200) {
     userProfileInfo = res.data;
@@ -32,7 +32,6 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
 
 const Profile: React.FC<Props> = ({ userProfileInfo }) => {
   const [session, loading] = useSession();
-
   return (
     <>
       {loading ? (
