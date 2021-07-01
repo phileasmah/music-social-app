@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { UserProfileArr } from "../../types/UserProfileInfo";
 import DefaultImage from "../DefaultImage";
+import FollowButton from "./FollowButton";
 import ReviewedAlbums from "./ReviewedAlbums";
 import UserStatistics from "./UserStatistics";
 
@@ -11,6 +12,7 @@ interface Props {
   session: Session | null | undefined;
   userProfileInfo: UserProfileArr;
 }
+
 
 const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
   const [isOwner, setIsOwner] = useState(false);
@@ -20,6 +22,8 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
       setIsOwner(true);
     }
   }, [session]);
+
+
   return (
     <div className="flex gap-y-3 flex-col place-items-center mt-10">
       <div className="flex w-11/12 sm:w-8/12 md:w-7/12 2xl:w-6/12 justify-between">
@@ -38,7 +42,7 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
           <div className="ml-4 my-auto">
             <div className="mb-1">
               <div className="flex-col flex my-auto">
-                <span className="font-medium text-xl text-text mb-1">
+                <span className="tracking-normal text-xl text-text mb-1">
                   {userProfileInfo[0].name}
                 </span>
               </div>
@@ -50,7 +54,7 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
                     <a className="px-3 pb-1 border-2 rounded-lg">Edit</a>
                   </Link>
                 ) : (
-                  <button className="px-3 pb-1 border-2 rounded-lg">Follow</button>
+                  <FollowButton session={session} />             
                 )}
               </>
             )}
