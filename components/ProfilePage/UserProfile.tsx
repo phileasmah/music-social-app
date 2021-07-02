@@ -54,7 +54,7 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
                     <a className="px-3 pb-1 border-2 rounded-lg">Edit</a>
                   </Link>
                 ) : (
-                  <FollowButton session={session} />             
+                  <FollowButton session={session} profileId={userProfileInfo[0].id}/>             
                 )}
               </>
             )}
