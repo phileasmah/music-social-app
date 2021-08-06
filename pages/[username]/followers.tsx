@@ -34,11 +34,15 @@ const Followers: React.FC<Props> = ({ userFollowers }) => {
     <div className="flex gap-y-3 flex-col place-items-center mt-10">
       <div className="flex flex-col w-11/12 sm:w-8/12 md:w-7/12 2xl:w-6/12 justify-between">
         <h1 className="text-2xl text-text font-medium mb-8">Followers</h1>
-        <ul className="flex flex-col hay-y-3">
-          {userFollowers[0].followers.map((user) => (
-            <User key={user.followingId} user={user.followingId} />
-          ))}
-        </ul>
+        {userFollowers[0].followers.length > 0 ? (
+          <ul className="flex flex-col hay-y-3">
+            {userFollowers[0].followers.map((user) => (
+              <User key={user.followingId} user={user.followingId} />
+            ))}
+          </ul>
+        ) : (
+          <div>You do not have any followers yet</div>
+        )}
       </div>
     </div>
   );
