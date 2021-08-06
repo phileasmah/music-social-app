@@ -1,14 +1,14 @@
 import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
 import { ParsedUrlQuery } from "querystring";
-import { FollowerFollowing } from "../../types/FollowerFollowingType";
+import { FollowingType } from "../../types/FollowingType";
 
 interface URLProps extends ParsedUrlQuery {
   username: string;
 }
 
 interface Props {
-  userFollowing: FollowerFollowing;
+  userFollowing: FollowingType;
 }
 
 export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (context) => {

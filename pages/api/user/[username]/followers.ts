@@ -6,7 +6,11 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const userInfo = await prisma.user.findMany({
     select: {
-      followers: true,
+      followers: {
+        select: {
+          followingId: true
+        }
+      },
       _count: {
         select: {
           followers: true
