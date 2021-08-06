@@ -16,18 +16,20 @@ interface Props {
 
 const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
   const [isOwner, setIsOwner] = useState(false);
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
     if (session?.user.sub === userProfileInfo[0].id) {
       setIsOwner(true);
     }
+    setLoading(false)
   }, [session]);
 
 
   return (
-    <div className="flex gap-y-3 flex-col place-items-center mt-10">
-      <div className="flex w-11/12 sm:w-8/12 md:w-7/12 2xl:w-6/12 justify-between">
-        <div className="flex">
+    <div className="flex gap-y-3 flex-col place-items-center mt-8 sm:mt-9">
+      <div className="flex flex-col mb-0 sm:mb-2 sm:flex-row sm:w-10/12 md:w-9/12 xl:w-7/12 2xl:w-6/12 justify-between">
+        <div className="flex flex-none mb-6 sm:mb-0">
           {userProfileInfo[0].image ? (
             <Image
               src={userProfileInfo[0].image}
@@ -42,12 +44,12 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
           <div className="ml-4 my-auto">
             <div className="mb-1">
               <div className="flex-col flex my-auto">
-                <span className="tracking-normal text-xl text-text mb-1">
+                <span className="tracking-normal text-2xl font-medium text-text mb-1">
                   {userProfileInfo[0].name}
                 </span>
               </div>
             </div>
-            {session && (
+            {session && !loading && (
               <>
                 {isOwner ? (
                   <Link href="/settings">
@@ -60,7 +62,7 @@ const UserProfile: React.FC<Props> = ({ session, userProfileInfo }) => {
             )}
           </div>
         </div>
-        <UserStatistics />
+        <UserStatistics statistics={userProfileInfo[0]["_count"]}/>
       </div>
       <ReviewedAlbums reviews={userProfileInfo[0].reviews} />
     </div>

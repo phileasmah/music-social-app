@@ -6,25 +6,20 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
 
   const userInfo = await prisma.user.findMany({
     select: {
-      following: {
+      following: true,
+      _count: {
         select: {
-          name: true,
-          image: true,
-          accounts: {
-            select: {
-              providerAccountId: true,
-            },
-          },
-        },
-      },
+          following: true
+        }
+      }
     },
     where: {
       accounts: {
         some: {
-          providerAccountId: username,
-        },
-      },
-    },
+          providerAccountId: username
+        }
+      }
+    }
   });
 
   if (userInfo.length !== 0) {

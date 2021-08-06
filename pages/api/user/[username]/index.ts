@@ -12,6 +12,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       reviews: {
         take: 4,
       },
+      _count: {
+        select: {followers: true, following:true, reviews: true}
+      }
     },
     where: {
       accounts: {

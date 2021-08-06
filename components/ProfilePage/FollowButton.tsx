@@ -10,8 +10,8 @@ interface Props {
 
 type UserRelationship = [
   {
-    followedBy: [{ name: string }];
-    following: [{ name: string }];
+    followers: [{ followerId: string; followingId: string }];
+    following: [{ followerId: string; followingId: string }];
   }
 ];
 
@@ -26,14 +26,18 @@ const FollowButton: React.FC<Props> = ({ session, profileId }) => {
 
   useEffect(() => {
     if (!session) return;
-
     const getUserRelationship = async () => {
       const res = (await axios({
-        url: `api/user/${session.user.id}/${router.query.username}`,
+        method: "post",
+        url: `api/user/relationship`,
         baseURL: process.env.NEXT_PUBLIC_BASE_URL,
+        data: {
+          username: session.user.sub,
+          otherUser: router.query.username,
+        },
       })) as AxiosResponse<UserRelationship>;
-      res.data[0].following.length === 1 ? setFollowing(true) : setFollowing(false);
-      res.data[0].followedBy.length === 1 ? setFollowedBy(true) : setFollowedBy(false);
+      res.data[0].followers.length === 1 ? setFollowing(true) : setFollowing(false);
+      res.data[0].following.length === 1 ? setFollowedBy(true) : setFollowedBy(false);
       setLoading(false);
     };
     getUserRelationship();

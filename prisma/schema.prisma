@@ -1,5 +1,5 @@
 generator client {
-  provider = "prisma-client-js"
+  provider        = "prisma-client-js"
   previewFeatures = ["selectRelationCount"]
 }
 
@@ -46,8 +46,8 @@ model User {
   accounts      Account[]
   sessions      Session[]
   reviews       Review[]
-  followedBy    User[]    @relation("UserFollows", references: [id])
-  following     User[]    @relation("UserFollows", references: [id])
+  followers     Follows[] @relation("follower")
+  following     Follows[] @relation("following")
 }
 
 model VerificationRequest {
@@ -72,4 +72,13 @@ model Review {
   updatedAt DateTime @updatedAt
 
   @@id([albumId, authorId])
+}
+
+model Follows {
+  follower    User   @relation("follower", fields: [followerId], references: [id])
+  followerId  String
+  following   User   @relation("following", fields: [followingId], references: [id])
+  followingId String
+
+  @@id([followerId, followingId])
 }

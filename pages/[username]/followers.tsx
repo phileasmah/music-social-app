@@ -29,6 +29,7 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
 };
 
 const Followers: React.FC<Props> = ({ userFollowers }) => {
+  console.log(userFollowers)
   return (
     <div className="flex gap-y-3 flex-col place-items-center mt-10">
       <div className="flex w-11/12 sm:w-8/12 md:w-7/12 2xl:w-6/12 justify-between">

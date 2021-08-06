@@ -14,6 +14,7 @@ interface Props {
 export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (context) => {
   const axios = require("axios");
   const res = (await axios({
+    method: "post",
     url: `api/user/${context.params?.username}/following`,
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   })) as AxiosResponse;

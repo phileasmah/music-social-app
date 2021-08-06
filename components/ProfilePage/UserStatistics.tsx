@@ -1,20 +1,18 @@
-import Link from "next/link";
-import { useRouter } from "next/router";
+import { UserProfile } from "../../types/UserProfileInfo";
+import Statistic from "./Statistic";
 
+interface Props {
+  statistics: UserProfile["_count"]
+}
 
+const UserStatistics: React.FC<Props>  = ({statistics}) => {
 
-const UserStatistics = () => {
-
-  const router = useRouter();
-
+  
   return (
-    <div className="flex gap-x-3">
-      <Link href={`${router.asPath}/following`}>
-        <a>Following</a>
-      </Link>
-      <Link href={`${router.asPath}/followers`}>
-        <a>Followers</a>
-      </Link>
+    <div className="flex gap-x-9 my-auto">
+      <Statistic name={"Followers"} statistic={statistics.followers} link={"followers"}/>
+      <Statistic name={"Following"} statistic={statistics.following} link={"following"}/>
+      <Statistic name={"Reviews"} statistic={statistics.reviews}/>
     </div>
   );
 };
