@@ -14,10 +14,10 @@ const Statistic: React.FC<Props> = ({ statistic, name, link = "" }) => {
     <div>
       {link ? (
         <Link href={`${router.asPath}/${link}`}>
-          <div className="flex flex-col">
-            <a className="font-light">{name}</a>
+          <a className="flex flex-col">
+            <span className="font-light">{name}</span>
             <span className="font-semibold text-2xl flex justify-center">{statistic}</span>
-          </div>
+          </a>
         </Link>
       ) : (
         <div className="flex flex-col">
