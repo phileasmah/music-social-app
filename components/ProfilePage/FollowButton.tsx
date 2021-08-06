@@ -33,7 +33,7 @@ const FollowButton: React.FC<Props> = ({ session, profileId }) => {
         baseURL: process.env.NEXT_PUBLIC_BASE_URL,
         data: {
           username: session.user.sub,
-          otherUser: router.query.username,
+          otherUser: profileId,
         },
       })) as AxiosResponse<UserRelationship>;
       res.data[0].followers.length === 1 ? setFollowing(true) : setFollowing(false);

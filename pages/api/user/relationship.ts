@@ -21,11 +21,7 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       }
     },
     where: {
-      accounts: {
-        some: {
-          providerAccountId: otherUser
-        }
-      }
+      id: otherUser
     },
   });
   if (userInfo.length !== 0) {
