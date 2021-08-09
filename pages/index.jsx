@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import NewReleases from "../components/HomePage/NewReleases";
 import RecentlyPlayed from "../components/HomePage/RecentlyPlayed";
 import RecentlyPlayedLoading from "../components/HomePage/RecentlyPlayedLoading";
-
+import RecentlyReviewed from "../components/HomePage/RecentlyReviewed";
 
 const Home = () => {
   const [session, loading] = useSession();
@@ -27,6 +27,7 @@ const Home = () => {
       ) : (
         <div>{session ? <RecentlyPlayed token={session.user.accessToken} /> : <div></div>}</div>
       )}
+      <RecentlyReviewed />
       <NewReleases />
     </div>
   );

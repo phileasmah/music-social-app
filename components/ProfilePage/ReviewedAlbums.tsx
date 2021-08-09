@@ -27,6 +27,10 @@ const ReviewedAlbums: React.FC<Props> = ({ reviews }) => {
       return;
     }
 
+    if (reviews.length == 0) {
+      return 
+    }
+    
     let albumIdsUrl = `albums?ids=${reviews[0].albumId}`;
     if (reviews.length > 1) {
       for (let i = 1; i < reviews.length; i++) {
