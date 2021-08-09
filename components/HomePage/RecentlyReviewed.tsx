@@ -71,8 +71,9 @@ const RecentlyReviewed: React.FC = () => {
   }, [clientToken]);
 
   return (
-    <div className="max-w-9/10 md:w-10/12 3xl:w-7/10 mx-auto mt-3">
-      <h1 className="text-text font-medium text-xl mb-2">Recently Reviewed:</h1>
+    <div className="max-w-9/10 md:w-10/12 3xl:w-7/10 mx-auto mt-3 mb-8">
+      <h1 className="text-text font-medium text-xl mb-1.5">Recently Reviewed</h1>
+      <hr className="border-gray-400 mb-2"/>
       {loading ? (
         <div>loading</div>
       ) : (

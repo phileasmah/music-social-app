@@ -14,7 +14,7 @@ interface Props {
 const NewReleases: React.FC<Props> = () => {
   const [newReleases, setNewReleases] = useState<null | NewReleasesType>(null);
   const [loading, setLoading] = useState(true);
-  const { clientToken } = useContext(ApiContext) as ApiContextProvider
+  const { clientToken } = useContext(ApiContext) as ApiContextProvider;
 
   useEffect(() => {
     if (!clientToken) return;
@@ -25,15 +25,16 @@ const NewReleases: React.FC<Props> = () => {
         "browse/new-releases?limit=5"
       );
       setNewReleases(response.data);
-      setLoading(false)
+      setLoading(false);
     };
 
     getNewReleases();
   }, [clientToken]);
 
   return (
-    <div className="max-w-9/10 md:max-w-6/7 2xl:max-w-max mx-auto mt-3">
-      <h1 className="text-text font-medium text-xl mb-2">New releases:</h1>
+    <div className="max-w-9/10 md:max-w-6/7 2xl:max-w-max mx-auto mt-3 mb-8">
+      <h1 className="text-text font-medium text-xl mb-1.5">New releases</h1>
+      <hr className="border-gray-400 mb-3" />
       {loading ? (
         <RecentlyPlayedLoading />
       ) : newReleases ? (
@@ -51,7 +52,6 @@ const NewReleases: React.FC<Props> = () => {
               <a className="w-max md:w-56 2xl:w-60 3xl:w-66 group flex flex-col flex-shrink-0 rounded-lg focus:bg-lightgrey hover:bg-lightgrey duration-300 border-2 border-darkgrey hover:border-lightgrey2 focus:border-lightgrey2">
                 <div className="transform duration-200 hover:scale-90 group-focus:scale-90">
                   {r.images.length ? (
-                    
                     <Image
                       src={r.images[1].url}
                       alt={r.name + " album art"}

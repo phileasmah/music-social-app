@@ -25,7 +25,11 @@ const Home = () => {
       {loading ? (
         <RecentlyPlayedLoading />
       ) : (
-        <div>{session ? <RecentlyPlayed token={session.user.accessToken} /> : <div></div>}</div>
+        <div>
+          {session && (
+            <RecentlyPlayed token={session.user.accessToken} />
+          )}
+        </div>
       )}
       <RecentlyReviewed />
       <NewReleases />

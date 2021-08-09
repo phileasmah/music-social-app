@@ -28,9 +28,9 @@ const ReviewedAlbums: React.FC<Props> = ({ reviews }) => {
     }
 
     if (reviews.length == 0) {
-      return 
+      return;
     }
-    
+
     let albumIdsUrl = `albums?ids=${reviews[0].albumId}`;
     if (reviews.length > 1) {
       for (let i = 1; i < reviews.length; i++) {
@@ -49,11 +49,12 @@ const ReviewedAlbums: React.FC<Props> = ({ reviews }) => {
 
   return (
     <div className="max-w-9/10 md:max-w-6/7 2xl:max-w-max mx-auto mt-3">
-      <span className="text-text font-medium text-xl">Recently Reviewed:</span>
+      <h1 className="text-text font-medium text-xl mb-1.5">Recently Reviewed</h1>
+      <hr className="border-gray-400 mb-3" />
       {loading ? (
         <div>Loading</div>
       ) : (
-        <div className="mt-1 flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between">
+        <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between">
           {albumInfo ? (
             <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between ">
               {albumInfo.map((r, idx) => (
