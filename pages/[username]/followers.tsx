@@ -18,11 +18,9 @@ export const getServerSideProps: GetServerSideProps<{}, URLProps> = async (conte
     url: `api/user/${context.params?.username}/followers`,
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
   })) as AxiosResponse;
-  let userFollowers;
+  let userFollowers = null;
   if (res.status == 200) {
     userFollowers = res.data;
-  } else {
-    userFollowers = null;
   }
   return {
     props: { userFollowers },

@@ -7,10 +7,6 @@ import { NewReleasesType } from "../../types/NewReleasesType";
 import { ApiContext } from "../Contexts/ApiContext";
 import RecentlyPlayedLoading from "./RecentlyPlayedLoading";
 
-interface Props {
-  token: string;
-}
-
 const NewReleases: React.FC<Props> = () => {
   const [newReleases, setNewReleases] = useState<null | NewReleasesType>(null);
   const [loading, setLoading] = useState(true);

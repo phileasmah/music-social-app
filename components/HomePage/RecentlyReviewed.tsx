@@ -13,13 +13,16 @@ interface AxiosResponse {
   albums: AlbumInfo[];
 }
 
+interface Props {
+  recents: RecentlyReviewedType | null;
+}
+
 interface AlbumInfoShort {
   [key: string]: { name: string; image: string; artist: string };
 }
 
-const RecentlyReviewed: React.FC = () => {
+const RecentlyReviewed: React.FC<Props> = ({ recents }) => {
   const { clientToken } = useContext(ApiContext) as ApiContextProvider;
-  const [recents, setRecents] = useState<null | RecentlyReviewedType>(null);
   const [albumInfo, setAlbumInfo] = useState<AlbumInfoShort>({});
   const [loading, setLoading] = useState(true);
 
@@ -29,38 +32,34 @@ const RecentlyReviewed: React.FC = () => {
         return;
       }
 
-      const res = await fetch("/api/review/recents");
-
-      if (res.ok) {
-        const tmpRecents = (await res.json()) as RecentlyReviewedType;
-        setRecents(tmpRecents);
+      if (recents) {
         const albumsInURL = new Set();
-        let albumIdsUrl = `albums?ids=${tmpRecents[0].albumId}`;
-        albumsInURL.add(tmpRecents[0].albumId);
+        let albumIdsUrl = `albums?ids=${recents[0].albumId}`;
+        albumsInURL.add(recents[0].albumId);
 
-        if (tmpRecents.length > 1) {
-          for (let i = 1; i < tmpRecents.length; i++) {
-            if (albumsInURL.has(tmpRecents[i].albumId)) {
+        if (recents.length > 1) {
+          for (let i = 1; i < recents.length; i++) {
+            if (albumsInURL.has(recents[i].albumId)) {
               continue;
             }
-            albumIdsUrl += `%2C${tmpRecents[i].albumId}`;
-            albumsInURL.add(tmpRecents[i].albumId);
+            albumIdsUrl += `%2C${recents[i].albumId}`;
+            albumsInURL.add(recents[i].albumId);
           }
         }
         const tmpAlbumRes = await useGetApi<AxiosResponse>(clientToken.access_token, albumIdsUrl);
         const tmpAlbumResInfo = tmpAlbumRes.data.albums;
         const tmpAlbumInfo: AlbumInfoShort = {};
         for (let i = 0; i < tmpAlbumResInfo.length; i++) {
-          let tmpArtistName = tmpAlbumResInfo[i].artists[0].name
+          let tmpArtistName = tmpAlbumResInfo[i].artists[0].name;
           if (tmpAlbumResInfo[i].artists.length > 1) {
-            for (let j = 1; j < tmpAlbumResInfo[i].artists.length; j ++) {
-              tmpArtistName += `, ${tmpAlbumResInfo[i].artists[j].name}`
+            for (let j = 1; j < tmpAlbumResInfo[i].artists.length; j++) {
+              tmpArtistName += `, ${tmpAlbumResInfo[i].artists[j].name}`;
             }
           }
           tmpAlbumInfo[tmpAlbumResInfo[i].id] = {
             name: tmpAlbumResInfo[i].name,
             image: tmpAlbumResInfo[i].images[1].url,
-            artist: tmpArtistName
+            artist: tmpArtistName,
           };
         }
         setAlbumInfo(tmpAlbumInfo);
@@ -68,12 +67,12 @@ const RecentlyReviewed: React.FC = () => {
       setLoading(false);
     };
     getRecentlyReviewed();
-  }, [clientToken]);
+  }, [clientToken, recents]);
 
   return (
     <div className="max-w-9/10 md:w-10/12 3xl:w-7/10 mx-auto mt-3 mb-8">
       <h1 className="text-text font-medium text-xl mb-1.5">Recently Reviewed</h1>
-      <hr className="border-gray-400 mb-2"/>
+      <hr className="border-gray-400 mb-2" />
       {loading ? (
         <div>loading</div>
       ) : (
@@ -102,7 +101,9 @@ const RecentlyReviewed: React.FC = () => {
                       ) : (
                         <DefaultImage height={30} width={30} className="rounded-full" />
                       )}
-                      <span className="font-medium text-sm ml-1.5 my-auto truncate w-10/12">{r.author.name}</span>
+                      <span className="font-medium text-sm ml-1.5 my-auto truncate w-10/12">
+                        {r.author.name}
+                      </span>
                     </a>
                   </Link>
                   <Link
@@ -126,7 +127,7 @@ const RecentlyReviewed: React.FC = () => {
                 </div>
               </div>
               <p className="mt-2 whitespace-pre-line">{r.review}</p>
-              <hr className="my-3 border-lightgrey2"/>
+              <hr className="my-3 border-lightgrey2" />
             </li>
           ))}
         </ul>
