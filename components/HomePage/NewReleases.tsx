@@ -7,7 +7,7 @@ import { NewReleasesType } from "../../types/NewReleasesType";
 import { ApiContext } from "../Contexts/ApiContext";
 import RecentlyPlayedLoading from "./RecentlyPlayedLoading";
 
-const NewReleases: React.FC<Props> = () => {
+const NewReleases: React.FC = () => {
   const [newReleases, setNewReleases] = useState<null | NewReleasesType>(null);
   const [loading, setLoading] = useState(true);
   const { clientToken } = useContext(ApiContext) as ApiContextProvider;
