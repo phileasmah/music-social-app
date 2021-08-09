@@ -36,7 +36,7 @@ const Home: React.FC<Props> = ({ recents }) => {
       signIn("spotify"); // Force sign in to hopefully resolve error
     }
   }, [session]);
-  console.log(recents)
+
   return (
     <div>
       <Head>
