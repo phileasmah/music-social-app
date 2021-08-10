@@ -11,6 +11,9 @@ export default async (req: NextApiRequest, res: NextApiResponse) => {
       id: true,
       reviews: {
         take: 4,
+        orderBy: {
+          createdAt: "asc"
+        }
       },
       _count: {
         select: {followers: true, following:true, reviews: true}
