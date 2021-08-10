@@ -76,9 +76,9 @@ const RecentlyReviewed: React.FC<Props> = ({ recents }) => {
       {loading ? (
         <div>loading</div>
       ) : (
-        <ul className="flex flex-row w-full gap-x-3 xl:gap-x-12 flex-wrap">
+        <ul className="flex flex-row w-full justify-between flex-wrap">
           {recents?.map((r) => (
-            <li key={r.createdAt} className="mt-3 w-full md:w-48% mx-auto">
+            <li key={r.createdAt} className="mt-3 w-full md:w-48%">
               <div className="flex flex-row gap-x-4">
                 <div className="flex-none">
                   <Image
