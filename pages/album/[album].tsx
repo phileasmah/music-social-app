@@ -1,6 +1,6 @@
 import { AxiosResponse } from "axios";
 import { GetServerSideProps } from "next";
-import { useSession } from "next-auth/client";
+import { signIn, useSession } from "next-auth/client";
 import Head from "next/head";
 import Image from "next/image";
 import { useRouter } from "next/router";
@@ -161,7 +161,15 @@ const Album: React.FC<Props> = ({ reviews }) => {
                   </div>
                 )
               ) : (
-                <div className="my-1 font-medium text-text  ">Log in to review</div>
+                <div className="my-2">
+                  <button
+                    onClick={() => signIn("spotify")}
+                    className="font-medium text-text duration-200 bg-blue-600 px-2.5 py-1 rounded hover:bg-blue-500 focus:bg-blue-500"
+                  >
+                    Login
+                  </button>
+                  <span className="ml-1.5 text-text">to review</span>
+                </div>
               )}
             </div>
 
