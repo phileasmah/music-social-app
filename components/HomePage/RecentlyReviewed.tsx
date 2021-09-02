@@ -106,14 +106,7 @@ const RecentlyReviewed: React.FC<Props> = ({ recents }) => {
                       </span>
                     </a>
                   </Link>
-                  <Link
-                    href={{
-                      pathname: "album/[slug]",
-                      query: {
-                        slug: r.albumId,
-                      },
-                    }}
-                  >
+                  <Link href={`/album/${r.albumId}`}>
                     <a className="text-text font-medium text-2xl tracking-tight hover:underline truncate w-10/12 -mb-0.5">
                       {albumInfo[r.albumId].name}
                     </a>

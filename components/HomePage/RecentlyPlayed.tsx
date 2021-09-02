@@ -59,15 +59,7 @@ const RecentlyPlayed: React.FC<Props> = ({ token }) => {
       ) : recents ? (
         <div className="flex gap-x-6 flex-row flex-nowrap overflow-auto justify-between ">
           {recents.map((r) => (
-            <Link
-              href={{
-                pathname: "album/[slug]",
-                query: {
-                  slug: r.track.album.id,
-                },
-              }}
-              key={r.track.album.id}
-            >
+            <Link href={`/album/${r.track.album.id}`}>
               <a className="w-max md:w-56 2xl:w-60 3xl:w-66 group flex flex-col flex-shrink-0 rounded-lg focus:bg-lightgrey hover:bg-lightgrey duration-300 border-2 border-darkgrey hover:border-lightgrey2 focus:border-lightgrey2">
                 <div className="transform duration-200 hover:scale-90 group-focus:scale-90">
                   {r.track.album.images.length ? (
