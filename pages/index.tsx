@@ -14,10 +14,10 @@ interface Props {
 
 export const getServerSideProps: GetServerSideProps = async () => {
   const axios = require("axios");
-  const res = (await axios({
+  const res = await axios({
     url: `api/review/recents`,
     baseURL: process.env.NEXT_PUBLIC_BASE_URL,
-  }))
+  });
   let recents = null;
   if (res.status == 200) {
     recents = res.data;
@@ -46,9 +46,27 @@ const Home: React.FC<Props> = ({ recents }) => {
       {loading ? (
         <RecentlyPlayedLoading />
       ) : (
-        <div>{session && <RecentlyPlayed token={session.user.accessToken} />}</div>
+        <div>
+          {session ? (
+            <RecentlyPlayed token={session.user.accessToken} />
+          ) : (
+            <div className="max-w-9/10 md:w-84% 3xl:w-7/10 mx-auto mt-3 mb-8">
+              <h1 className="text-text font-medium text-xl mb-1.5 w-">Recently Played</h1>
+              <hr className="border-gray-400 mb-3" />
+              <div>
+                <button
+                  onClick={() => signIn("spotify")}
+                  className="font-medium text-text duration-200 bg-blue-600 px-2.5 py-1 rounded hover:bg-blue-500 focus:bg-blue-500"
+                >
+                  Login
+                </button>
+                <span className="ml-1.5 text-text">to see your recently played albums</span>
+              </div>
+            </div>
+          )}
+        </div>
       )}
-      <RecentlyReviewed recents={recents}/>
+      <RecentlyReviewed recents={recents} />
       <NewReleases />
     </div>
   );

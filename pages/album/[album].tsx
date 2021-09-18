@@ -211,7 +211,11 @@ const Album: React.FC<Props> = ({ reviews }) => {
                 </li>
               ))}
             </ul>
-            {reviews ? <Reviews reviews={reviews} /> : <div>No reviews made yet</div>}
+            {reviews ? (
+              <Reviews reviews={reviews} />
+            ) : (
+              <div className="mt-9 text-xl font-medium">No reviews made yet</div>
+            )}
           </div>
         </main>
       )}
