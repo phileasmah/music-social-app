@@ -173,14 +173,14 @@ const Album: React.FC<Props> = ({ reviews }) => {
               )}
             </div>
 
-            <div className="mx-auto w-max">
+            <div className="mx-auto w-max mb-5">
               {reviews && reviews[1].count.rating !== 0 ? (
-                <>
+                <div>
                   Average ratings: {reviews[1].avg.rating?.toFixed(1)}, based on{" "}
                   {reviews[1].count.rating} users{" "}
-                </>
+                </div>
               ) : (
-                <>No ratings made for this album yet</>
+                <div className="mt-2">No ratings made for this album yet</div>
               )}
             </div>
           </div>
