@@ -28,7 +28,7 @@ const NewReleases: React.FC = () => {
   }, [clientToken]);
 
   return (
-    <div className="max-w-9/10 md:max-w-6/7 2xl:max-w-max mx-auto mt-3 mb-8">
+    <div className="max-w-9/10 md:w-84% 3xl:w-74% 4xl:w-84% mx-auto mt-3 mb-8">
       <h1 className="text-text font-medium text-xl mb-1.5">New releases</h1>
       <hr className="border-gray-400 mb-3" />
       {loading ? (
